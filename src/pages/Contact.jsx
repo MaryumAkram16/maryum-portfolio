@@ -14,7 +14,7 @@ function Contact() {
         </a>
         <div className="contact-secondary">
           <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
-          <a href={LINKEDIN_URL} target="_blank" rel="noreferrer">
+          <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
         </div>
