@@ -1,0 +1,31 @@
+.contact {
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 48px 24px;
+}
+
+.contact .container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  max-width: 480px;
+}
+
+.restatement {
+  margin: 0;
+  font-size: 1.25rem;
+  line-height: 1.5;
+}
+
+.contact-secondary {
+  display: flex;
+  gap: 20px;
+  font-size: 0.9rem;
+  opacity: 0.75;
+}
+
+.contact-secondary a {
+  color: var(--text);
+}

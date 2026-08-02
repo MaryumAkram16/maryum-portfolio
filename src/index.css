@@ -1,7 +1,10 @@
 :root {
   --bg: #1a2332;
+  --bg-alt: #fafaf8;
   --text: #fafaf8;
+  --ink: #111318;
   --accent: #0d7a6e;
+  --font: 'IBM Plex Sans', sans-serif;
 
   color-scheme: dark;
   font-synthesis: none;
@@ -18,8 +21,18 @@ body {
   margin: 0;
   background: var(--bg);
   color: var(--text);
+  font-family: var(--font);
+  font-weight: 400;
+}
+
+h1,
+h2,
+h3 {
+  font-weight: 700;
 }
 
 #root {
   min-height: 100svh;
+  display: flex;
+  flex-direction: column;
 }
