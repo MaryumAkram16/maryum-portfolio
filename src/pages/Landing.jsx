@@ -7,7 +7,7 @@ function Landing() {
       <section className="hero container">
         <h1>I turn slow, manual business processes into AI systems that run themselves.</h1>
         <p className="subline">AI automation engineer building production systems, not demos.</p>
-        <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noreferrer">
+        <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
           Book a 20-minute intro call
         </a>
       </section>
@@ -41,7 +41,7 @@ function Landing() {
       </section>
 
       <section className="cta-bottom container">
-        <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noreferrer">
+        <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
           Book a 20-minute intro call
         </a>
       </section>

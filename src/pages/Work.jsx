@@ -120,7 +120,7 @@ function Work() {
         </article>
 
         <div className="cta-bottom">
-          <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noreferrer">
+          <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
             Book a 20-minute intro call
           </a>
         </div>
