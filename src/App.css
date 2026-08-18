@@ -44,5 +44,6 @@
 
 .cta-button:hover,
 .cta-button:focus-visible {
-  opacity: 0.85;
+  opacity: 0.95;
+  box-shadow: 0 0 24px var(--accent-glow);
 }

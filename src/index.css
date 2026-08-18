@@ -4,6 +4,8 @@
   --text: #fafaf8;
   --ink: #111318;
   --accent: #0d7a6e;
+  --accent-glow: rgba(13, 122, 110, 0.35);
+  --accent-glow-soft: rgba(13, 122, 110, 0.16);
   --font: 'IBM Plex Sans', sans-serif;
 
   color-scheme: dark;

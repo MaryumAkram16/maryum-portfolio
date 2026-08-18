@@ -4,17 +4,45 @@
   font-size: clamp(1.75rem, 4vw, 2.5rem);
 }
 
-.case-study {
+.case-card {
   padding: 48px 0;
-  border-top: 1px solid rgba(250, 250, 248, 0.12);
+  position: relative;
 }
 
-.case-study:first-of-type {
-  border-top: none;
+.case-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, var(--accent-glow) 0%, transparent 60%);
+}
+
+.case-card:first-of-type::before {
+  display: none;
+}
+
+.case-card:first-of-type {
   padding-top: 0;
 }
 
-.case-study h2 {
+.case-thumb-wrap {
+  margin: 0 0 24px;
+  border-radius: 6px;
+  overflow: hidden;
+  max-width: 640px;
+}
+
+.case-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  object-fit: cover;
+  display: block;
+  background: var(--bg-alt);
+}
+
+.case-card h2 {
   margin: 0 0 4px;
   font-size: 1.5rem;
 }
@@ -28,16 +56,73 @@
   letter-spacing: 0.04em;
 }
 
-.case-summary {
-  margin: 0 0 24px;
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.tag {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-glow-soft);
+  color: var(--text);
+  border: 1px solid var(--accent-glow);
+}
+
+.psr-list {
+  margin: 0 0 20px;
   max-width: 640px;
-  line-height: 1.6;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.psr-list > div {
+  display: flex;
+  gap: 8px;
+  line-height: 1.55;
+}
+
+.psr-list dt {
+  flex: 0 0 auto;
+  font-weight: 700;
+  color: var(--accent);
+  min-width: 76px;
+}
+
+.psr-list dd {
+  margin: 0;
 }
 
 .proof-line {
-  margin: 0 0 24px;
+  margin: 0 0 20px;
   font-weight: 700;
   color: var(--accent);
+}
+
+.view-details-btn {
+  font-family: var(--font);
+  font-weight: 700;
+  font-size: 0.9rem;
+  color: var(--accent);
+  background: none;
+  border: none;
+  padding: 0 0 24px;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.view-details-btn:hover,
+.view-details-btn:focus-visible {
+  text-shadow: 0 0 12px var(--accent-glow-soft);
+}
+
+.case-expanded {
+  padding-top: 4px;
 }
 
 .gallery {
