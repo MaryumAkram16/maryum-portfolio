@@ -1,6 +1,6 @@
 .hero {
   position: relative;
-  padding: 96px 24px 64px;
+  padding: 112px 24px 72px;
   text-align: center;
   display: flex;
   flex-direction: column;
@@ -37,19 +37,25 @@
 }
 
 .credibility {
-  padding: 32px 24px;
+  padding: 40px 24px;
   text-align: center;
-  max-width: 640px;
+  max-width: 600px;
+  margin: 0 auto;
 }
 
 .credibility p {
-  margin: 0 0 8px;
-  font-size: 0.95rem;
-  opacity: 0.85;
+  margin: 0 0 10px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.65;
+}
+
+.credibility p:last-child {
+  margin-bottom: 0;
 }
 
 .proof {
-  padding: 48px 24px;
+  padding: 72px 24px 112px;
 }
 
 .proof-strip {
@@ -58,28 +64,33 @@
   padding: 0;
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 24px;
+  gap: 20px;
   text-align: center;
+  max-width: 880px;
+  margin: 0 auto;
 }
 
 .proof-strip li {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
+  padding: 28px 20px;
+  border-radius: 8px;
+  background: var(--accent-glow-soft);
+  border: 1px solid var(--accent-glow);
 }
 
 .proof-strip li > span:first-child {
   font-weight: 700;
+  font-size: 1.05rem;
+  line-height: 1.35;
 }
 
 .proof-project {
-  font-size: 0.85rem;
+  font-size: 0.8rem;
   color: var(--accent);
-}
-
-.cta-bottom {
-  padding: 48px 24px 96px;
-  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
 }
 
 @media (max-width: 640px) {

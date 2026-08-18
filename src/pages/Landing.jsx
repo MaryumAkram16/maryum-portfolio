@@ -39,12 +39,6 @@ function Landing() {
           </li>
         </ul>
       </section>
-
-      <section className="cta-bottom container">
-        <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-          Book a 20-minute intro call
-        </a>
-      </section>
     </main>
   )
 }
