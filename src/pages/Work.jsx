@@ -38,6 +38,8 @@ function CaseStudy({
   thumbCaption,
   images,
   scopeNote,
+  repoUrl,
+  videoLinks,
 }) {
   const [open, setOpen] = useState(false)
 
@@ -75,14 +77,33 @@ function CaseStudy({
 
       {proofLine && <p className="proof-line">{proofLine}</p>}
 
-      <button
-        type="button"
-        className="view-details-btn"
-        onClick={() => setOpen((prev) => !prev)}
-        aria-expanded={open}
-      >
-        {open ? 'Hide details' : 'View details'}
-      </button>
+      <div className="case-links">
+        {repoUrl && (
+          <a className="case-link" href={repoUrl} target="_blank" rel="noopener noreferrer">
+            View code
+          </a>
+        )}
+        {videoLinks &&
+          videoLinks.map((video) => (
+            <a
+              className="case-link"
+              href={video.url}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={video.url}
+            >
+              {video.label}
+            </a>
+          ))}
+        <button
+          type="button"
+          className="view-details-btn"
+          onClick={() => setOpen((prev) => !prev)}
+          aria-expanded={open}
+        >
+          {open ? 'Hide details' : 'View details'}
+        </button>
+      </div>
 
       {open && (
         <div className="case-expanded">
@@ -121,6 +142,11 @@ function Work() {
             { src: medilensAdmin, caption: 'Admin dashboard for decision support' },
           ]}
           scopeNote="Voice Appointment Agent, Complaint Management, and Hospital Admin Command Center shown here are built by me. MediLens also includes a Lab Report Analyzer, Symptom Checker, and RAG Knowledge Base built by a collaborator (credited in the repo) — not shown in this case study."
+          repoUrl="https://github.com/MaryumAkram16/medilens"
+          videoLinks={[
+            { label: 'Watch voice demo', url: 'https://www.youtube.com/watch?v=migZQqh0CoA' },
+            { label: 'Watch full demo', url: 'https://www.youtube.com/watch?v=L5w1mAUsjp0' },
+          ]}
         />
 
         <CaseStudy
@@ -142,6 +168,10 @@ function Work() {
               src: roshanaiProposal,
               caption: 'Generated output: job analysis, rate suggestion, tailored proposal',
             },
+          ]}
+          repoUrl="https://github.com/MaryumAkram16/RoshanAI"
+          videoLinks={[
+            { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
           ]}
         />
 
@@ -172,11 +202,16 @@ function Work() {
             },
           ]}
           scopeNote="Dashboard, Radar, Skill Assessment, Parser, and Career Mentor shown here are built by me. Interview Prep and Roadmap features were built by a collaborator (credited in the repo) and are not shown here."
+          repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
+          videoLinks={[
+            { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
+            { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
+          ]}
         />
 
         <div className="cta-bottom">
           <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-            Book a 20-minute intro call
+            Book a 30-minute intro call
           </a>
         </div>
       </div>

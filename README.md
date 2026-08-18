@@ -1,16 +1,55 @@
-# React + Vite
+# Maryum Akram — Portfolio
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Personal portfolio site for Maryum Akram, AI Automation Engineer. Live at
+[maryumakram16.github.io/maryum-portfolio](https://maryumakram16.github.io/maryum-portfolio/).
 
-Currently, two official plugins are available:
+Three pages — Landing, Work, Contact — built around one claim ("I turn slow, manual business
+processes into AI systems that run themselves") and one action (book a 30-minute intro call).
+Work page covers three case studies: MediLens, RoshanAI, and SkillSync AI, each scoped to the
+features actually built solo or with attribution noted for collaborator-built pieces.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Stack
 
-## React Compiler
+- React + Vite
+- Deployed on GitHub Pages via GitHub Actions
+- Contact form wired to [Formspree](https://formspree.io) (no backend needed)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Running locally
 
-## Expanding the Oxlint configuration
+```bash
+npm install
+npm run dev
+```
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+Opens at `http://localhost:5173` by default.
+
+## Building
+
+```bash
+npm run build
+```
+
+Outputs to `dist/`. `npm run preview` serves the build locally to sanity-check before deploy.
+
+## Project structure
+
+```
+src/
+  components/     Shared components (Nav, ContactForm, HeroVisual)
+  pages/          Landing, Work, Contact — one file + one CSS file each
+  assets/images/  Project screenshots, organized by project folder
+  siteConfig.js   Central config: Calendly URL, email, LinkedIn, Formspree endpoint
+```
+
+`siteConfig.js` is the single place to update contact/booking links — nothing else in the
+codebase hardcodes them.
+
+## Deployment
+
+Pushing to `main` triggers the GitHub Actions workflow, which builds and deploys to GitHub
+Pages automatically.
+
+## Notes on AI-assisted development
+
+Parts of this codebase were built with Claude as a pair-programming tool — normal practice in
+2026. Feature decisions, copy, attribution scoping, and what to ship were mine throughout.
