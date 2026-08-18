@@ -13,6 +13,23 @@
   max-width: 480px;
 }
 
+.contact-form-wrap {
+  width: 100%;
+  margin-top: 24px;
+  padding-top: 32px;
+  border-top: 1px solid rgba(250, 250, 248, 0.12);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.form-lead {
+  margin: 0;
+  font-size: 0.9rem;
+  opacity: 0.75;
+  text-align: center;
+}
+
 .restatement {
   margin: 0;
   font-size: 1.25rem;

@@ -1,4 +1,5 @@
 import { BOOKING_URL, CONTACT_EMAIL, LINKEDIN_URL } from '../siteConfig.js'
+import ContactForm from '../components/ContactForm.jsx'
 import './Contact.css'
 
 function Contact() {
@@ -17,6 +18,11 @@ function Contact() {
           <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
+        </div>
+
+        <div className="contact-form-wrap">
+          <p className="form-lead">Prefer to write instead? Send a message directly.</p>
+          <ContactForm />
         </div>
       </div>
     </main>
