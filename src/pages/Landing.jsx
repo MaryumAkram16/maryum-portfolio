@@ -1,15 +1,21 @@
 import { BOOKING_URL } from '../siteConfig.js'
+import HeroVisual from '../components/HeroVisual.jsx'
 import './Landing.css'
 
 function Landing() {
   return (
     <main className="page landing">
       <section className="hero container">
-        <h1>I turn slow, manual business processes into AI systems that run themselves.</h1>
-        <p className="subline">AI automation engineer building production systems, not demos.</p>
-        <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-          Book a 20-minute intro call
-        </a>
+        <div className="hero-text">
+          <h1>I turn slow, manual business processes into AI systems that run themselves.</h1>
+          <p className="subline">AI automation engineer building production systems, not demos.</p>
+          <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+            Book a 20-minute intro call
+          </a>
+        </div>
+        <div className="hero-visual-wrap">
+          <HeroVisual />
+        </div>
       </section>
 
       <section className="credibility container">
