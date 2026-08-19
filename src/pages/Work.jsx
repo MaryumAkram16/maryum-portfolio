@@ -2,16 +2,27 @@ import { useState } from 'react'
 import { BOOKING_URL } from '../siteConfig.js'
 import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
 import medilensVoiceAgent from '../assets/images/medilens/voice-appointment-agent.png'
+import medilensVoiceAgentWebp from '../assets/images/medilens/voice-appointment-agent.webp'
 import medilensComplaint from '../assets/images/medilens/complaint-management.png'
+import medilensComplaintWebp from '../assets/images/medilens/complaint-management.webp'
 import medilensAdmin from '../assets/images/medilens/admin-command-center.png'
+import medilensAdminWebp from '../assets/images/medilens/admin-command-center.webp'
 import roshanaiIntelligence from '../assets/images/roshanai/intelligence-layer.png'
+import roshanaiIntelligenceWebp from '../assets/images/roshanai/intelligence-layer.webp'
 import roshanaiSkillGap from '../assets/images/roshanai/skill-gap-analysis.png'
+import roshanaiSkillGapWebp from '../assets/images/roshanai/skill-gap-analysis.webp'
 import roshanaiProposal from '../assets/images/roshanai/proposal-generator.png'
+import roshanaiProposalWebp from '../assets/images/roshanai/proposal-generator.webp'
 import skillsyncDashboard from '../assets/images/skillsync/dashboard.png'
+import skillsyncDashboardWebp from '../assets/images/skillsync/dashboard.webp'
 import skillsyncRadar from '../assets/images/skillsync/radar.png'
+import skillsyncRadarWebp from '../assets/images/skillsync/radar.webp'
 import skillsyncAssessment from '../assets/images/skillsync/skill-assessment.png'
+import skillsyncAssessmentWebp from '../assets/images/skillsync/skill-assessment.webp'
 import skillsyncParser from '../assets/images/skillsync/parser.png'
+import skillsyncParserWebp from '../assets/images/skillsync/parser.webp'
 import skillsyncMentor from '../assets/images/skillsync/career-mentor.png'
+import skillsyncMentorWebp from '../assets/images/skillsync/career-mentor.webp'
 import './Work.css'
 
 function Gallery({ images }) {
@@ -20,7 +31,7 @@ function Gallery({ images }) {
       {images.map((img) => (
         <figure key={img.src}>
           <picture>
-            <source srcSet={`${img.src.replace(/\.(png|jpg)$/, '.webp')}`} type="image/webp" />
+            <source srcSet={`${img.webp}`} type="image/webp" />
             <img src={img.src} alt={img.caption} loading="lazy" />
           </picture>
           <figcaption>{img.caption}</figcaption>
@@ -39,6 +50,7 @@ function CaseStudy({
   result,
   proofLine,
   thumb,
+  thumbWebp,
   thumbCaption,
   images,
   scopeNote,
@@ -53,7 +65,7 @@ function CaseStudy({
     <article className="case-card">
       <div className="case-thumb-wrap">
         <picture>
-          <source srcSet={`${thumb.replace(/\.(png|jpg)$/, '.webp')}`} type="image/webp" />
+            <source srcSet={`${thumbWebp}`} type="image/webp" />
           <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" />
         </picture>
       </div>
@@ -179,17 +191,20 @@ function Work() {
           solution="A voice agent books, reschedules, and cancels appointments with no staff involved. Complaint management and an admin dashboard automate the rest."
           result="Independently tested by a professor via live link."
           thumb={medilensVoiceAgent}
+          thumbWebp={medilensVoiceAgentWebp}
           thumbCaption="Books, cancels, and reschedules appointments by voice — no staff involved"
           images={[
             {
               src: medilensVoiceAgent,
+              webp: medilensVoiceAgentWebp,
               caption: 'Books, cancels, and reschedules appointments by voice — no staff involved',
             },
             {
               src: medilensComplaint,
+              webp: medilensComplaintWebp,
               caption: 'Independently tested by a professor via live link',
             },
-            { src: medilensAdmin, caption: 'Admin dashboard for decision support' },
+            { src: medilensAdmin, webp: medilensAdminWebp, caption: 'Admin dashboard for decision support' },
           ]}
           scopeNote="Voice Appointment Agent, Complaint Management, and Hospital Admin Command Center shown here are built by me. MediLens also includes a Lab Report Analyzer, Symptom Checker, and RAG Knowledge Base built by a collaborator (credited in the repo) — not shown in this case study."
           repoUrl="https://github.com/MaryumAkram16/medilens"
@@ -207,15 +222,18 @@ function Work() {
           solution="Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals."
           result="3 independent users. Fully solo build."
           thumb={roshanaiIntelligence}
+          thumbWebp={roshanaiIntelligenceWebp}
           thumbCaption="Live market data from JSearch & Google Jobs"
           images={[
-            { src: roshanaiIntelligence, caption: 'Live market data from JSearch & Google Jobs' },
+            { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Live market data from JSearch & Google Jobs' },
             {
               src: roshanaiSkillGap,
+              webp: roshanaiSkillGapWebp,
               caption: '29 live jobs fetched and analyzed against the resume',
             },
             {
               src: roshanaiProposal,
+              webp: roshanaiProposalWebp,
               caption: 'Generated output: job analysis, rate suggestion, tailored proposal',
             },
           ]}
@@ -242,20 +260,24 @@ function Work() {
           result="9 real users. 94/94 CI tests passing."
           proofLine="Adversarial security testing (12 payload tests), rate limiting, and audit logging in production."
           thumb={skillsyncDashboard}
+          thumbWebp={skillsyncDashboardWebp}
           thumbCaption="Real user data and journey"
           images={[
-            { src: skillsyncDashboard, caption: 'Real user data and journey' },
-            { src: skillsyncRadar, caption: 'Live market demand scan for a target role' },
+            { src: skillsyncDashboard, webp: skillsyncDashboardWebp, caption: 'Real user data and journey' },
+            { src: skillsyncRadar, webp: skillsyncRadarWebp, caption: 'Live market demand scan for a target role' },
             {
               src: skillsyncAssessment,
+              webp: skillsyncAssessmentWebp,
               caption: 'Adaptive quiz verifying claimed skills against real performance',
             },
             {
               src: skillsyncParser,
+              webp: skillsyncParserWebp,
               caption: 'Resume + role + country parsed into live job matches with ATS scoring',
             },
             {
               src: skillsyncMentor,
+              webp: skillsyncMentorWebp,
               caption: 'Recommendations built from assessment results and live market data',
             },
           ]}
