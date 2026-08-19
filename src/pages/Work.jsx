@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BOOKING_URL } from '../siteConfig.js'
+import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
 import medilensVoiceAgent from '../assets/images/medilens/voice-appointment-agent.png'
 import medilensComplaint from '../assets/images/medilens/complaint-management.png'
 import medilensAdmin from '../assets/images/medilens/admin-command-center.png'
@@ -40,8 +41,10 @@ function CaseStudy({
   scopeNote,
   repoUrl,
   videoLinks,
+  deepDive,
 }) {
   const [open, setOpen] = useState(false)
+  const [deepDiveOpen, setDeepDiveOpen] = useState(false)
 
   return (
     <article className="case-card">
@@ -103,12 +106,38 @@ function CaseStudy({
         >
           {open ? 'Hide details' : 'View details'}
         </button>
+        {deepDive && (
+          <button
+            type="button"
+            className="view-details-btn"
+            onClick={() => setDeepDiveOpen((prev) => !prev)}
+            aria-expanded={deepDiveOpen}
+          >
+            {deepDiveOpen ? 'Hide technical deep-dive' : 'Technical deep-dive'}
+          </button>
+        )}
       </div>
 
       {open && (
         <div className="case-expanded">
           <Gallery images={images} />
           {scopeNote && <p className="scope-note">{scopeNote}</p>}
+        </div>
+      )}
+
+      {deepDiveOpen && deepDive && (
+        <div className="case-expanded deep-dive">
+          <h3>Architecture</h3>
+          <ArchitectureDiagram />
+
+          <h3>Hardest technical challenge</h3>
+          <p>{deepDive.challenge}</p>
+
+          <h3>What I'd do differently</h3>
+          <p>{deepDive.retrospective}</p>
+
+          <h3>Metrics</h3>
+          <p>{deepDive.metrics}</p>
         </div>
       )}
     </article>
@@ -173,6 +202,14 @@ function Work() {
           videoLinks={[
             { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
           ]}
+          deepDive={{
+            challenge:
+              "Resume parsing into a meaningful gap score was the hardest part — going from raw resume text to NLP-matching a person's actual skills against live job postings, then turning that into a score that means something rather than a plausible-looking number.",
+            retrospective:
+              'Two things I would fix: the API keys are called client-side right now, which exposes them in the browser — a server-side proxy is the correct fix. And the original roshanai.com domain is dead; the live version now runs on GitHub Pages/Vercel instead.',
+            metrics:
+              '3 real users ran the full pipeline. Gap Score is an AI-generated estimate, not a measured accuracy figure — I have not benchmarked it against ground truth.',
+          }}
         />
 
         <CaseStudy

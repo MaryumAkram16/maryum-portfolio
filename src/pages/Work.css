@@ -187,6 +187,24 @@
   max-width: 640px;
 }
 
+.deep-dive h3 {
+  margin: 28px 0 10px;
+  font-size: 0.95rem;
+  color: var(--accent);
+}
+
+.deep-dive h3:first-child {
+  margin-top: 0;
+}
+
+.deep-dive p {
+  margin: 0;
+  max-width: 640px;
+  font-size: 0.9rem;
+  line-height: 1.6;
+  opacity: 0.85;
+}
+
 .cta-bottom {
   padding: 48px 0 96px;
   text-align: center;

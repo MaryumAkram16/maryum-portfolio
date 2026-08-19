@@ -1,5 +1,6 @@
 import { Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
+import Footer from './components/Footer.jsx'
 import Landing from './pages/Landing.jsx'
 import Work from './pages/Work.jsx'
 import Contact from './pages/Contact.jsx'
@@ -14,6 +15,7 @@ function App() {
         <Route path="/work" element={<Work />} />
         <Route path="/contact" element={<Contact />} />
       </Routes>
+      <Footer />
     </>
   )
 }

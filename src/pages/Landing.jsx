@@ -19,8 +19,44 @@ function Landing() {
         </div>
       </section>
 
+      <section className="what-i-do container">
+        <p className="section-label">What I Do</p>
+        <ul className="capability-grid">
+          <li>
+            <h3>Voice & conversational agents</h3>
+            <p>Systems that book, triage, and resolve by voice — no staff in the loop.</p>
+          </li>
+          <li>
+            <h3>Backend automation pipelines</h3>
+            <p>Workflows that pull live data, score it, and act on it end-to-end.</p>
+          </li>
+          <li>
+            <h3>Full-stack AI products</h3>
+            <p>From auth and databases to rate-limited, CI-tested APIs — shipped, not demoed.</p>
+          </li>
+        </ul>
+      </section>
+
+      <section className="tools container">
+        <p className="section-label">Tools I Use</p>
+        <ul className="stack-tags">
+          {[
+            'n8n',
+            'Python',
+            'FastAPI',
+            'OpenAI/Gemini',
+            'Retell AI',
+            'React',
+            'Supabase/Firebase',
+            'Cloud Run',
+          ].map((tech) => (
+            <li key={tech}>{tech}</li>
+          ))}
+        </ul>
+      </section>
+
       <section className="about container">
-        <p className="section-label">About</p>
+        <p className="section-label">About Me</p>
         <div className="about-body">
           <div className="avatar-wrap">
             <img className="avatar-photo" src={avatarPhoto} alt="Maryum Akram" />
@@ -38,20 +74,6 @@ function Landing() {
               I build instead of just wiring APIs together.
             </p>
             <p>Looking for backend AI engineering work where I can keep replacing manual processes with ones that run themselves.</p>
-            <ul className="stack-tags">
-              {[
-                'n8n',
-                'Python',
-                'FastAPI',
-                'OpenAI/Gemini',
-                'Retell AI',
-                'React',
-                'Supabase/Firebase',
-                'Cloud Run',
-              ].map((tech) => (
-                <li key={tech}>{tech}</li>
-              ))}
-            </ul>
           </div>
         </div>
       </section>
