@@ -52,8 +52,13 @@ function CaseStudy({
         <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" />
       </div>
 
-      <h2>{title}</h2>
-      <p className="case-description">{description}</p>
+      <div className="case-section-head">
+        <p className="section-label">Case study</p>
+        <h2>
+          {title}
+          <span className="hero-gradient"> {description}</span>
+        </h2>
+      </div>
 
       <div className="tag-row">
         {tags.map((tag) => (
@@ -148,7 +153,17 @@ function Work() {
   return (
     <main className="page work">
       <div className="container">
-        <h1>Work</h1>
+        <div className="section-head work-head">
+          <p className="section-label">Projects I've built</p>
+          <h1>
+            Three production systems,<span className="hero-gradient"> all with real users</span>
+          </h1>
+          <p className="section-sub">
+            Every project solved a real problem end-to-end. Each case study below shows the
+            problem, the system I built, and the proof — screenshots, architecture, tests, and
+            demo videos.
+          </p>
+        </div>
 
         <CaseStudy
           title="MediLens"
@@ -248,7 +263,7 @@ function Work() {
 
         <div className="cta-bottom">
           <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-            Book a 30-minute intro call
+            Book a 20-minute intro call
           </a>
         </div>
       </div>
