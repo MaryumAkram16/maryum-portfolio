@@ -1,10 +1,10 @@
-import { Component, Suspense, lazy } from 'react'
+import { Component } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
 import Landing from './pages/Landing.jsx'
-const Work = lazy(() => import('./pages/Work.jsx'))
-const Contact = lazy(() => import('./pages/Contact.jsx'))
+import Work from './pages/Work.jsx'
+import Contact from './pages/Contact.jsx'
 import './App.css'
 
 // Show a visible fallback + retry button instead of a blank page when
@@ -36,24 +36,14 @@ class ErrorBoundary extends Component {
   }
 }
 
-// Lightweight loader shown only while a lazy route chunk downloads (~20-45 KiB).
-function RouteLoader() {
-  return (
-    <div style={{ minHeight: '60vh', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', gap: 14, background: '#1a2332', fontFamily: 'system-ui, sans-serif' }}>
-      <div style={{ width: 34, height: 34, border: '3px solid #0d7a6e', borderTopColor: '#2fb5a2', borderRadius: '50%', animation: 'mp-spin 1s linear infinite' }} />
-      <p style={{ margin: 0, color: '#fafaf8', opacity: 0.85, fontSize: 14 }}>Loading…</p>
-    </div>
-  )
-}
-
 function App() {
   return (
     <ErrorBoundary>
       <Nav />
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/work" element={<Suspense fallback={<RouteLoader />}><Work /></Suspense>} />
-        <Route path="/contact" element={<Suspense fallback={<RouteLoader />}><Contact /></Suspense>} />
+        <Route path="/work" element={<Work />} />
+        <Route path="/contact" element={<Contact />} />
       </Routes>
       <Footer />
     </ErrorBoundary>
