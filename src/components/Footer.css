@@ -48,6 +48,19 @@
   text-underline-offset: 3px;
 }
 
+.footer-cv {
+  font-weight: 700;
+  border: 1px solid var(--accent-glow);
+  border-radius: 999px;
+  padding: 6px 14px;
+}
+
+.footer-cv:hover,
+.footer-cv:focus-visible {
+  background: var(--accent-glow-soft);
+  text-decoration: none;
+}
+
 .footer-note {
   margin: 0;
   width: 100%;

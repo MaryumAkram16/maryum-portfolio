@@ -18,6 +18,13 @@ function Nav() {
         <NavLink to="/blog" className={({ isActive }) => (isActive ? 'active' : undefined)}>
           Blog
         </NavLink>
+        <a
+          className="nav-cv"
+          href={`${import.meta.env.BASE_URL}Maryum_Akram_Resume.pdf`}
+          download="Maryum_Akram_Resume.pdf"
+        >
+          Download CV
+        </a>
       </nav>
     </header>
   )

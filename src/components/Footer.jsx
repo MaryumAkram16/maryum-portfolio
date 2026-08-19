@@ -18,6 +18,13 @@ function Footer() {
             GitHub
           </a>
           <Link to="/blog">Blog</Link>
+          <a
+            className="footer-cv"
+            href={`${import.meta.env.BASE_URL}Maryum_Akram_Resume.pdf`}
+            download="Maryum_Akram_Resume.pdf"
+          >
+            Download CV
+          </a>
           <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>
