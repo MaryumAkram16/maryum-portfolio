@@ -19,7 +19,10 @@ function Gallery({ images }) {
     <div className="gallery">
       {images.map((img) => (
         <figure key={img.src}>
-          <img src={img.src} alt={img.caption} loading="lazy" />
+          <picture>
+            <source srcSet={`${img.src.replace(/\.(png|jpg)$/, '.webp')}`} type="image/webp" />
+            <img src={img.src} alt={img.caption} loading="lazy" />
+          </picture>
           <figcaption>{img.caption}</figcaption>
         </figure>
       ))}
@@ -49,7 +52,10 @@ function CaseStudy({
   return (
     <article className="case-card">
       <div className="case-thumb-wrap">
-        <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" />
+        <picture>
+          <source srcSet={`${thumb.replace(/\.(png|jpg)$/, '.webp')}`} type="image/webp" />
+          <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" />
+        </picture>
       </div>
 
       <div className="case-section-head">
@@ -263,7 +269,7 @@ function Work() {
 
         <div className="cta-bottom">
           <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
-            Book a 30-minute intro call
+            Book a 20-minute intro call
           </a>
         </div>
       </div>
