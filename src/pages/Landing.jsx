@@ -130,7 +130,7 @@ function Landing() {
     { label: 'Watch demo videos', sub: 'Real product walkthroughs' },
     { label: 'Read the architecture', sub: 'Diagrams, tests, decisions' },
     { label: 'Explore the code', sub: 'Open source on GitHub' },
-    { label: 'Book an intro call', sub: '20 minutes, free' },
+    { label: 'Book an intro call', sub: '30 minutes, free' },
   ]
 
   const whyItems = [
@@ -187,7 +187,7 @@ function Landing() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🗓 Book a 20-minute intro call
+                🗓 Book a 30-minute intro call
               </a>
               <Link className="cta-pill cta-outline" to="/work">
                 👁 See my work
@@ -463,7 +463,7 @@ function Landing() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🗓 Book a 20-minute intro call
+                🗓 Book a 30-minute intro call
               </a>
               <Link className="cta-pill cta-outline" to="/contact">
                 ✉ Send a message instead
