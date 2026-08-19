@@ -38,7 +38,7 @@
 }
 
 .post-header .post-date {
-  opacity: 0.75;
+  color: #c9d4df;
 }
 
 .blog-post h1 {
@@ -52,7 +52,7 @@
   margin: 0 0 20px;
   font-size: 1.05rem;
   line-height: 1.65;
-  opacity: 0.9;
+  color: #e4e9ef;
 }
 
 .post-hero {
@@ -84,7 +84,7 @@
   margin: 0;
   font-size: 1rem;
   line-height: 1.75;
-  opacity: 0.9;
+  color: #e4e9ef;
 }
 
 .post-gallery {
@@ -108,7 +108,7 @@
 .post-gallery figcaption {
   margin: 8px 0 0;
   font-size: 0.85rem;
-  opacity: 0.75;
+  color: #c9d4df;
   text-align: center;
 }
 
@@ -141,7 +141,7 @@
   margin: 24px 0 40px;
   font-size: 0.85rem;
   line-height: 1.6;
-  opacity: 0.65;
+  color: #c9d4df;
   border-left: 2px solid var(--accent-glow);
   padding-left: 14px;
 }
