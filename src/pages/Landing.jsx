@@ -38,7 +38,6 @@ function Reveal({ children, delay = 0 }) {
   }, [])
   return (
     <div
-      ref={ref}
       className={`reveal ${visible ? 'visible' : ''}`}
       style={{ transitionDelay: `${delay}ms` }}
     >
@@ -108,24 +107,21 @@ function Landing() {
       desc: 'Hospital intake automation',
       tags: ['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard'],
       text: 'A voice agent books, reschedules, and cancels appointments with no staff involved — plus complaint management and an admin dashboard.',
-      result: ['Independently tested by a professor via live link'],
+      result: 'Independently tested by a professor via live link',
     },
     {
       title: 'RoshanAI',
       desc: 'Freelancer career intelligence',
       tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
       text: 'Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals.',
-      result: [
-        '3 independent users · fully solo build',
-        'AI Seekho 2026 — Silver Tier, Phase 1 Submission',
-      ],
+      result: '3 independent users · fully solo build',
     },
     {
       title: 'SkillSync AI',
       desc: 'Career discovery pipeline',
       tags: ['Dashboard', 'Radar', 'Assessment'],
       text: 'Adaptive skill assessment matched against live market data, with real security, rate limiting, and audit logging in production.',
-      result: ['9 real users · 94/94 CI tests passing'],
+      result: '9 real users · 94/94 CI tests passing',
     },
   ]
 
@@ -134,7 +130,7 @@ function Landing() {
     { label: 'Watch demo videos', sub: 'Real product walkthroughs' },
     { label: 'Read the architecture', sub: 'Diagrams, tests, decisions' },
     { label: 'Explore the code', sub: 'Open source on GitHub' },
-    { label: 'Book an intro call', sub: '30 minutes, free' },
+    { label: 'Book an intro call', sub: '20 minutes, free' },
   ]
 
   const whyItems = [
@@ -191,7 +187,7 @@ function Landing() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🗓 Book a 30-minute intro call
+                🗓 Book a 20-minute intro call
               </a>
               <Link className="cta-pill cta-outline" to="/work">
                 👁 See my work
@@ -210,15 +206,13 @@ function Landing() {
                   <CounterItem value={94} />
                   <span>/94</span>
                 </div>
-                <div className="stat-label">CI tests passing</div>
-                <div className="stat-attribution">— SkillSync AI</div>
+                <div className="stat-label">Automated tests passing</div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  <CounterItem value={9} />
+                  <CounterItem value={3} />
                 </div>
-                <div className="stat-label">Real users</div>
-                <div className="stat-attribution">— SkillSync AI</div>
+                <div className="stat-label">Independent users across projects</div>
               </div>
             </div>
 
@@ -226,8 +220,7 @@ function Landing() {
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
                 <strong>MediLens</strong> · <strong>RoshanAI</strong> ·{' '}
-                <strong>SkillSync AI</strong> — architected and built solo, each independently
-                verified
+                <strong>SkillSync AI</strong> — all production systems with real users
               </span>
             </div>
           </div>
@@ -242,17 +235,28 @@ function Landing() {
       <section className="landing-section landing-about">
         <div className="container">
           <Reveal>
-            <SectionHead label="About me" title="Self-taught. Math background. Ships real systems." />
+            <SectionHead
+              label="About me"
+              title="A self-taught engineer with a"
+              highlight="math brain for real systems"
+              sub="No formal CS degree — just eight months of shipping systems people actually use."
+            />
           </Reveal>
           <div className="about-grid">
             <Reveal delay={60}>
               <div className="about-avatar about-avatar-photo" aria-hidden="true">
-                <img
-                  className="about-avatar-img"
-                  src={`${import.meta.env.BASE_URL}maryum-avatar.jpeg`}
-                  alt="Maryum Akram"
-                  loading="eager"
-                />
+                <picture>
+                  <source
+                    srcSet={`${import.meta.env.BASE_URL}maryum-avatar.webp`}
+                    type="image/webp"
+                  />
+                  <img
+                    className="about-avatar-img"
+                    src={`${import.meta.env.BASE_URL}maryum-avatar.jpeg`}
+                    alt="Maryum Akram"
+                    loading="eager"
+                  />
+                </picture>
                 <div className="about-avatar-ring" />
                 <div className="about-avatar-ring about-avatar-ring-2" />
               </div>
@@ -270,9 +274,29 @@ function Landing() {
                   full production systems — a hospital intake platform, a freelancer
                   career-intelligence tool, and a production-hardened SaaS product — each tested
                   by real users, not just demoed. My math background means I reason through the
-                  systems I build instead of just wiring APIs together. Stack: n8n, Python,
-                  FastAPI, OpenAI/Gemini, Retell AI, React, Supabase/Firebase, Cloud Run.
+                  systems I build instead of just wiring APIs together.
                 </p>
+                <p>
+                  Looking for backend AI engineering work where I can keep replacing manual
+                  processes with ones that run themselves.
+                </p>
+                <div className="about-tools">
+                  <p className="section-label">Tools I use</p>
+                  <ul className="stack-tags">
+                    {[
+                      'n8n',
+                      'Python',
+                      'FastAPI',
+                      'OpenAI/Gemini',
+                      'Retell AI',
+                      'React',
+                      'Supabase/Firebase',
+                      'Cloud Run',
+                    ].map((tech) => (
+                      <li key={tech}>{tech}</li>
+                    ))}
+                  </ul>
+                </div>
               </div>
             </Reveal>
           </div>
@@ -334,14 +358,12 @@ function Landing() {
                   <h3>{p.title}</h3>
                   <p className="preview-desc">{p.desc}</p>
                   <p>{p.text}</p>
-                  {p.result.map((line) => (
-                    <p className="preview-result" key={line}>
-                      <span className="preview-result-icon" aria-hidden="true">
-                        ✓
-                      </span>
-                      {line}
-                    </p>
-                  ))}
+                  <p className="preview-result">
+                    <span className="preview-result-icon" aria-hidden="true">
+                      ✓
+                    </span>
+                    {p.result}
+                  </p>
                   <Link className="preview-link" to="/work">
                     Read case study →
                   </Link>
@@ -441,7 +463,7 @@ function Landing() {
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🗓 Book a 30-minute intro call
+                🗓 Book a 20-minute intro call
               </a>
               <Link className="cta-pill cta-outline" to="/contact">
                 ✉ Send a message instead
