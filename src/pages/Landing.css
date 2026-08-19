@@ -660,6 +660,19 @@
   gap: 6px;
 }
 
+/* Mobile: inside the flex .preview-result row the badge would wrap beside
+   the proof text — force it onto its own line below the proof line */
+@media (max-width: 480px) {
+  .preview-result {
+    flex-wrap: wrap;
+  }
+  .preview-badge {
+    display: flex;
+    width: 100%;
+    margin-top: 2px;
+  }
+}
+
 .preview-link {
   margin-top: auto;
   align-self: flex-start;
