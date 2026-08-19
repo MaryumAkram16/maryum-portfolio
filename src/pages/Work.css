@@ -79,6 +79,16 @@
   font-family: 'Playfair Display', Georgia, serif;
 }
 
+/* AA contrast: #0d7a6e on dark navy only reaches ~3:1 — use brighter teal */
+.section-label,
+.case-description,
+.view-details-btn,
+.psr-list dt,
+.proof-line,
+.deep-dive h3 {
+  color: #22a08e;
+}
+
 .case-section-head {
   margin: 24px 0 20px;
 }
@@ -175,7 +185,7 @@
   font-family: var(--font);
   font-weight: 700;
   font-size: 0.9rem;
-  color: var(--accent);
+  color: #22a08e;
   background: none;
   border: none;
   padding: 0;

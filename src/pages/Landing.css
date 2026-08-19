@@ -263,14 +263,6 @@
   padding: 0;
 }
 
-.stat-item .stat-attribution {
-  margin-top: 4px;
-  font-size: 0.66rem;
-  font-weight: 600;
-  color: var(--accent);
-  opacity: 0.85;
-}
-
 .hero-proof {
   display: flex;
   align-items: center;
@@ -786,6 +778,18 @@
   border: 1px solid var(--accent-glow);
   padding: 4px 10px;
   border-radius: 999px;
+}
+/* Dark sections: labels in #0d7a6e only reach 3.0:1 on navy — use brighter teal for AA 4.5:1 */
+.landing-hero .section-label,
+.landing-pipeline .section-label,
+.landing-cta .section-label,
+.landing-why .section-label,
+.hero-proof .section-label {
+  color: #22a08e;
+}
+.landing-hero .hero-badge,
+.landing-why .section-sub {
+  color: inherit;
 }
 
 .capability-card h3 {

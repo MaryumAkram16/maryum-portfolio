@@ -4,6 +4,8 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="description" content="Maryum Akram — AI Automation Engineer in Lahore, Pakistan. Voice agents, automation pipelines, and full-stack AI products that run themselves — proven in production with real users." />
+    <meta property="og:description" content="Maryum Akram — AI Automation Engineer in Lahore, Pakistan. Voice agents, automation pipelines, and full-stack AI products that run themselves." />
     <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
     <meta http-equiv="Pragma" content="no-cache" />
     <meta http-equiv="Expires" content="0" />
@@ -33,25 +35,6 @@
       })(window.location)
 
       // ── Stale-cache recovery ───────────────────────────────────────
-      // If this page was served from a stale browser cache, the hashed
-      // JS/CSS assets it references may have been deleted by a newer
-      // deploy (404), leaving the page blank with no error shown.
-      // Detect failed JS/CSS loads and force a fresh, cache-busting
-      // reload so the visitor always lands on the newest deploy.
-      window.addEventListener('error', function (e) {
-        try {
-          var el = e.target || e.srcElement
-          if (el && (el.tagName === 'SCRIPT' || el.tagName === 'LINK')) {
-            var target = el.src || el.href || ''
-            if (target.indexOf('/assets/') !== -1 || target.indexOf('/src/') !== -1) {
-              window.location.href =
-                window.location.href.split('?')[0] + '?refresh=' + Date.now()
-            }
-          }
-        } catch (err) {}
-      })
-
-      // ── Stale-cache resource-error recovery ────────────────────────
       // If this page was served from a stale browser cache, the hashed
       // JS/CSS assets it references may have been deleted by a newer
       // deploy (404), leaving the page blank with no error shown.
