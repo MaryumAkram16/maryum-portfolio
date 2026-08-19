@@ -1,4 +1,4 @@
-import { BOOKING_URL, CONTACT_EMAIL, LINKEDIN_URL, RESUME_URL } from '../siteConfig.js'
+import { BOOKING_URL, CONTACT_EMAIL, LINKEDIN_URL } from '../siteConfig.js'
 import ContactForm from '../components/ContactForm.jsx'
 import './Contact.css'
 
@@ -33,9 +33,6 @@ function Contact() {
           <a href={`mailto:${CONTACT_EMAIL}`}>✉ {CONTACT_EMAIL}</a>
           <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
             💼 LinkedIn
-          </a>
-          <a href={RESUME_URL} download>
-            Download CV
           </a>
         </div>
 

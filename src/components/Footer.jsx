@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom'
 import { CONTACT_EMAIL, LINKEDIN_URL } from '../siteConfig.js'
 import './Footer.css'
 
@@ -16,6 +17,7 @@ function Footer() {
           <a href={GITHUB_URL} target="_blank" rel="noopener noreferrer">
             GitHub
           </a>
+          <Link to="/blog">Blog</Link>
           <a href={LINKEDIN_URL} target="_blank" rel="noopener noreferrer">
             LinkedIn
           </a>

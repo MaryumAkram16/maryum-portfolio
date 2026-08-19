@@ -1,5 +1,5 @@
 import { NavLink } from 'react-router-dom'
-import { RESUME_URL } from '../siteConfig.js'
+
 import './Nav.css'
 
 function Nav() {
@@ -15,9 +15,9 @@ function Nav() {
         <NavLink to="/contact" className={({ isActive }) => (isActive ? 'active' : undefined)}>
           Contact
         </NavLink>
-        <a href={RESUME_URL} download className="nav-cv-link">
-          Download CV
-        </a>
+        <NavLink to="/blog" className={({ isActive }) => (isActive ? 'active' : undefined)}>
+          Blog
+        </NavLink>
       </nav>
     </header>
   )
