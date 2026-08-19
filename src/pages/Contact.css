@@ -80,6 +80,7 @@
 }
 
 .contact-secondary {
+  flex-wrap: wrap;
   display: flex;
   gap: 24px;
   font-size: 0.95rem;

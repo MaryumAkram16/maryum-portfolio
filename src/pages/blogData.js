@@ -20,12 +20,12 @@ export const blogPosts = [
         body: 'Hospital booking, complaints, and admin tracking were manual, staff-run processes. Every appointment call required a receptionist; every complaint went through a paper trail; admins had no live view of what was happening on the floor. I set out to automate all three — starting with the highest-volume task: phone bookings.',
       },
       {
-        heading: 'What I built',
-        body: 'A voice appointment agent that books, reschedules, and cancels appointments over a phone call with no staff involved. Behind it, a complaint management system that structures patient feedback instead of losing it in inboxes, and an admin command center that turns daily operations into decision-ready numbers.',
+        heading: 'How the system works',
+        body: 'A caller phones in and the voice agent carries the full conversation — asking for the department, the reason for the visit, and preferred time, then confirming the details back to the caller before booking. If the caller wants to reschedule or cancel mid-call, the agent pivots the flow instead of starting over. Every conversation state — intent detected, details collected, confirmation given — maps to a specific branch in the pipeline, so the system degrades gracefully instead of guessing.',
       },
       {
         heading: 'The hardest part',
-        body: 'Conversations are unpredictable. The voice agent had to handle cancellations mid-booking, confirm details back to the caller, and fall back gracefully when it misunderstood — all in real time. Testing a conversational system is harder than testing a form: I had to script dozens of call flows (normal booking, reschedule, cancel, wrong department, silence) before I could call it production-ready.',
+        body: 'Conversations are unpredictable. The voice agent had to handle cancellations mid-booking, confirm details back to the caller, and fall back gracefully when it misunderstood — all in real time. The engineering discipline was in the failure handling: a voice agent that hallucinates a booking is worse than no agent at all, so I had to script dozens of call flows (normal booking, reschedule, cancel, wrong department, silence) and harden each branch before I could call it production-ready.',
       },
       {
         heading: 'Proof',
@@ -67,7 +67,7 @@ export const blogPosts = [
       },
       {
         heading: 'The hardest technical challenge',
-        body: 'Resume parsing into a meaningful gap score. Going from raw resume text to NLP-matching a person\u2019s actual skills against live job postings — then turning that into a score that means something rather than a plausible-looking number — was the hardest part of the build. I\u2019d rather ship an honest estimate than a polished fake metric.',
+        body: 'Resume parsing into a meaningful gap score. The pipeline has to take raw resume text, extract real skills with NLP (not keyword lists), match them against what live postings actually demand, and turn that into a score that means something rather than a plausible-looking number. The hardest design decision was resisting the temptation to oversell it: a gap score that can\u2019t be explained is a fake metric, so I shipped an honest AI-generated estimate with the limitations stated plainly instead of a polished dashboard that pretends to be science.',
       },
       {
         heading: "What I'd do differently",
@@ -112,7 +112,7 @@ export const blogPosts = [
       },
       {
         heading: 'What I learned',
-        body: 'Testing a security posture adversarially — deliberately throwing 12 crafted payloads at your own endpoints — taught me more than any tutorial. When production traffic arrives, you want to know the system holds.',
+        body: 'Testing a security posture adversarially — deliberately throwing 12 crafted payloads at your own endpoints — taught me more than any tutorial. When production traffic arrives, you want to know the system holds. The same lesson applies to the CI suite: 94 tests passing means the adaptive assessment, the parser, and the dashboard can\u2019t silently break each other when one of them changes.',
       },
     ],
     images: [
