@@ -60,7 +60,29 @@ function ContactForm() {
   if (status === 'success') {
     return (
       <div className="contact-form-status success">
-        <p>Thanks — your message reached me. I'll get back to you soon.</p>
+        <div className="success-checkmark" aria-hidden="true">
+          <svg viewBox="0 0 24 24" width="44" height="44" fill="none">
+            <circle cx="12" cy="12" r="11" stroke="url(#successGrad)" strokeWidth="2" />
+            <path d="M7.5 12.2l3.2 3.2 5.8-6.4" stroke="#2fb5a2" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+            <defs>
+              <linearGradient id="successGrad" x1="0" y1="0" x2="24" y2="24">
+                <stop offset="0%" stopColor="#0d7a6e" />
+                <stop offset="100%" stopColor="#2fb5a2" />
+              </linearGradient>
+            </defs>
+          </svg>
+        </div>
+        <p className="success-title">Message sent!</p>
+        <p className="success-sub">
+          Thanks — your message reached me. I'll get back to you soon.
+        </p>
+        <button
+          type="button"
+          className="success-reset-btn"
+          onClick={() => setStatus('idle')}
+        >
+          Send another message
+        </button>
       </div>
     )
   }
