@@ -80,12 +80,12 @@
 }
 
 /* AA contrast: #0d7a6e on dark navy only reaches ~3:1 — use brighter teal */
-.section-label,
-.case-description,
-.view-details-btn,
-.psr-list dt,
-.proof-line,
-.deep-dive h3 {
+.work .section-label,
+.work .case-description,
+.work .view-details-btn,
+.work .psr-list dt,
+.work .proof-line,
+.work .deep-dive h3 {
   color: #22a08e;
 }
 
@@ -97,9 +97,10 @@
   margin-bottom: 8px;
 }
 
+/* AA contrast: #0d7a6e on navy is 3.0:1 — brighter teal reaches 4.88:1 */
 .case-description {
   margin: 0 0 16px;
-  color: var(--accent);
+  color: #22a08e;
   font-weight: 700;
   font-size: 0.95rem;
   text-transform: uppercase;
@@ -139,7 +140,7 @@
 .psr-list dt {
   flex: 0 0 auto;
   font-weight: 700;
-  color: var(--accent);
+  color: #22a08e;
   min-width: 84px;
   font-size: 0.95rem;
 }
@@ -161,7 +162,7 @@
 .proof-line {
   margin: 0 0 20px;
   font-weight: 700;
-  color: var(--accent);
+  color: #22a08e;
 }
 
 .case-links {
@@ -251,7 +252,7 @@
 .deep-dive h3 {
   margin: 28px 0 10px;
   font-size: 0.95rem;
-  color: var(--accent);
+  color: #22a08e;
 }
 
 .deep-dive h3:first-child {

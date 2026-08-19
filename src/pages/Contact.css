@@ -28,13 +28,15 @@
   font-size: clamp(1.4rem, 3vw, 1.85rem);
 }
 
-.section-label {
+/* AA contrast: #0d7a6e on navy is 3.0:1 — brighter teal reaches 4.88:1 */
+/* Scoped to .contact so it doesn't override labels on light sections elsewhere */
+.contact .section-label {
   margin: 0 0 10px;
   font-size: 0.8rem;
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #22a08e;
 }
 
 .hero-gradient {
