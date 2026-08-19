@@ -108,21 +108,24 @@ function Landing() {
       desc: 'Hospital intake automation',
       tags: ['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard'],
       text: 'A voice agent books, reschedules, and cancels appointments with no staff involved — plus complaint management and an admin dashboard.',
-      result: 'Independently tested by a professor via live link',
+      result: ['Independently tested by a professor via live link'],
     },
     {
       title: 'RoshanAI',
       desc: 'Freelancer career intelligence',
       tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
       text: 'Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals.',
-      result: '3 independent users · fully solo build',
+      result: [
+        '3 independent users · fully solo build',
+        'AI Seekho 2026 — Silver Tier, Phase 1 Submission',
+      ],
     },
     {
       title: 'SkillSync AI',
       desc: 'Career discovery pipeline',
       tags: ['Dashboard', 'Radar', 'Assessment'],
       text: 'Adaptive skill assessment matched against live market data, with real security, rate limiting, and audit logging in production.',
-      result: '9 real users · 94/94 CI tests passing',
+      result: ['9 real users · 94/94 CI tests passing'],
     },
   ]
 
@@ -331,12 +334,14 @@ function Landing() {
                   <h3>{p.title}</h3>
                   <p className="preview-desc">{p.desc}</p>
                   <p>{p.text}</p>
-                  <p className="preview-result">
-                    <span className="preview-result-icon" aria-hidden="true">
-                      ✓
-                    </span>
-                    {p.result}
-                  </p>
+                  {p.result.map((line) => (
+                    <p className="preview-result" key={line}>
+                      <span className="preview-result-icon" aria-hidden="true">
+                        ✓
+                      </span>
+                      {line}
+                    </p>
+                  ))}
                   <Link className="preview-link" to="/work">
                     Read case study →
                   </Link>
