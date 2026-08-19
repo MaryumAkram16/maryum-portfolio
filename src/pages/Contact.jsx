@@ -25,7 +25,7 @@ function Contact() {
             target="_blank"
             rel="noopener noreferrer"
           >
-            🗓 Book a 20-minute intro call
+            🗓 Book a 30-minute intro call
           </a>
         </div>
 
