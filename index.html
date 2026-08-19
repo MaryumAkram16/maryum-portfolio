@@ -4,6 +4,9 @@
     <meta charset="UTF-8" />
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -11,7 +14,7 @@
       rel="stylesheet"
     />
     <title>Maryum Akram</title>
-    <script type="text/javascript">
+    <script type="text/javascript" id="ghp-spa-rewrite">
       // Single Page Apps for GitHub Pages
       // https://github.com/rafgraph/spa-github-pages
       // Decodes the redirect from 404.html back into the real path
@@ -28,10 +31,79 @@
           window.history.replaceState(null, null, l.pathname.slice(0, -1) + decoded + l.hash)
         }
       })(window.location)
+
+      // ── Stale-cache recovery ───────────────────────────────────────
+      // If this page was served from a stale browser cache, the hashed
+      // JS/CSS assets it references may have been deleted by a newer
+      // deploy (404), leaving the page blank with no error shown.
+      // Detect failed JS/CSS loads and force a fresh, cache-busting
+      // reload so the visitor always lands on the newest deploy.
+      window.addEventListener('error', function (e) {
+        try {
+          var el = e.target || e.srcElement
+          if (el && (el.tagName === 'SCRIPT' || el.tagName === 'LINK')) {
+            var target = el.src || el.href || ''
+            if (target.indexOf('/assets/') !== -1 || target.indexOf('/src/') !== -1) {
+              window.location.href =
+                window.location.href.split('?')[0] + '?refresh=' + Date.now()
+            }
+          }
+        } catch (err) {}
+      })
+
+      // ── Stale-cache resource-error recovery ────────────────────────
+      // If this page was served from a stale browser cache, the hashed
+      // JS/CSS assets it references may have been deleted by a newer
+      // deploy (404), leaving the page blank with no error shown.
+      // Detect failed JS/CSS loads and force a fresh, cache-busting
+      // reload so the visitor always lands on the newest deploy.
+      window.addEventListener('error', function (e) {
+        try {
+          var el = e.target || e.srcElement
+          if (el && (el.tagName === 'SCRIPT' || el.tagName === 'LINK')) {
+            var target = el.src || el.href || ''
+            if (target.indexOf('/assets/') !== -1 || target.indexOf('/src/') !== -1) {
+              window.location.href =
+                window.location.href.split('?')[0] + '?refresh=' + Date.now()
+            }
+          }
+        } catch (err) {}
+      })
     </script>
   </head>
   <body>
     <div id="root"></div>
+    <noscript>
+      <div style="color:#fff;background:#1a2332;min-height:100vh;padding:48px 24px;font-family:system-ui,sans-serif">
+        <h1>Maryum Akram</h1>
+        <p>Please enable JavaScript to view this portfolio.</p>
+      </div>
+    </noscript>
     <script type="module" src="/src/main.jsx"></script>
+    <script type="text/javascript">
+      // Blank-page safety net: if React never mounts, show a friendly
+      // fallback with a reload button instead of a permanent blank page.
+      ;(function () {
+        var timer = setTimeout(function () {
+          var root = document.getElementById('root')
+          if (root && !root.childNodes.length) {
+            root.innerHTML =
+              '<div style="position:fixed;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:16px;color:#fff;background:#1a2332;font-family:system-ui,sans-serif;padding:24px;text-align:center;z-index:9999">' +
+              '<h1 style="margin:0">Maryum Akram</h1>' +
+              '<p style="margin:0;opacity:.85;max-width:480px">The page took too long to load — this usually means your browser is holding an old copy of the site.</p>' +
+              '<button onclick="window.location.href=window.location.href.split(\'?\')[0]+\'?refresh=\'+Date.now()" style="background:#0d7a6e;color:#fff;border:0;border-radius:999px;padding:12px 28px;font-size:16px;cursor:pointer">Reload with fresh version</button>' +
+              '</div>'
+            clearTimeout(timer)
+          }
+        }, 6000)
+        var obs = new MutationObserver(function () {
+          if (document.getElementById('root').childNodes.length) {
+            clearTimeout(timer)
+            obs.disconnect()
+          }
+        })
+        obs.observe(document.getElementById('root'), { childList: true })
+      })()
+    </script>
   </body>
 </html>
