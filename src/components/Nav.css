@@ -31,3 +31,17 @@
   opacity: 1;
   text-shadow: 0 0 12px var(--accent-glow-soft);
 }
+
+.nav-cv-link {
+  padding: 6px 14px;
+  border-radius: 999px;
+  border: 1px solid var(--accent-glow);
+  background: var(--accent-glow-soft);
+  opacity: 1 !important;
+}
+
+.nav-cv-link:hover,
+.nav-cv-link:focus-visible {
+  box-shadow: 0 0 16px var(--accent-glow-soft);
+  text-shadow: none;
+}

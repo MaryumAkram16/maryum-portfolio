@@ -207,13 +207,15 @@ function Landing() {
                   <CounterItem value={94} />
                   <span>/94</span>
                 </div>
-                <div className="stat-label">Automated tests passing</div>
+                <div className="stat-label">CI tests passing</div>
+                <div className="stat-attribution">— SkillSync AI</div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  <CounterItem value={3} />
+                  <CounterItem value={9} />
                 </div>
-                <div className="stat-label">Independent users across projects</div>
+                <div className="stat-label">Real users</div>
+                <div className="stat-attribution">— SkillSync AI</div>
               </div>
             </div>
 
@@ -221,7 +223,8 @@ function Landing() {
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
                 <strong>MediLens</strong> · <strong>RoshanAI</strong> ·{' '}
-                <strong>SkillSync AI</strong> — all production systems with real users
+                <strong>SkillSync AI</strong> — architected and built solo, each independently
+                verified
               </span>
             </div>
           </div>
@@ -236,12 +239,7 @@ function Landing() {
       <section className="landing-section landing-about">
         <div className="container">
           <Reveal>
-            <SectionHead
-              label="About me"
-              title="A self-taught engineer with a"
-              highlight="math brain for real systems"
-              sub="No formal CS degree — just eight months of shipping systems people actually use."
-            />
+            <SectionHead label="About me" title="Self-taught. Math background. Ships real systems." />
           </Reveal>
           <div className="about-grid">
             <Reveal delay={60}>
@@ -269,29 +267,9 @@ function Landing() {
                   full production systems — a hospital intake platform, a freelancer
                   career-intelligence tool, and a production-hardened SaaS product — each tested
                   by real users, not just demoed. My math background means I reason through the
-                  systems I build instead of just wiring APIs together.
+                  systems I build instead of just wiring APIs together. Stack: n8n, Python,
+                  FastAPI, OpenAI/Gemini, Retell AI, React, Supabase/Firebase, Cloud Run.
                 </p>
-                <p>
-                  Looking for backend AI engineering work where I can keep replacing manual
-                  processes with ones that run themselves.
-                </p>
-                <div className="about-tools">
-                  <p className="section-label">Tools I use</p>
-                  <ul className="stack-tags">
-                    {[
-                      'n8n',
-                      'Python',
-                      'FastAPI',
-                      'OpenAI/Gemini',
-                      'Retell AI',
-                      'React',
-                      'Supabase/Firebase',
-                      'Cloud Run',
-                    ].map((tech) => (
-                      <li key={tech}>{tech}</li>
-                    ))}
-                  </ul>
-                </div>
               </div>
             </Reveal>
           </div>

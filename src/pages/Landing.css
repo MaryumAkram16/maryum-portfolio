@@ -263,6 +263,14 @@
   padding: 0;
 }
 
+.stat-item .stat-attribution {
+  margin-top: 4px;
+  font-size: 0.66rem;
+  font-weight: 600;
+  color: var(--accent);
+  opacity: 0.85;
+}
+
 .hero-proof {
   display: flex;
   align-items: center;
