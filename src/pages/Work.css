@@ -149,6 +149,15 @@
   font-size: 0.95rem;
 }
 
+.psr-badge {
+  color: #22a08e;
+  font-weight: 600;
+  font-size: 0.95rem;
+  display: inline-flex;
+  align-items: flex-start;
+  gap: 6px;
+}
+
 .proof-line {
   margin: 0 0 20px;
   font-weight: 700;

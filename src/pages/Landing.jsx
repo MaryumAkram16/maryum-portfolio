@@ -115,6 +115,7 @@ function Landing() {
       tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
       text: 'Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals.',
       result: '3 independent users · fully solo build',
+      badge: 'AI Seekho 2026 — Silver Tier, Phase 1 Submission',
     },
     {
       title: 'SkillSync AI',
@@ -326,7 +327,7 @@ function Landing() {
             <SectionHead
               label="Projects I've built"
               title="Three production systems,"
-              highlight="all with real users"
+              highlight="each independently verified"
               sub="Each one solved a real problem end-to-end — browse the full case studies for architecture, tests, and demo videos."
             />
           </Reveal>
@@ -349,6 +350,17 @@ function Landing() {
                       ✓
                     </span>
                     {p.result}
+                    {p.badge && (
+                      <>
+                        <br />
+                        <span className="preview-badge">
+                          <span className="preview-badge-icon" aria-hidden="true">
+                            🏆
+                          </span>
+                          {p.badge}
+                        </span>
+                      </>
+                    )}
                   </p>
                   <Link className="preview-link" to="/work">
                     Read case study →

@@ -48,6 +48,7 @@ function CaseStudy({
   problem,
   solution,
   result,
+  resultBadge,
   proofLine,
   thumb,
   thumbWebp,
@@ -97,7 +98,17 @@ function CaseStudy({
         </div>
         <div>
           <dt>Result</dt>
-          <dd>{result}</dd>
+          <dd>
+            {result}
+            {resultBadge && (
+              <>
+                <br />
+                <span className="psr-badge">
+                  🏆 {resultBadge}
+                </span>
+              </>
+            )}
+          </dd>
         </div>
       </dl>
 
@@ -174,7 +185,7 @@ function Work() {
         <div className="section-head work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            Three production systems,<span className="hero-gradient"> all with real users</span>
+            Three production systems,<span className="hero-gradient"> each independently verified</span>
           </h1>
           <p className="section-sub">
             Every project solved a real problem end-to-end. Each case study below shows the
@@ -221,6 +232,7 @@ function Work() {
           problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
           solution="Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals."
           result="3 independent users. Fully solo build."
+          resultBadge="AI Seekho 2026 — Silver Tier, Phase 1 Submission"
           thumb={roshanaiIntelligence}
           thumbWebp={roshanaiIntelligenceWebp}
           thumbCaption="Live market data from JSearch & Google Jobs"
