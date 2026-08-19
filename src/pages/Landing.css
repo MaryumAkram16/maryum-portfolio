@@ -713,6 +713,8 @@
 }
 .js-ready .reveal.visible {
   animation: none;
+  opacity: 1;
+  transform: translateY(0) scale(1);
 }
 @keyframes reveal-fallback {
   to {
