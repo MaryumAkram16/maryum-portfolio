@@ -440,7 +440,7 @@
 }
 
 .stat-card.accent .stat-value {
-  color: var(--accent);
+  color: #22a08e;
 }
 
 .stat-label {
@@ -560,7 +560,7 @@
 
 .landing-about .stack-tags li {
   background: #fff;
-  color: var(--accent);
+  color: #22a08e;
   border: 1.5px solid rgba(13, 122, 110, 0.2);
 }
 
@@ -589,7 +589,7 @@
 }
 
 .preview-card:hover {
-  border-color: var(--accent);
+  border-color: #22a08e;
   background: rgba(47, 181, 162, 0.05);
   transform: translateY(-6px);
   box-shadow: 0 20px 48px rgba(13, 122, 110, 0.18);
@@ -709,7 +709,7 @@
   font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #22a08e;
 }
 
 .section-head h2 {
@@ -786,7 +786,7 @@
 
 .capability-card.visible:hover {
   transform: translateY(-6px) scale(1.02);
-  border-color: var(--accent);
+  border-color: #22a08e;
   box-shadow: 0 20px 48px var(--accent-glow-soft), 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
@@ -807,7 +807,7 @@
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;
-  color: var(--accent);
+  color: #22a08e;
   background: var(--accent-glow-soft);
   border: 1px solid var(--accent-glow);
   padding: 4px 10px;
@@ -1093,7 +1093,7 @@
 
 .landing-cta .cta-outline:hover,
 .landing-cta .cta-outline:focus-visible {
-  border-color: var(--accent);
+  border-color: #22a08e;
 }
 
 /* ── RESPONSIVE ── */

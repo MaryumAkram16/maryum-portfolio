@@ -1,5 +1,6 @@
 import { Link } from 'react-router-dom'
 import { BOOKING_URL } from '../siteConfig.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import { blogPosts } from './blogData.js'
 import medilensVoiceAgentWebp from '../assets/images/medilens/voice-appointment-agent.webp'
 import medilensVoiceAgentJpg from '../assets/images/medilens/voice-appointment-agent.jpg'
@@ -23,6 +24,7 @@ const heroJpg = {
 }
 
 function Blog() {
+  usePageTitle('Blog — Maryum Akram')
   return (
     <main className="page blog">
       <div className="container">

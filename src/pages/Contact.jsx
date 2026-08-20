@@ -1,8 +1,10 @@
 import { BOOKING_URL, CONTACT_EMAIL, LINKEDIN_URL } from '../siteConfig.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import ContactForm from '../components/ContactForm.jsx'
 import './Contact.css'
 
 function Contact() {
+  usePageTitle('Contact — Maryum Akram')
   return (
     <main className="page contact">
       <div className="container">

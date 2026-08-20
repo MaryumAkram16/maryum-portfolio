@@ -1,6 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { BOOKING_URL } from '../siteConfig.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import OrbitAnimation from '../components/OrbitAnimation.jsx'
 import './Landing.css'
 
@@ -61,6 +62,7 @@ function SectionHead({ label, title, highlight, sub }) {
 }
 
 function Landing() {
+  usePageTitle('Maryum Akram — AI Automation Engineer | Lahore, Pakistan')
   const [heroVisible, setHeroVisible] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
 
@@ -172,8 +174,13 @@ function Landing() {
             </p>
 
             <h1 className={`hero-title ${heroVisible ? 'visible' : ''}`}>
-              I turn slow, manual business processes into{' '}
-              <span className="hero-gradient">AI systems that run themselves.</span>
+              <span className="hero-title-full">
+                I turn slow, manual business processes into{' '}
+                <span className="hero-gradient">AI systems that run themselves.</span>
+              </span>
+              <span className="hero-title-short">
+                <span className="hero-gradient">AI systems</span> that run themselves.
+              </span>
             </h1>
 
             <p className={`hero-sub ${heroVisible ? 'visible' : ''}`}>

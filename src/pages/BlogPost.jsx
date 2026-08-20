@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import { blogPosts } from './blogData.js'
 // Import every gallery/hero image so Vite emits a single hashed copy shared
 // with the Work page — no duplicate files, exact URL resolution.
@@ -58,6 +59,7 @@ const assetMap = {
 function BlogPost() {
   const { slug } = useParams()
   const post = blogPosts.find((p) => p.slug === slug)
+  usePageTitle(post ? `${post.title} — Maryum Akram` : 'Blog — Maryum Akram')
 
   if (!post) {
     return (

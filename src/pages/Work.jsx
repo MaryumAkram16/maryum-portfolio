@@ -1,5 +1,6 @@
 import { useState } from 'react'
 import { BOOKING_URL } from '../siteConfig.js'
+import { usePageTitle } from '../hooks/usePageTitle.js'
 import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
 import medilensVoiceAgent from '../assets/images/medilens/voice-appointment-agent.png'
 import medilensVoiceAgentWebp from '../assets/images/medilens/voice-appointment-agent.webp'
@@ -179,6 +180,7 @@ function CaseStudy({
 }
 
 function Work() {
+  usePageTitle('Work — Maryum Akram | Case Studies in AI Automation')
   return (
     <main className="page work">
       <div className="container">

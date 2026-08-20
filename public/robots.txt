@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://maryumakram16.github.io/maryum-portfolio/sitemap.xml
