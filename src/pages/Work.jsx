@@ -2,6 +2,7 @@ import { useState } from 'react'
 import { BOOKING_URL } from '../siteConfig.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
+import InteractivePreview from '../components/InteractivePreview.jsx'
 import medilensVoiceAgent from '../assets/images/medilens/voice-appointment-agent.png'
 import medilensVoiceAgentWebp from '../assets/images/medilens/voice-appointment-agent.webp'
 import medilensComplaint from '../assets/images/medilens/complaint-management.png'
@@ -59,6 +60,7 @@ function CaseStudy({
   repoUrl,
   videoLinks,
   deepDive,
+  demoType,
 }) {
   const [open, setOpen] = useState(false)
   const [deepDiveOpen, setDeepDiveOpen] = useState(false)
@@ -114,6 +116,8 @@ function CaseStudy({
       </dl>
 
       {proofLine && <p className="proof-line">{proofLine}</p>}
+
+      {demoType && <InteractivePreview type={demoType} />}
 
       <div className="case-links">
         {repoUrl && (
@@ -221,6 +225,7 @@ function Work() {
           ]}
           scopeNote="Voice Appointment Agent, Complaint Management, and Hospital Admin Command Center shown here are built by me. MediLens also includes a Lab Report Analyzer, Symptom Checker, and RAG Knowledge Base built by a collaborator (credited in the repo) — not shown in this case study."
           repoUrl="https://github.com/MaryumAkram16/medilens"
+          demoType="medilens"
           videoLinks={[
             { label: 'Watch voice demo', url: 'https://www.youtube.com/watch?v=migZQqh0CoA' },
             { label: 'Watch full demo', url: 'https://www.youtube.com/watch?v=L5w1mAUsjp0' },
@@ -252,6 +257,7 @@ function Work() {
             },
           ]}
           repoUrl="https://github.com/MaryumAkram16/RoshanAI"
+          demoType="roshanai"
           videoLinks={[
             { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
           ]}
@@ -297,6 +303,7 @@ function Work() {
           ]}
           scopeNote="Dashboard, Radar, Skill Assessment, Parser, and Career Mentor shown here are built by me. Interview Prep and Roadmap features were built by a collaborator (credited in the repo) and are not shown here."
           repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
+          demoType="skillsync"
           videoLinks={[
             { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
             { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
