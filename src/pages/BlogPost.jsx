@@ -104,7 +104,7 @@ function BlogPost() {
         <div className="post-hero">
           <picture>
             <source srcSet={assetMap.webp[post.heroImage]} type="image/webp" />
-            <img src={assetMap.jpg[post.heroImageJpg]} alt={post.title} />
+            <img src={assetMap.jpg[post.heroImageJpg]} alt={post.title} decoding="async" />
           </picture>
         </div>
 
@@ -125,7 +125,7 @@ function BlogPost() {
               <figure key={img.src}>
                 <picture>
                   <source srcSet={assetMap.webp[img.src]} type="image/webp" />
-                  <img src={assetMap.jpg[img.jpg]} alt={img.caption} loading="lazy" />
+                  <img src={assetMap.jpg[img.jpg]} alt={img.caption} loading="lazy" decoding="async" />
                 </picture>
                 <figcaption>{img.caption}</figcaption>
               </figure>

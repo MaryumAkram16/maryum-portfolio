@@ -47,3 +47,12 @@
   opacity: 0.95;
   box-shadow: 0 0 24px var(--accent-glow);
 }
+
+.route-loading {
+  min-height: 60vh;
+  display: grid;
+  place-items: center;
+  padding: 48px 24px;
+  color: #8fa5a7;
+  font-size: 0.9rem;
+}

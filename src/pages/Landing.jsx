@@ -174,13 +174,8 @@ function Landing() {
             </p>
 
             <h1 className={`hero-title ${heroVisible ? 'visible' : ''}`}>
-              <span className="hero-title-full">
-                I turn slow, manual business processes into{' '}
-                <span className="hero-gradient">AI systems that run themselves.</span>
-              </span>
-              <span className="hero-title-short">
-                <span className="hero-gradient">AI systems</span> that run themselves.
-              </span>
+              I turn slow, manual business processes into{' '}
+              <span className="hero-gradient">AI systems that run themselves.</span>
             </h1>
 
             <p className={`hero-sub ${heroVisible ? 'visible' : ''}`}>
@@ -268,7 +263,10 @@ function Landing() {
                     className="about-avatar-img"
                     src={`${import.meta.env.BASE_URL}maryum-avatar.jpeg`}
                     alt="Maryum Akram"
+                    width="240"
+                    height="240"
                     loading="eager"
+                    decoding="async"
                   />
                 </picture>
                 <div className="about-avatar-ring" />

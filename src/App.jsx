@@ -1,12 +1,12 @@
-import { Component } from 'react'
+import { Component, lazy, Suspense } from 'react'
 import { Routes, Route } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
 import Landing from './pages/Landing.jsx'
-import Work from './pages/Work.jsx'
-import Contact from './pages/Contact.jsx'
-import Blog from './pages/Blog.jsx'
-import BlogPost from './pages/BlogPost.jsx'
+const Work = lazy(() => import('./pages/Work.jsx'))
+const Contact = lazy(() => import('./pages/Contact.jsx'))
+const Blog = lazy(() => import('./pages/Blog.jsx'))
+const BlogPost = lazy(() => import('./pages/BlogPost.jsx'))
 import './App.css'
 
 // Show a visible fallback + retry button instead of a blank page when
@@ -42,13 +42,15 @@ function App() {
   return (
     <ErrorBoundary>
       <Nav />
-      <Routes>
-        <Route path="/" element={<Landing />} />
-        <Route path="/work" element={<Work />} />
-        <Route path="/contact" element={<Contact />} />
-        <Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogPost />} />
-      </Routes>
+      <Suspense fallback={<div className="route-loading" role="status">Loading page…</div>}>
+        <Routes>
+          <Route path="/" element={<Landing />} />
+          <Route path="/work" element={<Work />} />
+          <Route path="/contact" element={<Contact />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:slug" element={<BlogPost />} />
+        </Routes>
+      </Suspense>
       <Footer />
     </ErrorBoundary>
   )

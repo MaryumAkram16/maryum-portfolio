@@ -34,7 +34,7 @@ function Gallery({ images }) {
         <figure key={img.src}>
           <picture>
             <source srcSet={`${img.webp}`} type="image/webp" />
-            <img src={img.src} alt={img.caption} loading="lazy" />
+            <img src={img.src} alt={img.caption} loading="lazy" decoding="async" />
           </picture>
           <figcaption>{img.caption}</figcaption>
         </figure>
@@ -70,7 +70,7 @@ function CaseStudy({
       <div className="case-thumb-wrap">
         <picture>
             <source srcSet={`${thumbWebp}`} type="image/webp" />
-          <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" />
+          <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" decoding="async" />
         </picture>
       </div>
 

@@ -91,6 +91,8 @@
 /* ── Hero orbit animation (right column) ── */
 .hero-visual {
   position: relative;
+  aspect-ratio: 1 / 1;
+  contain: layout paint;
   z-index: 2;
   max-width: 470px;
   width: 100%;
