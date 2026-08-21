@@ -25,6 +25,7 @@ import skillsyncParserWebp from '../assets/images/skillsync/parser.webp'
 import skillsyncParserJpg from '../assets/images/skillsync/parser.jpg'
 import skillsyncMentorWebp from '../assets/images/skillsync/career-mentor.webp'
 import skillsyncMentorJpg from '../assets/images/skillsync/career-mentor.jpg'
+import AnimatedPipeline from '../components/AnimatedPipeline.jsx'
 import './BlogPost.css'
 
 const assetMap = {
@@ -106,6 +107,8 @@ function BlogPost() {
             <img src={assetMap.jpg[post.heroImageJpg]} alt={post.title} />
           </picture>
         </div>
+
+        <AnimatedPipeline steps={post.pipelineSteps} />
 
         <div className="post-content">
           {post.sections.map((s) => (

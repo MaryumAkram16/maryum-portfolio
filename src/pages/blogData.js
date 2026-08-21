@@ -14,6 +14,12 @@ export const blogPosts = [
     tags: ['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard'],
     heroImage: 'medilens/voice-appointment-agent.webp',
     heroImageJpg: 'medilens/voice-appointment-agent.jpg',
+    pipelineSteps: [
+      { label: 'Input', title: 'A patient calls', body: 'The voice agent collects department, visit reason, and preferred time from a natural conversation.', output: 'Intent + patient details' },
+      { label: 'Decision', title: 'The workflow checks the schedule', body: 'The pipeline looks up doctor availability and branches for booking, cancellation, or rescheduling.', output: 'Available slot or safe fallback' },
+      { label: 'Action', title: 'The appointment is updated', body: 'The selected operation changes the appointment record and keeps the caller in the same conversation.', output: 'Confirmed appointment state' },
+      { label: 'Proof', title: 'The system leaves an operational trail', body: 'Confirmation email, voice logs, complaints, and admin visibility make the automation auditable.', output: 'Confirmation + admin record' },
+    ],
     sections: [
       {
         heading: 'The problem',
@@ -56,6 +62,12 @@ export const blogPosts = [
     tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
     heroImage: 'roshanai/intelligence-layer.webp',
     heroImageJpg: 'roshanai/intelligence-layer.jpg',
+    pipelineSteps: [
+      { label: 'Collect', title: 'Live jobs enter the system', body: 'JSearch and Google Jobs provide current postings instead of relying on a static job description.', output: 'Market postings' },
+      { label: 'Compare', title: 'Resume skills meet market demand', body: 'The resume is parsed and claimed skills are matched against what the live roles request.', output: 'Explainable skill-gap estimate' },
+      { label: 'Generate', title: 'The next action is written', body: 'Job analysis, rate context, and relevant experience are combined into a tailored proposal.', output: 'Client-ready proposal' },
+      { label: 'Coach', title: 'Pricing gets a market anchor', body: 'The Salary Coach turns role, location, and market data into a suggested pricing range.', output: 'Rate suggestion' },
+    ],
     sections: [
       {
         heading: 'The problem',
@@ -97,6 +109,12 @@ export const blogPosts = [
     tags: ['Dashboard', 'Radar', 'Assessment'],
     heroImage: 'skillsync/dashboard.webp',
     heroImageJpg: 'skillsync/dashboard.jpg',
+    pipelineSteps: [
+      { label: 'Assess', title: 'The user answers a skill quiz', body: 'An adaptive assessment checks claimed ability with role-relevant questions instead of only asking what the user likes.', output: 'Evidence-backed assessment' },
+      { label: 'Scan', title: 'Market Radar checks demand', body: 'The target role is compared with live postings to show which skills are currently being requested.', output: 'Demand signal' },
+      { label: 'Parse', title: 'The profile is matched to jobs', body: 'Resume, role, and country are parsed into live matches with ATS-oriented scoring.', output: 'Market-fit profile' },
+      { label: 'Guide', title: 'Career Mentor builds the next step', body: 'Assessment results and market evidence become personalized recommendations, roadmap items, and interview preparation.', output: 'Actionable career path' },
+    ],
     sections: [
       {
         heading: 'The problem',

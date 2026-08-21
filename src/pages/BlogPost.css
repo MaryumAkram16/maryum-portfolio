@@ -194,3 +194,36 @@
     padding: 0 8px;
   }
 }
+
+/* ── Animated engineering pipeline ───────────────────────────────────────── */
+.animated-pipeline {
+  margin: 0 0 48px;
+  padding: 28px 0 8px;
+  border-top: 1px solid var(--accent-glow);
+  border-bottom: 1px solid var(--accent-glow);
+}
+
+.pipeline-heading { margin-bottom: 26px; }
+.pipeline-heading h2 { margin: 0 0 8px; font-family: 'Playfair Display', Georgia, serif; font-size: clamp(1.45rem, 3vw, 1.9rem); }
+.pipeline-heading p:last-child { max-width: 590px; margin: 0; color: #c9d4df; font-size: 0.9rem; line-height: 1.6; }
+.pipeline-track { position: relative; display: grid; gap: 14px; }
+.pipeline-track::before { content: ''; position: absolute; top: 18px; bottom: 18px; left: 16px; width: 1px; background: linear-gradient(#22a08e, rgba(34, 160, 142, 0.08)); }
+.pipeline-step { position: relative; display: grid; grid-template-columns: 33px 1fr; gap: 14px; opacity: 0; transform: translateY(14px); animation: pipeline-step-in 600ms ease-out forwards; animation-delay: var(--step-delay); }
+.pipeline-node { z-index: 1; display: grid; place-items: center; width: 33px; height: 33px; border: 1px solid rgba(81, 196, 177, 0.55); border-radius: 50%; color: #74d9c8; background: #132936; font-size: 0.65rem; font-weight: 800; }
+.pipeline-card { padding: 14px 16px; border: 1px solid rgba(250, 250, 248, 0.1); border-radius: 9px; background: rgba(250, 250, 248, 0.045); }
+.pipeline-card h3 { margin: 3px 0 6px; font-size: 1rem; }
+.pipeline-card p { margin: 0; color: #d8e1e4; font-size: 0.88rem; line-height: 1.6; }
+.pipeline-kicker { color: #22a08e; font-size: 0.68rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.pipeline-output { display: inline-flex; gap: 7px; align-items: center; margin-top: 11px; padding: 5px 9px; border-radius: 999px; color: #e4b269; background: rgba(228, 178, 105, 0.08); font-size: 0.7rem; }
+.pipeline-output span { color: #aab8b9; text-transform: uppercase; letter-spacing: 0.08em; }
+@keyframes pipeline-step-in { to { opacity: 1; transform: translateY(0); } }
+
+@media (max-width: 520px) {
+  .animated-pipeline { margin-bottom: 38px; }
+  .pipeline-card { padding: 12px; }
+  .pipeline-card p { font-size: 0.84rem; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pipeline-step { opacity: 1; transform: none; animation: none; }
+}
