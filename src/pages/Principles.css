@@ -1,0 +1,116 @@
+.principles-page {
+  padding-top: 48px;
+}
+
+.principles-hero {
+  max-width: 760px;
+  padding: 30px 0 58px;
+}
+
+.principles-hero h1 {
+  margin: 0;
+  max-width: 720px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(2rem, 5vw, 3.25rem);
+  line-height: 1.13;
+}
+
+.principles-intro {
+  max-width: 650px;
+  margin: 20px 0 0;
+  color: var(--muted);
+  font-size: 1.05rem;
+  line-height: 1.75;
+}
+
+.principles-list {
+  max-width: 820px;
+  display: grid;
+  gap: 14px;
+}
+
+.principle-card {
+  display: grid;
+  grid-template-columns: 64px minmax(0, 1fr);
+  gap: 20px;
+  padding: 25px 0;
+  border-top: 1px solid var(--accent-glow);
+}
+
+.principle-number {
+  color: #58c8b4;
+  font: 700 0.82rem/1 var(--font);
+  letter-spacing: 0.13em;
+}
+
+.principle-body h2 {
+  margin: 0 0 9px;
+  color: var(--text);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.3rem, 3vw, 1.75rem);
+  line-height: 1.25;
+}
+
+.principle-body p {
+  max-width: 680px;
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.95rem;
+  line-height: 1.7;
+}
+
+.principle-evidence {
+  margin-top: 13px !important;
+  padding: 11px 13px;
+  border-left: 2px solid #58c8b4;
+  color: #c4d5d2 !important;
+  background: rgba(81, 196, 177, 0.055);
+  font-size: 0.84rem !important;
+}
+
+.principle-evidence strong {
+  color: #58c8b4;
+}
+
+.principles-cta {
+  max-width: 820px;
+  margin: 48px 0 94px;
+  padding: 28px;
+  border: 1px solid rgba(81, 196, 177, 0.22);
+  border-radius: 12px;
+  background: linear-gradient(145deg, rgba(20, 38, 52, 0.82), rgba(12, 28, 39, 0.68));
+}
+
+.principles-cta h2 {
+  margin: 0 0 20px;
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.5rem, 3vw, 2rem);
+}
+
+.principles-actions {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 18px;
+}
+
+.principles-call {
+  color: var(--text);
+  font-size: 0.9rem;
+  font-weight: 700;
+  text-underline-offset: 4px;
+}
+
+@media (max-width: 560px) {
+  .principles-page { padding-top: 24px; }
+  .principles-hero { padding: 20px 0 38px; }
+  .principles-intro { font-size: 0.95rem; line-height: 1.6; }
+  .principle-card { grid-template-columns: 34px minmax(0, 1fr); gap: 9px; padding: 20px 0; }
+  .principle-number { font-size: 0.7rem; }
+  .principle-body p { font-size: 0.88rem; line-height: 1.6; }
+  .principle-evidence { font-size: 0.78rem !important; }
+  .principles-cta { margin: 34px 0 64px; padding: 20px; }
+  .principles-actions { align-items: stretch; flex-direction: column; }
+  .principles-actions .cta-button { text-align: center; }
+}
+

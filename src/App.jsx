@@ -7,6 +7,7 @@ const Work = lazy(() => import('./pages/Work.jsx'))
 const Contact = lazy(() => import('./pages/Contact.jsx'))
 const Blog = lazy(() => import('./pages/Blog.jsx'))
 const BlogPost = lazy(() => import('./pages/BlogPost.jsx'))
+const Principles = lazy(() => import('./pages/Principles.jsx'))
 import './App.css'
 
 // Show a visible fallback + retry button instead of a blank page when
@@ -47,6 +48,7 @@ function App() {
           <Route path="/" element={<Landing />} />
           <Route path="/work" element={<Work />} />
           <Route path="/contact" element={<Contact />} />
+          <Route path="/principles" element={<Principles />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:slug" element={<BlogPost />} />
         </Routes>

@@ -534,6 +534,12 @@
   .demo-medilens .demo-stat strong { font-size: 1.25rem; }
   .demo-medilens .demo-timeline { align-items: flex-start; flex-direction: column; gap: 5px; }
   .demo-medilens .demo-timeline b { display: none; }
+  .demo-receipt .demo-tabs { overflow: visible; flex-wrap: wrap; }
+  .demo-receipt .demo-tabs button { flex: 1 1 auto; min-width: 0; padding-inline: 9px; font-size: 0.68rem; }
+  .demo-receipt .demo-panel-grid { grid-template-columns: 1fr; }
+  .demo-receipt .demo-stat strong { max-width: 100%; overflow-wrap: anywhere; font-size: 1.12rem; }
+  .demo-receipt .demo-timeline { align-items: flex-start; flex-direction: column; gap: 5px; }
+  .demo-receipt .demo-timeline b { display: none; }
   .demo-receipt .demo-extraction { grid-template-columns: 1fr; }
   .resume-thumb { padding: 12px; gap: 9px; }
   .resume-thumb-head, .resume-thumb-footer { font-size: 0.56rem; }

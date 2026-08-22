@@ -62,7 +62,7 @@ function SectionHead({ label, title, highlight, sub }) {
 }
 
 function Landing() {
-  usePageTitle('Maryum Akram — AI Automation Engineer | Lahore, Pakistan')
+  usePageTitle('Maryum Akram — AI Engineer | Production ML and LLM Systems')
   const [heroVisible, setHeroVisible] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
 
@@ -104,6 +104,20 @@ function Landing() {
   ]
 
   const projects = [
+    {
+      title: 'Receipt Extractor',
+      desc: 'Reliable document intelligence API',
+      tags: ['Structured Extraction', 'Evaluation', 'FastAPI'],
+      text: 'A strict-schema extraction service with repair limits, needs-review routing, background jobs, and PDF reporting.',
+      result: '8/8 hand-labelled evaluation cases passed',
+    },
+    {
+      title: 'Resume Screener',
+      desc: 'Classical ML for job-fit analysis',
+      tags: ['scikit-learn', 'NLP', 'Model Evaluation'],
+      text: 'A two-stage pipeline that predicts resume category and scores suitability against a specific job description.',
+      result: '68.0% accuracy · MAE 8.69 · R² 0.814',
+    },
     {
       title: 'MediLens',
       desc: 'Hospital intake automation',
@@ -164,7 +178,7 @@ function Landing() {
         <div className="landing-hero-inner container hero-grid">
           <div className="hero-text">
             <div className={`hero-badge ${heroVisible ? 'visible' : ''}`}>
-              <span className="hero-badge-role">AI Automation Engineer</span>
+              <span className="hero-badge-role">AI Engineer · ML + LLM Systems</span>
               <span className="hero-badge-sep" />
               <span className="hero-badge-loc">Lahore, Pakistan</span>
             </div>
@@ -174,13 +188,13 @@ function Landing() {
             </p>
 
             <h1 className={`hero-title ${heroVisible ? 'visible' : ''}`}>
-              I turn slow, manual business processes into{' '}
-              <span className="hero-gradient">AI systems that run themselves.</span>
+              I build reliable AI systems from{' '}
+              <span className="hero-gradient">model evaluation to production.</span>
             </h1>
 
             <p className={`hero-sub ${heroVisible ? 'visible' : ''}`}>
-              Voice agents that book appointments. Pipelines that pull live data, score it, and
-              act on it. Full-stack AI products tested by real users — not demos.
+              Classical ML models, LLM workflows, and full-stack AI products with evaluation,
+              security, fallbacks, observability, and deployment built in.
             </p>
 
             <div className={`hero-actions ${heroVisible ? 'visible' : ''}`}>
@@ -200,9 +214,9 @@ function Landing() {
             <div className={`hero-stats ${heroVisible ? 'visible' : ''}`}>
               <div className="stat-item accent">
                 <div className="stat-value">
-                  <CounterItem value={3} />
+                  <CounterItem value={5} />
                 </div>
-                <div className="stat-label">Production systems shipped</div>
+                <div className="stat-label">AI systems shipped</div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
@@ -331,15 +345,15 @@ function Landing() {
           <Reveal>
             <SectionHead
               label="Projects I've built"
-              title="Three production systems,"
-              highlight="each independently verified"
-              sub="Each one solved a real problem end-to-end — browse the full case studies for architecture, tests, and demo videos."
+              title="Five AI systems,"
+              highlight="from classical ML to production AI"
+              sub="The featured projects show a deliberate range: model evaluation, reliable extraction, voice workflows, live-data systems, and secure AI products."
             />
           </Reveal>
           <div className="preview-grid">
             {projects.map((p, i) => (
               <Reveal key={p.title} delay={i * 90}>
-                <article className="preview-card">
+                <article className={`preview-card ${i < 2 ? 'preview-card-flagship' : ''}`}>
                   <div className="tag-row">
                     {p.tags.map((tag) => (
                       <span className="tag" key={tag}>
@@ -378,6 +392,9 @@ function Landing() {
             <div className="preview-cta-row">
               <Link className="cta-pill cta-outline" to="/work">
                 👁 See all case studies
+              </Link>
+              <Link className="cta-pill cta-outline" to="/principles">
+                Read my AI principles →
               </Link>
             </div>
           </Reveal>

@@ -18,6 +18,9 @@ function Nav() {
         <NavLink to="/blog" className={({ isActive }) => (isActive ? 'active' : undefined)}>
           Blog
         </NavLink>
+        <NavLink to="/principles" className={({ isActive }) => (isActive ? 'active' : undefined)}>
+          Principles
+        </NavLink>
         <a
           className="nav-cv"
           href={`${import.meta.env.BASE_URL}Maryum_Akram_Resume.pdf`}
