@@ -143,7 +143,7 @@ function Landing() {
   ]
 
   const steps = [
-    { label: 'Browse case studies', sub: 'MediLens · RoshanAI · SkillSync' },
+    { label: 'Browse case studies', sub: 'Receipt Extractor · Resume Screener · MediLens · RoshanAI · SkillSync' },
     { label: 'Watch demo videos', sub: 'Real product walkthroughs' },
     { label: 'Read the architecture', sub: 'Diagrams, tests, decisions' },
     { label: 'Explore the code', sub: 'Open source on GitHub' },
@@ -242,9 +242,9 @@ function Landing() {
             <div className={`hero-proof ${heroVisible ? 'visible' : ''}`}>
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
-                <strong>MediLens</strong> · <strong>RoshanAI</strong> ·{' '}
-                <strong>SkillSync AI</strong> — architected and built solo, each independently
-                verified
+                <strong>Receipt Extractor</strong> · <strong>Resume Screener</strong> ·{' '}
+                <strong>MediLens</strong> · <strong>RoshanAI</strong> · <strong>SkillSync AI</strong> —
+                architected and built solo, each independently verified
               </span>
             </div>
           </div>
@@ -296,12 +296,13 @@ function Landing() {
                   </strong>
                 </p>
                 <p>
-                  In eight months I've gone from following automation tutorials to shipping three
-                  full production systems — a hospital intake platform, a freelancer
-                  career-intelligence tool, and a production-hardened SaaS product — each tested
-                  by real users, not just demoed. My math background means I reason through the
-                  systems I build instead of just wiring APIs together. Stack: n8n, Python,
-                  FastAPI, OpenAI/Gemini, Retell AI, React, Supabase/Firebase, Cloud Run.
+                                    In eight months I've gone from following automation tutorials to shipping five
+                  AI systems — classical ML, document intelligence, hospital voice workflows,
+                  freelancer career intelligence, and a production-hardened SaaS product — with
+                  evaluation, reliability, and deployment evidence. My math background means I
+                  reason through the systems I build instead of just wiring APIs together. Stack:
+                  Python, FastAPI, scikit-learn, OpenAI/Gemini, Retell AI, React, Supabase/Firebase,
+                  and Cloud Run.
                 </p>
               </div>
             </Reveal>
