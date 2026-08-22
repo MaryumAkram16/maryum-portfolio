@@ -57,6 +57,13 @@ const assetMap = {
   },
 }
 
+function bodyToPoints(body) {
+  return body
+    .split(/(?<=[.!?])\s+/)
+    .map((point) => point.trim())
+    .filter(Boolean)
+}
+
 function BlogPost() {
   const { slug } = useParams()
   const post = blogPosts.find((p) => p.slug === slug)
@@ -114,7 +121,9 @@ function BlogPost() {
           {post.sections.map((s) => (
             <section key={s.heading}>
               <h2>{s.heading}</h2>
-              <p>{s.body}</p>
+              <ul className="section-points">
+                {bodyToPoints(s.body).map((point) => <li key={point}>{point}</li>)}
+              </ul>
             </section>
           ))}
         </div>

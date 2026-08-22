@@ -90,6 +90,25 @@
   color: #e4e9ef;
 }
 
+.section-points {
+  display: grid;
+  gap: 12px;
+  margin: 0;
+  padding-left: 1.25rem;
+  color: #e4e9ef;
+}
+
+.section-points li {
+  padding-left: 0.3rem;
+  font-size: 1rem;
+  line-height: 1.7;
+}
+
+.section-points li::marker {
+  color: #22a08e;
+  font-weight: 800;
+}
+
 .post-gallery {
   margin: 36px 0;
   display: flex;
@@ -196,7 +215,17 @@
 
 @media (max-width: 720px) {
   .blog-post .container {
-    padding: 0 8px;
+    padding: 0 16px;
+  }
+
+  .section-points {
+    gap: 10px;
+    padding-left: 1.1rem;
+  }
+
+  .section-points li {
+    font-size: 0.96rem;
+    line-height: 1.6;
   }
 }
 
