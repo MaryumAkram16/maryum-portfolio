@@ -27,6 +27,14 @@ const DEMOS = {
       { id: 'mentor', label: 'Career mentor' },
     ],
   },
+  receipt: {
+    title: 'Messy receipt text → validated fields → reliable report.',
+    tabs: [
+      { id: 'extract', label: 'Structured extract' },
+      { id: 'jobs', label: 'Background jobs' },
+      { id: 'reports', label: 'PDF reports' },
+    ],
+  },
 }
 
 function Bar({ label, value, tone = 'teal' }) {
@@ -46,6 +54,12 @@ function RoshanPanel({ tab }) {
   return <div className="demo-explorer"><div className="demo-profile"><div className="demo-avatar">AR</div><div><strong>Alex R. · Explorer</strong><span>Freelancer career intelligence</span></div><small>Live-data workflow</small></div><div className="demo-metrics"><div><strong>29</strong><span>jobs analyzed</span></div><div><strong>78%</strong><span>skill match</span></div><div><strong>$75–110</strong><span>rate suggestion</span></div></div><div className="demo-keywords"><span>JSearch</span><span>Google Jobs</span><span>skill gap</span><span>proposal output</span></div></div>
 }
 
+function ReceiptPanel({ tab }) {
+  if (tab === 'jobs') return <div className="demo-panel-grid"><div className="demo-stat"><span>Job status</span><strong>succeeded</strong><small>1 attempt · idempotent key</small></div><div className="demo-stat"><span>Failure safety</span><strong>needs_review</strong><small>Retry, quarantine, and alert path</small></div><div className="demo-timeline"><span className="demo-dot active" />Queued <b>→</b><span className="demo-dot active" />Validated <b>→</b><span className="demo-dot active" />Completed</div></div>
+  if (tab === 'reports') return <div className="demo-bio"><div className="demo-bio-before"><span>Report generator input</span>2 persisted extractions · PKR + USD · date range optional</div><div className="demo-bio-arrow">↓</div><div className="demo-bio-after"><span>Safe PDF output</span>spending-report-db9ffe4832.pdf · totals, vendors, currencies, needs-review rate</div></div>
+  return <div className="demo-extraction"><div className="demo-extraction-column"><span>Input text</span><code>Cafe Aroma<br />12 Jun 2025<br />Total: PKR 1082</code></div><div className="demo-bio-arrow">→</div><div className="demo-extraction-column valid"><span>Validated JSON</span><code>vendor: Cafe Aroma<br />total_amount: 1082<br />confidence: 0.95<br />needs_review: false</code></div></div>
+}
+
 function SkillSyncPanel({ tab }) {
   if (tab === 'radar') return <div className="demo-calibration"><div className="demo-stat"><span>Market radar</span><strong>Backend automation</strong><small>Live demand scan for target role</small></div><Bar label="Python" value={91} /><Bar label="API development" value={84} /><Bar label="Automation" value={76} tone="gold" /></div>
   if (tab === 'parser') return <div className="demo-panel-grid"><div className="demo-stat"><span>Resume</span><strong>Parsed</strong><small>Skills and experience extracted</small></div><div className="demo-stat"><span>Target role</span><strong>Backend engineer</strong><small>Country: Pakistan</small></div><div className="demo-timeline"><span className="demo-dot active" />Resume parsed <b>→</b><span className="demo-dot active" />Live jobs matched <b>→</b><span className="demo-dot" />ATS score calculated</div></div>
@@ -56,5 +70,5 @@ function SkillSyncPanel({ tab }) {
 export default function InteractivePreview({ type }) {
   const demo = DEMOS[type]
   const [tab, setTab] = useState(demo.tabs[0].id)
-  return <section className={`interactive-preview demo-${type}`} aria-label="Interactive case study preview using sample data"><div className="demo-header"><div><p className="demo-eyebrow">Interactive preview · repository features</p><h3>{demo.title}</h3></div><span className="demo-live"><span className="demo-pulse" /> Sample data</span></div><div className="demo-tabs" role="tablist" aria-label="Project feature modules">{demo.tabs.map((item) => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>{item.label}</button>)}</div><div className="demo-content">{type === 'medilens' && <MediLensPanel tab={tab} />}{type === 'roshanai' && <RoshanPanel tab={tab} />}{type === 'skillsync' && <SkillSyncPanel tab={tab} />}</div><p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p></section>
+  return <section className={`interactive-preview demo-${type}`} aria-label="Interactive case study preview using sample data"><div className="demo-header"><div><p className="demo-eyebrow">Interactive preview · repository features</p><h3>{demo.title}</h3></div><span className="demo-live"><span className="demo-pulse" /> Sample data</span></div><div className="demo-tabs" role="tablist" aria-label="Project feature modules">{demo.tabs.map((item) => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>{item.label}</button>)}</div><div className="demo-content">{type === 'medilens' && <MediLensPanel tab={tab} />}{type === 'roshanai' && <RoshanPanel tab={tab} />}{type === 'skillsync' && <SkillSyncPanel tab={tab} />}{type === 'receipt' && <ReceiptPanel tab={tab} />}</div><p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p></section>
 }

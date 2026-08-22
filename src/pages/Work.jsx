@@ -43,6 +43,41 @@ function Gallery({ images }) {
   )
 }
 
+function ReceiptThumbnail() {
+  return (
+    <div className="receipt-thumb" role="img" aria-label="Receipt text transformed into validated structured data">
+      <div className="receipt-thumb-window"><span /> <span /> <span /></div>
+      <div className="receipt-thumb-grid">
+        <div className="receipt-thumb-input">Cafe Aroma<br />12 Jun 2025<br />Total: PKR 1082</div>
+        <div className="receipt-thumb-arrow">→</div>
+        <div className="receipt-thumb-output"><b>Validated output</b><br />vendor · date · total<br />currency · confidence</div>
+      </div>
+      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> needs_review: false <span>8/8 eval cases</span></div>
+    </div>
+  )
+}
+
+function ReceiptArchitecture() {
+  return (
+    <div className="receipt-architecture" aria-label="Receipt extraction architecture">
+      <div className="receipt-arch-row receipt-arch-primary">POST /extract · validated text input</div>
+      <div className="receipt-arch-arrow">↓</div>
+      <div className="receipt-arch-row receipt-arch-grid">
+        <div><b>Schema gate</b><span>Pydantic validation</span></div>
+        <div><b>LLM extraction</b><span>provider abstraction</span></div>
+        <div><b>Repair loop</b><span>one retry on bad JSON</span></div>
+      </div>
+      <div className="receipt-arch-arrow">↓</div>
+      <div className="receipt-arch-row receipt-arch-output">Structured fields · confidence · needs_review</div>
+      <div className="receipt-arch-arrow">↓</div>
+      <div className="receipt-arch-row receipt-arch-grid receipt-arch-secondary">
+        <div><b>Background jobs</b><span>idempotent retries + alerts</span></div>
+        <div><b>SQLite + PDF</b><span>reports with safe filenames</span></div>
+      </div>
+    </div>
+  )
+}
+
 function CaseStudy({
   title,
   description,
@@ -57,6 +92,7 @@ function CaseStudy({
   thumbCaption,
   images,
   scopeNote,
+  architecture,
   repoUrl,
   videoLinks,
   deepDive,
@@ -68,10 +104,12 @@ function CaseStudy({
   return (
     <article className="case-card">
       <div className="case-thumb-wrap">
-        <picture>
-            <source srcSet={`${thumbWebp}`} type="image/webp" />
-          <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" decoding="async" />
-        </picture>
+          {thumb ? (
+            <picture>
+              <source srcSet={`${thumbWebp}`} type="image/webp" />
+              <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" decoding="async" />
+            </picture>
+          ) : <ReceiptThumbnail />}
       </div>
 
       <div className="case-section-head">
@@ -167,7 +205,7 @@ function CaseStudy({
       {deepDiveOpen && deepDive && (
         <div className="case-expanded deep-dive">
           <h3>Architecture</h3>
-          <ArchitectureDiagram />
+          {architecture || <ArchitectureDiagram />}
 
           <h3>Hardest technical challenge</h3>
           <p>{deepDive.challenge}</p>
@@ -191,14 +229,36 @@ function Work() {
         <div className="section-head work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            Three production systems,<span className="hero-gradient"> each independently verified</span>
+            Four production systems,<span className="hero-gradient"> each independently verified</span>
           </h1>
           <p className="section-sub">
             Every project solved a real problem end-to-end. Each case study below shows the
-            problem, the system I built, and the proof — screenshots, architecture, tests, and
-            demo videos.
+            problem, the system I built, and the proof — architecture, evaluation, reliability, and
+            demo evidence.
           </p>
         </div>
+
+        <CaseStudy
+          title="Receipt Extractor"
+          description="Reliable document intelligence API"
+          tags={['Structured Extraction', 'FastAPI', 'Evaluation', 'Background Jobs']}
+          problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
+          solution="A provider-agnostic FastAPI service validates input, extracts a strict schema, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
+          result="8/8 hand-labelled evaluation cases passed, including ambiguous currency and non-receipt inputs."
+          proofLine="Prompt-injection test held. Background jobs add idempotency, retries, alerting, SQLite persistence, PDF reports, and optional scheduled generation."
+          images={[]}
+          architecture={<ReceiptArchitecture />}
+          repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
+          demoType="receipt"
+          deepDive={{
+            challenge:
+              'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
+            retrospective:
+              'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
+            metrics:
+              'The current evaluation scores 8/8 hand-labelled cases. The service also logs prompt version, model, token counts, duration, repair status, and needs-review outcomes so quality and cost can be monitored together.',
+          }}
+        />
 
         <CaseStudy
           title="MediLens"
