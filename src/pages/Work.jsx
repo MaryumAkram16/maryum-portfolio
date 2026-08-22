@@ -57,6 +57,17 @@ function ReceiptThumbnail() {
   )
 }
 
+function ResumeThumbnail() {
+  return (
+    <div className="resume-thumb" role="img" aria-label="Resume Screener model results panel">
+      <div className="resume-thumb-head"><span>RESUME SCREENER</span><b>MODEL RESULTS</b></div>
+      <div className="resume-thumb-score"><strong>68.0%</strong><span>category accuracy</span></div>
+      <div className="resume-thumb-metrics"><div><b>0.87</b><span>HR F1</span></div><div><b>0.81</b><span>Fitness F1</span></div><div><b>8.69</b><span>final MAE</span></div><div><b>0.814</b><span>final R²</span></div></div>
+      <div className="resume-thumb-footer"><span>TF-IDF + Logistic Regression</span><span>Gradient Boosting</span></div>
+    </div>
+  )
+}
+
 function ReceiptArchitecture() {
   return (
     <div className="receipt-architecture" aria-label="Receipt extraction architecture">
@@ -93,6 +104,9 @@ function CaseStudy({
   images,
   scopeNote,
   architecture,
+  visual,
+  evaluation,
+  metrics,
   repoUrl,
   videoLinks,
   deepDive,
@@ -104,12 +118,12 @@ function CaseStudy({
   return (
     <article className="case-card">
       <div className="case-thumb-wrap">
-          {thumb ? (
+          {visual || (thumb ? (
             <picture>
               <source srcSet={`${thumbWebp}`} type="image/webp" />
               <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" decoding="async" />
             </picture>
-          ) : <ReceiptThumbnail />}
+          ) : <ReceiptThumbnail />)}
       </div>
 
       <div className="case-section-head">
@@ -154,6 +168,16 @@ function CaseStudy({
       </dl>
 
       {proofLine && <p className="proof-line">{proofLine}</p>}
+
+      {evaluation && (
+        <section className="evaluation-panel" aria-label={`${title} evaluation and metrics`}>
+          <div className="evaluation-copy">
+            <p className="evaluation-label">Evaluation</p>
+            <p>{evaluation}</p>
+          </div>
+          {metrics && <div className="metric-row">{metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>}
+        </section>
+      )}
 
       {demoType && <InteractivePreview type={demoType} />}
 
@@ -229,12 +253,12 @@ function Work() {
         <div className="section-head work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            Four production systems,<span className="hero-gradient"> each independently verified</span>
+            Five systems,<span className="hero-gradient"> from classical ML to production AI</span>
           </h1>
           <p className="section-sub">
             Every project solved a real problem end-to-end. Each case study below shows the
             problem, the system I built, and the proof — architecture, evaluation, reliability, and
-            demo evidence.
+            demo evidence, and honest limitations.
           </p>
         </div>
 
@@ -261,12 +285,31 @@ function Work() {
         />
 
         <CaseStudy
+          title="Resume Screener"
+          description="Classical ML for job-fit analysis"
+          tags={['scikit-learn', 'NLP', 'Model Evaluation', 'Streamlit']}
+          problem="Recruiters need a fast first pass over resumes, but category prediction and job-fit scoring are different modeling problems."
+          solution="A two-stage pipeline predicts the resume’s job category, then scores its fit against a specific job description using TF-IDF, similarity features, and Gradient Boosting."
+          result="Deployed Streamlit app with a 68.0% category-classification accuracy and a final suitability model with MAE 8.69 and R² 0.814."
+          proofLine="The model comparison, confusion matrix, feature importance, limitations, and a genuine-versus-unrelated job test are documented in the repository."
+          visual={<ResumeThumbnail />}
+          evaluation="The Stage 1 classifier covers 2,484 resumes across 20 usable categories. Stage 2 uses 2,385 resume–job pairs, synthetic negative examples, and an explicit comparison against Random Forest baselines."
+          metrics={[{ label: 'Stage 1 accuracy', value: '68.0%' }, { label: 'Final model MAE', value: '8.69' }, { label: 'Final model R²', value: '0.814' }, { label: 'Training resumes', value: '2,484' }]}
+          images={[]}
+          repoUrl="https://github.com/MaryumAkram16/Resume-Screener"
+          demoType="resume"
+          videoLinks={[]}
+        />
+
+        <CaseStudy
           title="MediLens"
           description="Hospital intake automation"
           tags={['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard']}
           problem="Hospital booking, complaints, and admin tracking were manual, staff-run processes."
           solution="A voice agent books, reschedules, and cancels appointments with no staff involved. Complaint management and an admin dashboard automate the rest."
           result="Independently tested by a professor via live link."
+          evaluation="The demo is evaluated through scripted booking, cancellation, and rescheduling flows, with the system required to preserve conversation state and fall back safely instead of guessing."
+          metrics={[{ label: 'Core flows', value: '3' }, { label: 'Outcome', value: 'Auditable' }, { label: 'Mode', value: 'Live test' }]}
           thumb={medilensVoiceAgent}
           thumbWebp={medilensVoiceAgentWebp}
           thumbCaption="Books, cancels, and reschedules appointments by voice — no staff involved"
@@ -300,6 +343,8 @@ function Work() {
           solution="Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals."
           result="3 independent users. Fully solo build."
           resultBadge="AI Seekho 2026 — Silver Tier, Phase 1 Submission"
+          evaluation="The current evidence is product validation rather than benchmark accuracy: three independent users ran the full pipeline. Gap Score is explicitly an AI-generated estimate and has not yet been benchmarked against ground truth."
+          metrics={[{ label: 'Independent users', value: '3' }, { label: 'Data source', value: 'Live jobs' }, { label: 'Gap Score', value: 'Estimate' }]}
           thumb={roshanaiIntelligence}
           thumbWebp={roshanaiIntelligenceWebp}
           thumbCaption="Live market data from JSearch & Google Jobs"
@@ -339,6 +384,8 @@ function Work() {
           solution="Adaptive skill assessment matched against live market data. Architected and built end-to-end, with real security and rate-limiting in production."
           result="9 real users. 94/94 CI tests passing."
           proofLine="Adversarial security testing (12 payload tests), rate limiting, and audit logging in production."
+          evaluation="Validation combines product usage and engineering checks: nine real users, 94/94 CI tests, 12 adversarial security payloads, and production rate-limit and audit-log behavior. Recommendation quality remains an area for a larger labeled evaluation set."
+          metrics={[{ label: 'Real users', value: '9' }, { label: 'CI tests', value: '94/94' }, { label: 'Security payloads', value: '12' }]}
           thumb={skillsyncDashboard}
           thumbWebp={skillsyncDashboardWebp}
           thumbCaption="Real user data and journey"

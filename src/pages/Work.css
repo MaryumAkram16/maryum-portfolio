@@ -286,6 +286,54 @@
 .demo-roshanai { border-color: rgba(220, 163, 82, 0.34); }
 .demo-skillsync { border-color: rgba(121, 156, 224, 0.34); }
 .demo-receipt { border-color: rgba(81, 196, 177, 0.38); }
+.demo-resume { border-color: rgba(121, 156, 224, 0.38); }
+
+.resume-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  box-sizing: border-box;
+  padding: clamp(18px, 4vw, 34px);
+  color: #dce8f5;
+  background: linear-gradient(135deg, #14283d, #111f32 58%, #1c304c);
+  border: 1px solid rgba(121, 156, 224, 0.32);
+  border-radius: 6px;
+  display: grid;
+  align-content: center;
+  gap: 16px;
+}
+.resume-thumb-head, .resume-thumb-footer { display: flex; justify-content: space-between; gap: 12px; color: #9db8dc; font-size: 0.7rem; letter-spacing: 0.08em; }
+.resume-thumb-head b { color: #86ace9; }
+.resume-thumb-score { display: flex; align-items: baseline; gap: 12px; }
+.resume-thumb-score strong { color: #dce8f5; font-size: clamp(1.8rem, 5vw, 2.7rem); }
+.resume-thumb-score span { color: #9db8dc; font-size: 0.78rem; }
+.resume-thumb-metrics { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.resume-thumb-metrics > div { padding: 9px 8px; border: 1px solid rgba(121, 156, 224, 0.2); border-radius: 6px; background: rgba(121, 156, 224, 0.08); }
+.resume-thumb-metrics b, .resume-thumb-metrics span { display: block; }
+.resume-thumb-metrics b { color: #c7d6ed; font-size: 0.9rem; }
+.resume-thumb-metrics span { margin-top: 3px; color: #8aa7d4; font-size: 0.62rem; }
+
+.evaluation-panel { max-width: 640px; margin: 22px 0 26px; padding: 16px; border: 1px solid rgba(81, 196, 177, 0.2); border-radius: 9px; background: rgba(81, 196, 177, 0.055); }
+.evaluation-copy { display: grid; gap: 6px; }
+.evaluation-label { margin: 0; color: #58c8b4; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
+.evaluation-copy p:last-child { margin: 0; color: #c4d5d2; font-size: 0.84rem; line-height: 1.55; }
+.metric-row { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 8px; margin-top: 14px; }
+.metric-row > div { min-width: 0; padding: 9px 8px; border-top: 1px solid rgba(81, 196, 177, 0.24); }
+.metric-row strong, .metric-row span { display: block; }
+.metric-row strong { color: #d9f3ec; font-size: 0.95rem; }
+.metric-row span { margin-top: 3px; color: #8fa5a7; font-size: 0.65rem; line-height: 1.25; }
+
+.demo-resume-results { display: grid; gap: 13px; }
+.demo-resume-result-head { display: grid; gap: 4px; padding: 13px; border: 1px solid rgba(121, 156, 224, 0.25); border-radius: 8px; background: rgba(121, 156, 224, 0.08); }
+.demo-resume-result-head span, .demo-resume-result-head small { color: #8aa7d4; font-size: 0.7rem; }
+.demo-resume-result-head strong { color: #dce8f5; font-size: 1.25rem; }
+.demo-resume-results .demo-metrics { grid-template-columns: repeat(3, 1fr); }
+.demo-resume-results .demo-metrics > div { border-color: rgba(121, 156, 224, 0.25); }
+.demo-resume-results .demo-metrics strong { color: #86ace9; }
+.demo-model-table { display: grid; gap: 7px; color: #c7d6ed; font-size: 0.75rem; }
+.demo-model-table > div { display: grid; grid-template-columns: minmax(0, 1.8fr) repeat(2, minmax(45px, 0.6fr)); gap: 8px; align-items: center; padding: 9px 10px; border: 1px solid rgba(121, 156, 224, 0.16); border-radius: 6px; background: rgba(121, 156, 224, 0.06); }
+.demo-model-table > div:first-child { color: #8aa7d4; border: 0; background: transparent; padding-top: 0; padding-bottom: 0; font-size: 0.65rem; text-transform: uppercase; letter-spacing: 0.08em; }
+.demo-model-table b { color: #86ace9; }
+
 
 .receipt-thumb {
   width: 100%;
@@ -487,6 +535,19 @@
   .demo-medilens .demo-timeline { align-items: flex-start; flex-direction: column; gap: 5px; }
   .demo-medilens .demo-timeline b { display: none; }
   .demo-receipt .demo-extraction { grid-template-columns: 1fr; }
+  .resume-thumb { padding: 12px; gap: 9px; }
+  .resume-thumb-head, .resume-thumb-footer { font-size: 0.56rem; }
+  .resume-thumb-score strong { font-size: 1.7rem; }
+  .resume-thumb-score span { font-size: 0.62rem; }
+  .resume-thumb-metrics { gap: 4px; }
+  .resume-thumb-metrics > div { padding: 6px 5px; }
+  .resume-thumb-metrics b { font-size: 0.7rem; }
+  .resume-thumb-metrics span { font-size: 0.5rem; }
+  .evaluation-panel { padding: 12px; }
+  .metric-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .demo-resume-results .demo-metrics { grid-template-columns: 1fr; }
+  .demo-model-table > div { grid-template-columns: minmax(0, 1.7fr) repeat(2, minmax(40px, 0.6fr)); font-size: 0.68rem; }
+
   .demo-receipt .demo-extraction .demo-bio-arrow { transform: rotate(90deg); }
   .receipt-thumb { padding: 14px; gap: 10px; }
   .receipt-thumb-grid { gap: 7px; }

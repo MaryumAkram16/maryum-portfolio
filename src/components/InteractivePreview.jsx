@@ -35,6 +35,14 @@ const DEMOS = {
       { id: 'reports', label: 'PDF reports' },
     ],
   },
+  resume: {
+    title: 'Resume text → category prediction → job-fit score.',
+    tabs: [
+      { id: 'results', label: 'Results panel' },
+      { id: 'comparison', label: 'Model comparison' },
+      { id: 'test', label: 'Real test case' },
+    ],
+  },
 }
 
 function Bar({ label, value, tone = 'teal' }) {
@@ -60,6 +68,12 @@ function ReceiptPanel({ tab }) {
   return <div className="demo-extraction"><div className="demo-extraction-column"><span>Input text</span><code>Cafe Aroma<br />12 Jun 2025<br />Total: PKR 1082</code></div><div className="demo-bio-arrow">→</div><div className="demo-extraction-column valid"><span>Validated JSON</span><code>vendor: Cafe Aroma<br />total_amount: 1082<br />confidence: 0.95<br />needs_review: false</code></div></div>
 }
 
+function ResumePanel({ tab }) {
+  if (tab === 'comparison') return <div className="demo-model-table"><div><span>Model</span><span>MAE</span><span>R²</span></div><div><strong>Gradient Boosting</strong><b>8.69</b><b>0.814</b></div><div><span>Tuned Random Forest</span><b>8.98</b><b>0.801</b></div><div><span>Random Forest</span><b>9.04</b><b>0.799</b></div></div>
+  if (tab === 'test') return <div className="demo-panel-grid"><div className="demo-stat"><span>Genuine HR posting</span><strong>51.8</strong><small>Moderate fit</small></div><div className="demo-stat"><span>Unrelated Chef posting</span><strong>2.8</strong><small>Weak fit</small></div><div className="demo-timeline"><span className="demo-dot active" />Same resume <b>→</b><span className="demo-dot active" />Two job descriptions <b>→</b><span className="demo-dot active" />~49-point separation</div></div>
+  return <div className="demo-resume-results"><div className="demo-resume-result-head"><span>Predicted category</span><strong>Human Resources</strong><small>confidence breakdown available</small></div><div className="demo-metrics"><div><strong>68.0%</strong><span>Stage 1 accuracy</span></div><div><strong>8.69</strong><span>final MAE</span></div><div><strong>0.814</strong><span>final R²</span></div></div><div className="demo-keywords"><span>TF-IDF</span><span>Logistic Regression</span><span>Gradient Boosting</span><span>20 categories</span></div></div>
+}
+
 function SkillSyncPanel({ tab }) {
   if (tab === 'radar') return <div className="demo-calibration"><div className="demo-stat"><span>Market radar</span><strong>Backend automation</strong><small>Live demand scan for target role</small></div><Bar label="Python" value={91} /><Bar label="API development" value={84} /><Bar label="Automation" value={76} tone="gold" /></div>
   if (tab === 'parser') return <div className="demo-panel-grid"><div className="demo-stat"><span>Resume</span><strong>Parsed</strong><small>Skills and experience extracted</small></div><div className="demo-stat"><span>Target role</span><strong>Backend engineer</strong><small>Country: Pakistan</small></div><div className="demo-timeline"><span className="demo-dot active" />Resume parsed <b>→</b><span className="demo-dot active" />Live jobs matched <b>→</b><span className="demo-dot" />ATS score calculated</div></div>
@@ -70,5 +84,5 @@ function SkillSyncPanel({ tab }) {
 export default function InteractivePreview({ type }) {
   const demo = DEMOS[type]
   const [tab, setTab] = useState(demo.tabs[0].id)
-  return <section className={`interactive-preview demo-${type}`} aria-label="Interactive case study preview using sample data"><div className="demo-header"><div><p className="demo-eyebrow">Interactive preview · repository features</p><h3>{demo.title}</h3></div><span className="demo-live"><span className="demo-pulse" /> Sample data</span></div><div className="demo-tabs" role="tablist" aria-label="Project feature modules">{demo.tabs.map((item) => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>{item.label}</button>)}</div><div className="demo-content">{type === 'medilens' && <MediLensPanel tab={tab} />}{type === 'roshanai' && <RoshanPanel tab={tab} />}{type === 'skillsync' && <SkillSyncPanel tab={tab} />}{type === 'receipt' && <ReceiptPanel tab={tab} />}</div><p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p></section>
+  return <section className={`interactive-preview demo-${type}`} aria-label="Interactive case study preview using sample data"><div className="demo-header"><div><p className="demo-eyebrow">Interactive preview · repository features</p><h3>{demo.title}</h3></div><span className="demo-live"><span className="demo-pulse" /> Sample data</span></div><div className="demo-tabs" role="tablist" aria-label="Project feature modules">{demo.tabs.map((item) => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>{item.label}</button>)}</div><div className="demo-content">{type === 'medilens' && <MediLensPanel tab={tab} />}{type === 'roshanai' && <RoshanPanel tab={tab} />}{type === 'skillsync' && <SkillSyncPanel tab={tab} />}{type === 'receipt' && <ReceiptPanel tab={tab} />}{type === 'resume' && <ResumePanel tab={tab} />}</div><p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p></section>
 }
