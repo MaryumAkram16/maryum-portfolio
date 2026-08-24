@@ -53,8 +53,7 @@ function Contact() {
         </div>
 
         <p className="contact-closing">
-          Based in Lahore, Pakistan · Working with businesses that want to replace manual work
-          with systems that run themselves.
+          Based in Lahore, Pakistan · Building reliable AI systems, from model evaluation to production.
         </p>
       </div>
     </main>
