@@ -11,12 +11,12 @@ function Contact() {
         <div className="section-head contact-head">
           <p className="section-label">Let's work together</p>
           <h1>
-            Have a task eating your team's time?<span className="hero-gradient"> Let's fix it.</span>
+            Have a system that needs to be built right?<span className="hero-gradient"> Let's talk.</span>
           </h1>
           <p className="section-sub">
-            I build reliable AI systems from model evaluation to production. If that's a problem you
-              have, let's talk. No jargon, no pressure — just a straight conversation about how I can
-              help.
+            I build AI systems that are evaluated, secure, and production-ready — not demos. If that's
+              what you need, let's talk. No jargon, no pressure — just a straight conversation about how I
+              can help.
           </p>
         </div>
 
