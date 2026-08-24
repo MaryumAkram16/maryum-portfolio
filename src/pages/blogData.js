@@ -58,12 +58,12 @@ export const blogPosts = [
     date: 'Jul 2026',
     readTime: '7 min read',
     summary:
-      'Freelancers guess at their rates and write generic proposals. RoshanAI pulls live market data from JSearch and Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals. Here is how the pipeline works — and the mistake I made with API keys.',
+      'Freelancers guess at their rates and write generic proposals. RoshanAI pulls live market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals. Here is how the pipeline works — and the mistake I made with API keys.',
     tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
     heroImage: 'roshanai/intelligence-layer.webp',
     heroImageJpg: 'roshanai/intelligence-layer.jpg',
     pipelineSteps: [
-      { label: 'Collect', title: 'Live jobs enter the system', body: 'JSearch and Google Jobs provide current postings instead of relying on a static job description.', output: 'Market postings' },
+      { label: 'Collect', title: 'Live jobs enter the system', body: 'JSearch and SerpAPI provide current postings instead of relying on a static job description.', output: 'Market postings' },
       { label: 'Compare', title: 'Resume skills meet market demand', body: 'The resume is parsed and claimed skills are matched against what the live roles request.', output: 'Explainable skill-gap estimate' },
       { label: 'Generate', title: 'The next action is written', body: 'Job analysis, rate context, and relevant experience are combined into a tailored proposal.', output: 'Client-ready proposal' },
       { label: 'Coach', title: 'Pricing gets a market anchor', body: 'The Salary Coach turns role, location, and market data into a suggested pricing range.', output: 'Rate suggestion' },
@@ -75,7 +75,7 @@ export const blogPosts = [
       },
       {
         heading: 'The pipeline',
-        body: 'RoshanAI pulls live job postings from JSearch and Google Jobs, parses the user\u2019s resume with NLP, matches claimed skills against real postings to produce a gap score, and generates a tailored proposal with a rate suggestion grounded in actual market numbers. Everything the user sees is derived from live data, not a static template.',
+        body: 'RoshanAI pulls live job postings from JSearch and SerpAPI, parses the user\u2019s resume with NLP, matches claimed skills against real postings to produce a gap score, and generates a tailored proposal with a rate suggestion grounded in actual market numbers. Everything the user sees is derived from live data, not a static template.',
       },
       {
         heading: 'The hardest technical challenge',
@@ -105,7 +105,7 @@ export const blogPosts = [
     date: 'Jun 2026',
     readTime: '6 min read',
     summary:
-      'Career discovery tools rarely check claimed skills against real, current market demand. SkillSync AI runs an adaptive assessment, matches it against live postings, and produces market-grounded career recommendations. It also went through adversarial security testing in production.',
+      'Career discovery tools rarely check claimed skills against real, current market demand. SkillSync AI runs an adaptive assessment, matches it against live postings, and produces market-grounded career recommendations. It also has externally recorded adversarial security testing results; the current public README does not include the figures.',
     tags: ['Dashboard', 'Radar', 'Assessment'],
     heroImage: 'skillsync/dashboard.webp',
     heroImageJpg: 'skillsync/dashboard.jpg',
@@ -126,11 +126,11 @@ export const blogPosts = [
       },
       {
         heading: 'Proof',
-        body: '9 real users. 94/94 CI tests passing. Adversarial security testing (12 payload tests), rate limiting, and audit logging in production.',
+        body: 'Externally recorded validation: 9 real users, 94/94 CI tests, and 12 adversarial payload tests, alongside rate limiting and audit logging in production. These figures are not currently included in the public README.',
       },
       {
         heading: 'What I learned',
-        body: 'Testing a security posture adversarially — deliberately throwing 12 crafted payloads at your own endpoints — taught me more than any tutorial. When production traffic arrives, you want to know the system holds. The same lesson applies to the CI suite: 94 tests passing means the adaptive assessment, the parser, and the dashboard can\u2019t silently break each other when one of them changes.',
+        body: 'An externally recorded security exercise — deliberately throwing 12 crafted payloads at your own endpoints — taught me more than any tutorial. The figures are not currently included in the public README. When production traffic arrives, you want to know the system holds, but this external record should not be presented as repository-verified. The same applies to the externally recorded CI result: 94 tests passing means the adaptive assessment, the parser, and the dashboard can\u2019t silently break each other when one of them changes.',
       },
     ],
     images: [

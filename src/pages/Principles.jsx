@@ -14,7 +14,7 @@ const principles = [
     number: '02',
     title: 'Treat security as a product feature',
     text: 'Provider keys stay server-side, external input is validated, public endpoints are rate-limited, and suspicious behavior is recorded. AI features do not get a free pass on ordinary application security.',
-    evidence: 'SkillSync AI: 12 adversarial payload tests, rate limiting, and audit logging. RoshanAI: server-side proxy identified as the production fix for exposed provider keys.',
+    evidence: 'SkillSync AI: externally recorded 12 adversarial payload tests, plus rate limiting and audit logging; the figures are not currently included in the public README. RoshanAI: server-side proxy identified as the production fix for exposed provider keys.',
   },
   {
     number: '03',

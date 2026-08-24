@@ -129,7 +129,7 @@ function Landing() {
       title: 'RoshanAI',
       desc: 'Freelancer career intelligence',
       tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
-      text: 'Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals.',
+      text: 'Pulls live job market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals.',
       result: '3 independent users · fully solo build',
       badge: 'AI Seekho 2026 — Silver Tier, Phase 1 Submission',
     },
@@ -138,7 +138,7 @@ function Landing() {
       desc: 'Career discovery pipeline',
       tags: ['Dashboard', 'Radar', 'Assessment'],
       text: 'Adaptive skill assessment matched against live market data, with real security, rate limiting, and audit logging in production.',
-      result: '9 real users · 94/94 CI tests passing',
+      result: 'Externally recorded: 9 real users · 94/94 CI tests passing',
     },
   ]
 
@@ -154,7 +154,7 @@ function Landing() {
     {
       icon: '🛠️',
       title: 'Production systems, not demos',
-      desc: 'Everything I ship runs for real users — professor-tested intake platforms, freelancer tools with independent users, and APIs hardened by 94 passing automated tests.',
+      desc: 'Everything I ship runs for real users — professor-tested intake platforms, freelancer tools with independent users, and APIs with an externally recorded 94/94 CI test result.',
     },
     {
       icon: '📡',

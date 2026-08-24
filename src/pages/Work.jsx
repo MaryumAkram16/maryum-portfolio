@@ -340,16 +340,16 @@ function Work() {
           description="Freelancer career intelligence"
           tags={['Market Data', 'Skill Gap Analysis', 'Proposal Generator']}
           problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
-          solution="Pulls live job market data from JSearch & Google Jobs, analyzes skill gaps against real postings, and generates tailored proposals."
+          solution="Pulls live job market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals."
           result="3 independent users. Fully solo build."
           resultBadge="AI Seekho 2026 — Silver Tier, Phase 1 Submission"
           evaluation="The current evidence is product validation rather than benchmark accuracy: three independent users ran the full pipeline. Gap Score is explicitly an AI-generated estimate and has not yet been benchmarked against ground truth."
           metrics={[{ label: 'Independent users', value: '3' }, { label: 'Data source', value: 'Live jobs' }, { label: 'Gap Score', value: 'Estimate' }]}
           thumb={roshanaiIntelligence}
           thumbWebp={roshanaiIntelligenceWebp}
-          thumbCaption="Live market data from JSearch & Google Jobs"
+          thumbCaption="Live market data from JSearch and SerpAPI"
           images={[
-            { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Live market data from JSearch & Google Jobs' },
+            { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Live market data from JSearch and SerpAPI' },
             {
               src: roshanaiSkillGap,
               webp: roshanaiSkillGapWebp,
@@ -382,10 +382,10 @@ function Work() {
           tags={['Dashboard', 'Radar', 'Assessment']}
           problem="Career discovery tools rarely check claimed skills against real, current market demand."
           solution="Adaptive skill assessment matched against live market data. Architected and built end-to-end, with real security and rate-limiting in production."
-          result="9 real users. 94/94 CI tests passing."
-          proofLine="Adversarial security testing (12 payload tests), rate limiting, and audit logging in production."
-          evaluation="Validation combines product usage and engineering checks: nine real users, 94/94 CI tests, 12 adversarial security payloads, and production rate-limit and audit-log behavior. Recommendation quality remains an area for a larger labeled evaluation set."
-          metrics={[{ label: 'Real users', value: '9' }, { label: 'CI tests', value: '94/94' }, { label: 'Security payloads', value: '12' }]}
+          result="Externally recorded: 9 real users. 94/94 CI tests passing."
+          proofLine="Externally recorded validation: 12 adversarial payload tests, plus rate limiting and audit logging in production."
+          evaluation="Externally recorded validation combines product usage and engineering checks: nine real users, 94/94 CI tests, and 12 adversarial security payloads, alongside production rate-limit and audit-log behavior. These figures are not currently included in the public README; recommendation quality remains an area for a larger labeled evaluation set."
+          metrics={[{ label: 'Recorded users', value: '9' }, { label: 'Recorded CI tests', value: '94/94' }, { label: 'Recorded payloads', value: '12' }]}
           thumb={skillsyncDashboard}
           thumbWebp={skillsyncDashboardWebp}
           thumbCaption="Real user data and journey"
