@@ -242,9 +242,7 @@ function Landing() {
             <div className={`hero-proof ${heroVisible ? 'visible' : ''}`}>
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
-                <strong>Receipt Extractor</strong> · <strong>Resume Screener</strong> ·{' '}
-                <strong>MediLens</strong> · <strong>RoshanAI</strong> · <strong>SkillSync AI</strong> —
-                architected and built solo, each independently verified
+                MediLens &amp; SkillSync AI — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · RoshanAI — fully solo · Receipt Extractor &amp; Resume Screener — solo builds, self-evaluated
               </span>
             </div>
           </div>
