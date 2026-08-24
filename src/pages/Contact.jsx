@@ -14,9 +14,9 @@ function Contact() {
             Have a task eating your team's time?<span className="hero-gradient"> Let's fix it.</span>
           </h1>
           <p className="section-sub">
-            I turn slow, manual business processes into AI systems that run themselves. If that's
-            a problem you have, let's talk. No jargon, no pressure — just a straight conversation
-            about how I can help.
+            I build reliable AI systems from model evaluation to production. If that's a problem you
+              have, let's talk. No jargon, no pressure — just a straight conversation about how I can
+              help.
           </p>
         </div>
 
