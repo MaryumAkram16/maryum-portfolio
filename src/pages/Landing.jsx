@@ -1,6 +1,6 @@
 import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
-import { BOOKING_URL } from '../siteConfig.js'
+import { BOOKING_URL, CONTACT_EMAIL } from '../siteConfig.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import OrbitAnimation from '../components/OrbitAnimation.jsx'
 import './Landing.css'
@@ -62,7 +62,7 @@ function SectionHead({ label, title, highlight, sub }) {
 }
 
 function Landing() {
-  usePageTitle('Maryum Akram — AI Engineer | Production ML and LLM Systems')
+  usePageTitle('Maryum Akram — AI Automation Engineer | Lahore, Pakistan')
   const [heroVisible, setHeroVisible] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
 
@@ -105,25 +105,20 @@ function Landing() {
 
   const projects = [
     {
-      title: 'Receipt Extractor',
-      desc: 'Reliable document intelligence API',
-      tags: ['Structured Extraction', 'Evaluation', 'FastAPI'],
-      text: 'A strict-schema extraction service with repair limits, needs-review routing, background jobs, and PDF reporting.',
-      result: '8/8 hand-labelled evaluation cases passed',
-    },
-    {
-      title: 'Resume Screener',
-      desc: 'Classical ML for job-fit analysis',
-      tags: ['scikit-learn', 'NLP', 'Model Evaluation'],
-      text: 'A two-stage pipeline that predicts resume category and scores suitability against a specific job description.',
-      result: '68.0% accuracy · MAE 8.69 · R² 0.814',
-    },
-    {
       title: 'MediLens',
       desc: 'Hospital intake automation',
       tags: ['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard'],
       text: 'A voice agent books, reschedules, and cancels appointments with no staff involved — plus complaint management and an admin dashboard.',
       result: 'Independently tested by a professor via live link',
+    },
+    {
+      title: 'GharFix',
+      desc: 'Agentic local-services booking',
+      tags: ['Agentic Orchestration', 'n8n', 'Multilingual'],
+      text: 'Books local service providers from English, Urdu, or Roman Urdu requests — an Antigravity orchestrator delegates matching, booking, quality checks, disputes, and rescheduling to n8n workflows.',
+      result: '7-factor ranking of real Google Maps providers',
+      badge: 'AI Seekho 2026 — Silver Tier, Phase 2 Submission',
+      repo: 'https://github.com/MaryumAkram16/GharFix',
     },
     {
       title: 'RoshanAI',
@@ -140,6 +135,63 @@ function Landing() {
       text: 'Adaptive skill assessment matched against live market data, with real security, rate limiting, and audit logging in production.',
       result: 'Externally recorded: 9 real users · 94/94 CI tests passing',
     },
+    {
+      title: 'Receipt Extractor',
+      desc: 'Reliable document intelligence API',
+      tags: ['Structured Extraction', 'Evaluation', 'FastAPI'],
+      text: 'A strict-schema extraction service with repair limits, needs-review routing, background jobs, and PDF reporting.',
+      result: '8/8 hand-labelled evaluation cases passed',
+    },
+    {
+      title: 'Resume Screener',
+      desc: 'Classical ML for job-fit analysis',
+      tags: ['scikit-learn', 'NLP', 'Model Evaluation'],
+      text: 'A two-stage pipeline that predicts resume category and scores suitability against a specific job description.',
+      result: '68.0% accuracy · MAE 8.69 · R² 0.814',
+    },
+    {
+      title: 'AI-Human Text Detector',
+      desc: 'Classical ML text classification',
+      tags: ['scikit-learn', 'Stylometry', 'Model Comparison'],
+      text: 'Separates AI-generated from human-written text with TF-IDF and stylometric features, comparing logistic regression, random forest, and naive Bayes.',
+      result: '99.36% accuracy on 487K essays',
+      repo: 'https://github.com/MaryumAkram16/AI-Human-Text-Detector',
+    },
+  ]
+
+  const experience = [
+    {
+      title: 'Receipt Extractor',
+      text: 'strict-schema document intelligence API (featured above).',
+    },
+    {
+      title: 'Content Refresh Scoring',
+      text: 'ML capstone on a client-holdout test; a rule baseline (P@50 0.90) beat Random Forest (0.76).',
+      links: [
+        { label: 'Repo', href: 'https://github.com/MaryumAkram16/flyrank-ml-internship' },
+        { label: 'Paper', href: 'https://maryumakram16.github.io/flyrank-ml-internship/' },
+      ],
+    },
+    {
+      title: 'Embeddable Widget Platform',
+      text: 'multi-tenant lead capture with proof-of-work bot defense; 47/47 tests passing.',
+      links: [
+        { label: 'Repo', href: 'https://github.com/MaryumAkram16/flyrank-capstone-widget-platform' },
+      ],
+    },
+  ]
+
+  const certifications = [
+    {
+      label: 'Azure AI Apps and Agents Developer Associate (AI-103)',
+      href: 'https://learn.microsoft.com/api/credentials/share/en-gb/MaryumAkram-6047/5EEC173DDEF1BD6?sharingId=8A421E061C48308C',
+    },
+    {
+      label: 'Azure AI Fundamentals (AI-900)',
+      href: 'https://learn.microsoft.com/api/credentials/share/en-gb/MaryumAkram-6047/11B785908D7F25E?sharingId=8A421E061C48308C',
+    },
+    { label: 'EF SET B2', href: 'https://cert.efset.org/TUdWSk' },
+    { label: 'AI Seekho 2026 Silver Tier' },
   ]
 
   const steps = [
@@ -178,7 +230,7 @@ function Landing() {
         <div className="landing-hero-inner container hero-grid">
           <div className="hero-text">
             <div className={`hero-badge ${heroVisible ? 'visible' : ''}`}>
-              <span className="hero-badge-role">AI Engineer · ML + LLM Systems</span>
+              <span className="hero-badge-role">AI Automation Engineer</span>
               <span className="hero-badge-sep" />
               <span className="hero-badge-loc">Lahore, Pakistan</span>
             </div>
@@ -193,8 +245,8 @@ function Landing() {
             </h1>
 
             <p className={`hero-sub ${heroVisible ? 'visible' : ''}`}>
-              Classical ML models, LLM workflows, and full-stack AI products with evaluation,
-              security, fallbacks, observability, and deployment built in.
+              Agentic automation workflows, LLM products, and classical ML models — with the
+              evidence for each one shown below.
             </p>
 
             <div className={`hero-actions ${heroVisible ? 'visible' : ''}`}>
@@ -214,7 +266,7 @@ function Landing() {
             <div className={`hero-stats ${heroVisible ? 'visible' : ''}`}>
               <div className="stat-item accent">
                 <div className="stat-value">
-                  <CounterItem value={5} />
+                  <CounterItem value={7} />
                 </div>
                 <div className="stat-label">AI systems shipped</div>
               </div>
@@ -242,7 +294,7 @@ function Landing() {
             <div className={`hero-proof ${heroVisible ? 'visible' : ''}`}>
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
-                MediLens &amp; SkillSync AI — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · RoshanAI — fully solo · Receipt Extractor &amp; Resume Screener — solo builds, self-evaluated
+                MediLens &amp; SkillSync AI — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · RoshanAI &amp; GharFix — fully solo · Receipt Extractor &amp; Resume Screener — solo builds, self-evaluated
               </span>
             </div>
           </div>
@@ -294,10 +346,10 @@ function Landing() {
                   </strong>
                 </p>
                 <p>
-                                    In eight months I've gone from following automation tutorials to shipping five
-                  AI systems — classical ML, document intelligence, hospital voice workflows,
-                  freelancer career intelligence, and a production-hardened SaaS product — with
-                  evaluation, reliability, and deployment evidence. My math background means I
+                  In eight months I've gone from following automation tutorials to shipping seven
+                  AI systems — hospital voice workflows, agentic service booking, freelancer
+                  career intelligence, a production-hardened SaaS product, document intelligence,
+                  and classical ML — with the evaluation evidence for each. My math background means I
                   reason through the systems I build instead of just wiring APIs together. Stack:
                   Python, FastAPI, scikit-learn, OpenAI/Gemini, Retell AI, React, Supabase/Firebase,
                   and Cloud Run.
@@ -344,9 +396,9 @@ function Landing() {
           <Reveal>
             <SectionHead
               label="Projects I've built"
-              title="Five AI systems,"
-              highlight="from classical ML to production AI"
-              sub="The featured projects show a deliberate range: model evaluation, reliable extraction, voice workflows, live-data systems, and secure AI products."
+              title="Seven AI systems,"
+              highlight="from agentic automation to classical ML"
+              sub="Agentic and automation systems first — voice workflows, service booking, live-data products — then extraction and classical ML with measured results."
             />
           </Reveal>
           <div className="preview-grid">
@@ -380,9 +432,20 @@ function Landing() {
                       </>
                     )}
                   </p>
-                  <Link className="preview-link" to="/work">
-                    Read case study →
-                  </Link>
+                  {p.repo ? (
+                    <a
+                      className="preview-link"
+                      href={p.repo}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                    >
+                      View on GitHub →
+                    </a>
+                  ) : (
+                    <Link className="preview-link" to="/work">
+                      Read case study →
+                    </Link>
+                  )}
                 </article>
               </Reveal>
             ))}
@@ -397,6 +460,46 @@ function Landing() {
               </Link>
             </div>
           </Reveal>
+        </div>
+      </section>
+
+      {/* ── EXPERIENCE + CERTIFICATIONS ── */}
+      <section className="landing-section landing-experience">
+        <div className="container">
+          <Reveal>
+            <SectionHead label="Experience" title="AI Engineering Intern," highlight="FlyRank" />
+          </Reveal>
+          <div className="experience-card">
+            <p className="experience-meta">
+              Backend AI &amp; ML Engineering Tracks · 6 Jul 2026 – 30 Aug 2026
+            </p>
+            <ul className="experience-list">
+              {experience.map((item) => (
+                <li key={item.title}>
+                  <strong>{item.title}</strong> — {item.text}
+                  {item.links?.map((link) => (
+                    <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+                      {link.label} ↗
+                    </a>
+                  ))}
+                </li>
+              ))}
+            </ul>
+          </div>
+          <p className="section-label cert-label">Certifications</p>
+          <ul className="cert-strip">
+            {certifications.map((c) => (
+              <li key={c.label}>
+                {c.href ? (
+                  <a href={c.href} target="_blank" rel="noopener noreferrer">
+                    {c.label} ↗
+                  </a>
+                ) : (
+                  <span>{c.label}</span>
+                )}
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
@@ -488,6 +591,12 @@ function Landing() {
                 ✉ Send a message instead
               </Link>
             </div>
+            <p className="cta-contact">
+              <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
+                Book a 30-minute intro call
+              </a>{' '}
+              or email <a href={`mailto:${CONTACT_EMAIL}`}>{CONTACT_EMAIL}</a>
+            </p>
           </div>
         </div>
       </section>
