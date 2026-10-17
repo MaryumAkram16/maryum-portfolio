@@ -105,8 +105,7 @@
 /* Fallback: if JS never fires the entry animation, always show content */
 @supports (animation-timeline: view()) {
   .hero-visual,
-  .hero-badge,
-  .hero-greeting,
+  .hero-name,
   .hero-title,
   .hero-sub,
   .hero-actions,
@@ -120,8 +119,7 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-visual,
-  .hero-badge,
-  .hero-greeting,
+  .hero-name,
   .hero-title,
   .hero-sub,
   .hero-actions,
@@ -144,8 +142,7 @@
 
 /* JS-driven fallback: force visibility when script class is added or after a delay */
 .js-ready .hero-visual,
-.js-ready .hero-badge,
-.js-ready .hero-greeting,
+.js-ready .hero-name,
 .js-ready .hero-title,
 .js-ready .hero-sub,
 .js-ready .hero-actions,
@@ -164,63 +161,43 @@
   will-change: transform;
 }
 
-.hero-badge {
-  display: inline-flex;
-  align-items: center;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  background: var(--accent-glow-soft);
-  border: 1px solid var(--accent-glow);
-  border-radius: 999px;
-  padding: 6px 18px;
-  margin-bottom: 32px;
-  opacity: 0;
-  transform: translateY(20px);
-  transition: all 0.7s ease;
-}
-
-.hero-badge.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.hero-badge-urdu,
-.hero-badge-role {
-  font-size: 0.8rem;
-  font-weight: 700;
-  color: #2fb5a2;
-}
-
-.hero-badge-sep {
-  width: 1px;
-  height: 14px;
-  background: var(--accent-glow);
-}
-
-.hero-badge-en,
-.hero-badge-loc {
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  text-transform: uppercase;
+/* Primary headline: greeting + name. Solid teal accent (6.2:1 on the hero navy).
+   Sizing keeps "I'm Maryum Akram," (~9.5em) on one line in the hero column
+   from 360px up: 2rem fits the 320px+ mobile column, 4.2vw fits the
+   half-width desktop column, capped at 4.5rem. */
+.hero-name {
+  font-family: 'Playfair Display', var(--font);
+  font-weight: 900;
+  font-size: clamp(2rem, 4.2vw, 4.5rem);
+  line-height: 1.08;
+  margin: 0 0 20px;
   color: var(--text);
-  opacity: 0.75;
-}
-
-.hero-greeting {
-  margin: 0 0 18px;
-  font-size: 1.05rem;
-  font-weight: 600;
-  color: #2fb5a2;
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(30px);
   transition: all 0.8s ease 0.05s;
 }
 
-.hero-greeting.visible {
+/* Two-column hero: column is (100vw - 184px) / 2, so size to ~1/19.5 of that
+   width to keep "I'm Maryum Akram," on one line at tablet widths too */
+@media (min-width: 761px) {
+  .hero-name {
+    font-size: clamp(1.75rem, calc((100vw - 184px) / 19.5), 4.5rem);
+  }
+}
+
+.hero-name.visible {
   opacity: 1;
   transform: translateY(0);
+}
+
+.hero-name-accent {
+  color: #2fb5a2;
+  white-space: nowrap;
+}
+
+/* Keep "an AI Engineer." together so the line breaks after "Maryum Akram," */
+.hero-nowrap {
+  white-space: nowrap;
 }
 
 .hero-stats {
@@ -279,9 +256,9 @@
 
 .hero-proof {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   gap: 10px;
-  flex-wrap: wrap;
+  margin-top: 12px;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 0.4s;
@@ -293,6 +270,8 @@
 }
 
 .proof-dot {
+  flex: none;
+  margin-top: 7px;
   width: 8px;
   height: 8px;
   border-radius: 50%;
@@ -311,16 +290,18 @@
   }
 }
 
+/* #b8c2cc is 8.7:1+ on the hero navy (WCAG AA) */
 .proof-text {
-  font-size: 0.78rem;
-  color: rgba(250, 250, 248, 0.6);
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #b8c2cc;
 }
 
 .hero-title {
   font-family: 'Playfair Display', var(--font);
   font-weight: 900;
-  font-size: clamp(2.2rem, 5.4vw, 3.8rem);
-  line-height: 1.12;
+  font-size: clamp(1.3rem, 2.8vw, 2.9rem);
+  line-height: 1.15;
   margin: 0 0 24px;
   max-width: 860px;
   opacity: 0;
@@ -931,7 +912,6 @@
 .hero-proof .section-label {
   color: #22a08e;
 }
-.landing-hero .hero-badge,
 .landing-why .section-sub {
   color: inherit;
 }
@@ -1283,6 +1263,14 @@
 @media (max-width: 480px) {
   .hero-visual {
     max-width: 260px;
+  }
+  .proof-text {
+    font-size: 0.8125rem;
+  }
+  /* Section padding already gives a 20px gutter; drop the extra 48px so the
+     headline has room on phones */
+  .landing-hero .container {
+    padding: 0;
   }
   .hero-stats {
     gap: 28px;

@@ -140,20 +140,17 @@ function Landing() {
 
         <div className="landing-hero-inner container hero-grid">
           <div className="hero-text">
-            <div className={`hero-badge ${heroVisible ? 'visible' : ''}`}>
-              <span className="hero-badge-role">AI Engineer</span>
-              <span className="hero-badge-sep" />
-              <span className="hero-badge-loc">Lahore, Pakistan</span>
-            </div>
+            <h1 className={`hero-name ${heroVisible ? 'visible' : ''}`}>
+              Assalam o alaikum,
+              <br />
+              I&apos;m <span className="hero-name-accent">Maryum Akram</span>,{' '}
+              <span className="hero-nowrap">an AI Engineer.</span>
+            </h1>
 
-            <p className={`hero-greeting ${heroVisible ? 'visible' : ''}`}>
-              Assalam o alaikum, I&apos;m Maryum Akram, an AI Engineer.
-            </p>
-
-            <h1 className={`hero-title ${heroVisible ? 'visible' : ''}`}>
+            <p className={`hero-title ${heroVisible ? 'visible' : ''}`}>
               I build reliable AI systems from{' '}
               <span className="hero-gradient">model evaluation to production.</span>
-            </h1>
+            </p>
 
             <p className={`hero-sub ${heroVisible ? 'visible' : ''}`}>
               Agentic automation workflows, LLM products, and classical ML models — with the
