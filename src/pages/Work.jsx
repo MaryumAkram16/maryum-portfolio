@@ -247,6 +247,27 @@ function CaseStudy({
   )
 }
 
+// Work-only summary cards; facts taken from each repo's README.
+const lumina = {
+  title: 'Lumina',
+  desc: 'E-commerce voice support agent',
+  tags: ['Retell AI', 'n8n', 'Google Sheets'],
+  text: 'Handles order tracking, cancellations, returns, and refund eligibility by voice — Retell AI runs the call while n8n workflows look up orders in Google Sheets and apply the business rules.',
+  links: [
+    { label: 'View on GitHub', href: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent' },
+    { label: 'Watch demo', href: 'https://youtu.be/P8TuDYV7eaY' },
+  ],
+}
+
+const complaintClassifier = {
+  title: 'Consumer Complaint Classifier',
+  desc: 'Complaint triage text classification',
+  tags: ['scikit-learn', 'Out-of-core Training', 'Streamlit'],
+  text: 'Routes CFPB complaint narratives to one of 9 product categories, trained out-of-core on 3.8M rows with HashingVectorizer and SGDClassifier to fit in 12GB of RAM.',
+  result: '85.3% accuracy · weighted F1 0.86 · macro F1 0.72',
+  repo: 'https://github.com/MaryumAkram16/Consumer-Complaint-Product-Classification',
+}
+
 const projectByTitle = (title) => projects.find((p) => p.title === title)
 const flyrankProject = (title) => experience.find((e) => e.title === title)
 
@@ -422,12 +443,12 @@ function Work() {
         </ProjectGroup>
 
         <ProjectGroup id="automations" title="n8n & voice automations">
-          <CompactCards items={[{ title: 'Lumina' }]} />
+          <CompactCards items={[lumina]} />
         </ProjectGroup>
 
         <ProjectGroup id="ml-projects" title="ML projects">
           <CompactCards
-            items={[projectByTitle('AI-Human Text Detector'), { title: 'Consumer Complaint Classifier' }]}
+            items={[projectByTitle('AI-Human Text Detector'), complaintClassifier]}
           />
           <CaseStudy
             title="Resume Screener"

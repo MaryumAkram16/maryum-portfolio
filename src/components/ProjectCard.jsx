@@ -24,7 +24,7 @@ function ProjectCard({ project, flagship = false, children }) {
               <span className="preview-result-icon" aria-hidden="true">
                 ✓
               </span>
-              {result}
+              <span className="preview-result-text">{result}</span>
             </>
           )}
           {badge && (
