@@ -1,6 +1,6 @@
 # Maryum Akram — Portfolio
 
-Personal portfolio site for Maryum Akram, AI Automation Engineer. Live at
+Personal portfolio site for Maryum Akram, AI Engineer. Live at
 [maryumakram16.github.io/maryum-portfolio](https://maryumakram16.github.io/maryum-portfolio/).
 
 Three pages — Landing, Work, Contact — built around one claim ("I turn slow, manual business
