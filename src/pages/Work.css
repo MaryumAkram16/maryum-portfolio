@@ -1,6 +1,15 @@
+/* One shared container for the whole page */
+.work-container {
+  width: 100%;
+  max-width: 1200px;
+  margin-inline: auto;
+  padding-inline: 24px;
+  box-sizing: border-box;
+}
+
 .work-head {
   padding-top: 24px;
-  margin-bottom: 48px;
+  text-align: left;
 }
 
 .section-label {
@@ -27,41 +36,56 @@
   opacity: 0.85;
 }
 
-.work .section-head h1 {
+.work-head h1 {
   margin: 0;
-  font-size: clamp(1.9rem, 4.5vw, 2.75rem);
-  line-height: 1.2;
+  font-size: clamp(2.5rem, 5vw, 4rem);
+  line-height: 1.1;
   font-family: 'Playfair Display', Georgia, serif;
 }
 
+/* #b8c2cc is 8.7:1 on the page navy */
+.work-head .section-sub {
+  margin: 18px 0 0;
+  max-width: 65ch;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  color: #b8c2cc;
+  opacity: 1;
+}
+
+/* Every card has the same structure and spacing; a full-width divider sits
+   between cards (the first card sits under the section heading's divider) */
 .case-card {
   padding: 48px 0;
   position: relative;
 }
 
-.case-card::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background: linear-gradient(90deg, var(--accent-glow) 0%, transparent 60%);
+.case-card + .case-card {
+  border-top: 1px solid rgba(250, 250, 248, 0.1);
 }
 
-.case-card:first-of-type::before {
-  display: none;
+.case-main {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 24px;
 }
 
-.case-card:first-of-type {
-  padding-top: 0;
+.case-body {
+  min-width: 0;
 }
 
 .case-thumb-wrap {
-  margin: 0 0 24px;
+  margin: 0;
   border-radius: 6px;
   overflow: hidden;
-  max-width: 640px;
+}
+
+@media (min-width: 1024px) {
+  .case-main {
+    grid-template-columns: minmax(0, 45fr) minmax(0, 55fr);
+    gap: 48px;
+    align-items: start;
+  }
 }
 
 .case-thumb {
@@ -81,32 +105,18 @@
 
 /* ── Project groups ── */
 .work-group {
-  padding-bottom: 32px;
+  padding-top: clamp(72px, 8vw, 96px);
 }
 
 .work-group-title {
-  margin: 0 0 32px;
-  padding-bottom: 12px;
+  margin: 0;
+  padding-bottom: 14px;
   border-bottom: 1px solid rgba(47, 181, 162, 0.3);
-  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  font-family: 'Playfair Display', Georgia, serif;
+  font-size: clamp(1.75rem, 3vw, 2.5rem);
   font-weight: 700;
-  letter-spacing: 0.04em;
+  line-height: 1.2;
   color: #5fd8c5;
-}
-
-.work-card-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 22px;
-  align-items: start;
-  margin: 0 0 48px;
-}
-
-.work-card-links {
-  margin-top: auto;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 16px;
 }
 
 /* AA contrast: #0d7a6e on dark navy only reaches ~3:1 — use brighter teal */
@@ -120,7 +130,7 @@
 }
 
 .case-section-head {
-  margin: 24px 0 20px;
+  margin: 0 0 20px;
 }
 
 .case-section-head .section-label {
@@ -155,7 +165,6 @@
 
 .psr-list {
   margin: 0 0 20px;
-  max-width: 640px;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -191,6 +200,8 @@
 
 .proof-line {
   margin: 0 0 20px;
+  max-width: 100%;
+  overflow-wrap: anywhere;
   font-weight: 700;
   color: #22a08e;
 }
@@ -276,7 +287,6 @@
   border-left: 3px solid var(--accent);
   font-size: 0.85rem;
   opacity: 0.9;
-  max-width: 640px;
 }
 
 .deep-dive h3 {
@@ -291,7 +301,7 @@
 
 .deep-dive p {
   margin: 0;
-  max-width: 640px;
+  max-width: 75ch;
   font-size: 0.9rem;
   line-height: 1.6;
   opacity: 0.85;
@@ -304,8 +314,7 @@
 
 /* ── Interactive case-study previews ─────────────────────────────────────── */
 .interactive-preview {
-  max-width: 760px;
-  margin: 26px 0 30px;
+  margin: 32px 0 30px;
   padding: 24px;
   border: 1px solid rgba(47, 181, 162, 0.28);
   border-radius: 14px;
@@ -342,7 +351,7 @@
 .resume-thumb-metrics b { color: #c7d6ed; font-size: 0.9rem; }
 .resume-thumb-metrics span { margin-top: 3px; color: #8aa7d4; font-size: 0.62rem; }
 
-.evaluation-panel { max-width: 640px; margin: 22px 0 26px; padding: 16px; border: 1px solid rgba(81, 196, 177, 0.2); border-radius: 9px; background: rgba(81, 196, 177, 0.055); }
+.evaluation-panel { margin: 22px 0 0; padding: 16px; border: 1px solid rgba(81, 196, 177, 0.2); border-radius: 9px; background: rgba(81, 196, 177, 0.055); }
 .evaluation-copy { display: grid; gap: 6px; }
 .evaluation-label { margin: 0; color: #58c8b4; font-size: 0.72rem; font-weight: 800; letter-spacing: 0.12em; text-transform: uppercase; }
 .evaluation-copy p:last-child { margin: 0; color: #c4d5d2; font-size: 0.84rem; line-height: 1.55; }
@@ -389,7 +398,7 @@
 .receipt-thumb-footer { display: flex; justify-content: space-between; gap: 12px; color: #a8c7c2; font-size: 0.72rem; }
 .receipt-check { color: #58c8b4; font-weight: 800; }
 
-.receipt-architecture { max-width: 720px; display: grid; gap: 6px; margin: 18px 0 28px; }
+.receipt-architecture { display: grid; gap: 6px; margin: 18px 0 28px; }
 .receipt-arch-row { box-sizing: border-box; width: 100%; padding: 13px 16px; border: 1px solid rgba(81, 196, 177, 0.26); border-radius: 7px; background: rgba(45, 175, 156, 0.1); text-align: center; font-size: 0.82rem; }
 .receipt-arch-primary, .receipt-arch-output { color: #d9f3ec; font-weight: 700; background: rgba(45, 175, 156, 0.18); }
 .receipt-arch-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 8px; padding: 0; border: 0; background: transparent; }

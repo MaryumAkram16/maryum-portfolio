@@ -35,6 +35,54 @@ const DEMOS = {
       { id: 'reports', label: 'PDF reports' },
     ],
   },
+  gharfix: {
+    title: 'Mixed-language request → ranked provider → booked job.',
+    tabs: [
+      { id: 'intent', label: 'Request to intent' },
+      { id: 'ranking', label: 'Provider ranking' },
+      { id: 'lifecycle', label: 'Booking lifecycle' },
+    ],
+  },
+  lumina: {
+    title: 'Voice question → order lookup → spoken answer.',
+    tabs: [
+      { id: 'call', label: 'Call to intent' },
+      { id: 'lookup', label: 'Order lookup' },
+      { id: 'analysis', label: 'Post-call analysis' },
+    ],
+  },
+  detector: {
+    title: 'Pasted text → stylometric features → three model verdicts.',
+    tabs: [
+      { id: 'models', label: 'Model comparison' },
+      { id: 'features', label: 'Features' },
+      { id: 'shift', label: 'Domain shift' },
+    ],
+  },
+  complaint: {
+    title: 'Complaint text → hashed features → product category.',
+    tabs: [
+      { id: 'prediction', label: 'Prediction' },
+      { id: 'weak', label: 'Weakest classes' },
+      { id: 'failure', label: 'Failure trace' },
+    ],
+  },
+  refresh: {
+    title: 'Page signals → baseline and models → ranked review queue.',
+    tabs: [
+      { id: 'compare', label: 'Baseline vs models' },
+      { id: 'split', label: 'Split check' },
+      { id: 'playbook', label: 'Action playbook' },
+    ],
+  },
+  widget: {
+    title: 'Public submission → defenses → stored lead → live dashboard.',
+    tabs: [
+      { id: 'path', label: 'Submission path' },
+      { id: 'bots', label: 'Bot defense' },
+      { id: 'dash', label: 'Dashboard' },
+    ],
+  },
   resume: {
     title: 'Resume text → category prediction → job-fit score.',
     tabs: [
@@ -68,6 +116,42 @@ function ReceiptPanel({ tab }) {
   return <div className="demo-extraction"><div className="demo-extraction-column"><span>Input text</span><code>Cafe Aroma<br />12 Jun 2025<br />Total: PKR 1082</code></div><div className="demo-bio-arrow">→</div><div className="demo-extraction-column valid"><span>Validated JSON</span><code>vendor: Cafe Aroma<br />total_amount: 1082<br />confidence: 0.95<br />needs_review: false</code></div></div>
 }
 
+function GharFixPanel({ tab }) {
+  if (tab === 'ranking') return <div className="demo-calibration"><div className="demo-stat"><span>Provider ranking</span><strong>7 weighted factors</strong><small>Real Google Maps providers scored per request</small></div><Bar label="Distance / travel time" value={20} /><Bar label="Availability" value={20} /><Bar label="Reviews + recency" value={15} tone="gold" /><Bar label="Reliability" value={15} /><Bar label="Skill match" value={15} /><Bar label="Price vs. budget" value={10} /><Bar label="Cancellation rate" value={5} /></div>
+  if (tab === 'lifecycle') return <div className="demo-panel-grid"><div className="demo-stat"><span>Booking</span><strong>Confirmed</strong><small>Slot re-checked before confirming</small></div><div className="demo-stat"><span>Low rating</span><strong>≤ 2 stars</strong><small>Escalates to dispute workflow</small></div><div className="demo-timeline"><span className="demo-dot active" />Booked <b>→</b><span className="demo-dot active" />En route <b>→</b><span className="demo-dot active" />Completed <b>→</b><span className="demo-dot" />Feedback</div></div>
+  return <div className="demo-extraction"><div className="demo-extraction-column"><span>Input (Roman Urdu)</span><code>AC theek karwana hai,<br />kal shaam, Lahore</code></div><div className="demo-bio-arrow">→</div><div className="demo-extraction-column valid"><span>Extracted intent</span><code>service: ac_repair<br />language: roman_urdu<br />when: tomorrow evening<br />clarify_needed: false</code></div></div>
+}
+
+function LuminaPanel({ tab }) {
+  if (tab === 'lookup') return <div className="demo-panel-grid"><div className="demo-stat"><span>Intent</span><strong>track_order</strong><small>Webhook payload: order_id, phone, email</small></div><div className="demo-stat"><span>Google Sheets</span><strong>Row found</strong><small>Status, carrier, delivery date returned</small></div><div className="demo-timeline"><span className="demo-dot active" />Webhook <b>→</b><span className="demo-dot active" />Sheets lookup <b>→</b><span className="demo-dot active" />Business rules <b>→</b><span className="demo-dot" />Spoken reply</div></div>
+  if (tab === 'analysis') return <div className="demo-panel-grid"><div className="demo-stat"><span>Gemini 2.5 Flash</span><strong>Post-call analysis</strong><small>Sentiment and call metrics after each call</small></div><div className="demo-stat"><span>Cost model</span><strong>~$81 / month</strong><small>Estimate for 100–500 calls</small></div><div className="demo-timeline"><span className="demo-dot active" />Call ends <b>→</b><span className="demo-dot active" />Transcript analyzed <b>→</b><span className="demo-dot" />Metrics stored</div></div>
+  return <div className="demo-conversation"><div className="demo-status"><span className="demo-pulse" /> Voice order tracking · sample data</div><div className="demo-bubble assistant">Hi, I am Lumina. How can I help with your order?</div><div className="demo-bubble user">Where is my order?</div><div className="demo-bubble assistant">Your order has shipped. I can read you the carrier and delivery date.</div></div>
+}
+
+function DetectorPanel({ tab }) {
+  if (tab === 'features') return <div className="demo-resume-results"><div className="demo-resume-result-head"><span>Stylometric features</span><strong>4 engineered signals</strong><small>Plus TF-IDF unigrams and bigrams, capped at 5,000</small></div><div className="demo-keywords"><span>word_count</span><span>sentence_len_std</span><span>lexical_diversity</span><span>punct_density</span></div></div>
+  if (tab === 'shift') return <div className="demo-panel-grid"><div className="demo-stat"><span>Dataset shortcut</span><strong>word_count</strong><small>Second in feature importance, partly dataset-specific</small></div><div className="demo-stat"><span>Informal test</span><strong>Misclassified</strong><small>Professional bio, attributed to domain shift</small></div><div className="demo-timeline"><span className="demo-dot active" />One Kaggle dataset <b>→</b><span className="demo-dot active" />Strong held-out score <b>→</b><span className="demo-dot" />Not proven on other sources</div></div>
+  return <div className="demo-model-table"><div><span>Model</span><span>Accuracy</span><span>F1</span></div><div><strong>Logistic Regression</strong><b>99.36%</b><b>99.36%</b></div><div><span>Random Forest</span><b>99.15%</b><b>99.15%</b></div><div><span>Naive Bayes</span><b>95.47%</b><b>95.45%</b></div></div>
+}
+
+function ComplaintPanel({ tab }) {
+  if (tab === 'weak') return <div className="demo-calibration"><div className="demo-stat"><span>F1 by class</span><strong>Strong to weak</strong><small>Weakest classes overlap semantically with others</small></div><Bar label="Credit reporting" value={92} /><Bar label="Mortgage" value={85} /><Bar label="Vehicle loan or lease" value={55} tone="gold" /><Bar label="Payday, title, personal loan" value={44} tone="gold" /></div>
+  if (tab === 'failure') return <div className="demo-bio"><div className="demo-bio-before"><span>Spoken Urdu complaint about a fraudulent card charge</span>Speech recognition mistranscribed the key phrase before translation</div><div className="demo-bio-arrow">↓</div><div className="demo-bio-after"><span>Classified as Debt collection · 41.4%</span>The classifier handled its input correctly. The error started in speech-to-text, so the fraud signal never reached it.</div></div>
+  return <div className="demo-calibration"><div className="demo-stat"><span>Predicted category</span><strong>Credit card or prepaid card</strong><small>Softmax over raw decision scores · sample</small></div><Bar label="Credit card or prepaid card" value={62} /><Bar label="Bank account or service" value={18} tone="gold" /><Bar label="Debt collection" value={9} /></div>
+}
+
+function RefreshPanel({ tab }) {
+  if (tab === 'split') return <div className="demo-panel-grid"><div className="demo-stat"><span>Client-holdout split</span><strong>P@50 0.76</strong><small>Random Forest, 0 client overlap</small></div><div className="demo-stat"><span>Naive random split</span><strong>P@50 0.88</strong><small>27 overlapping clients, inflated by memorization</small></div><div className="demo-timeline"><span className="demo-dot active" />Group by client <b>→</b><span className="demo-dot active" />22 train, 6 test clients <b>→</b><span className="demo-dot active" />Honest comparison</div></div>
+  if (tab === 'playbook') return <div className="demo-panel-grid"><div className="demo-stat"><span>monitor</span><strong>12,177</strong><small>No action this review cycle</small></div><div className="demo-stat"><span>review_for_refresh</span><strong>4,003</strong><small>Real CTR gap plus moderate staleness</small></div><div className="demo-stat"><span>flag_for_tracking_audit</span><strong>546</strong><small>Top position, 0% CTR: likely tracking, not content</small></div></div>
+  return <div className="demo-model-table"><div><span>Method</span><span>P@50</span><span>Type</span></div><div><strong>Baseline rule</strong><b>0.90</b><b>rule</b></div><div><span>Logistic Regression</span><b>0.92</b><b>model</b></div><div><span>Random Forest</span><b>0.76</b><b>model</b></div></div>
+}
+
+function WidgetPanel({ tab }) {
+  if (tab === 'bots') return <div className="demo-panel-grid"><div className="demo-stat"><span>Naive bots</span><strong>100% blocked</strong><small>Proof-of-work challenge</small></div><div className="demo-stat"><span>Real visitors</span><strong>0% false positives</strong><small>About 117 ms average solve cost</small></div><div className="demo-timeline"><span className="demo-dot active" />Challenge issued <b>→</b><span className="demo-dot active" />Solved by browser <b>→</b><span className="demo-dot active" />Submission accepted</div></div>
+  if (tab === 'dash') return <div className="demo-panel-grid"><div className="demo-stat"><span>Dashboard</span><strong>Server-rendered</strong><small>Submission data HTML-escaped against stored XSS</small></div><div className="demo-stat"><span>Live updates</span><strong>SSE</strong><small>New leads appear without a refresh</small></div><div className="demo-timeline"><span className="demo-dot active" />Submission stored <b>→</b><span className="demo-dot active" />Event pushed <b>→</b><span className="demo-dot active" />Table updates</div></div>
+  return <div className="demo-panel-grid"><div className="demo-stat"><span>Bad payload</span><strong>4xx, not 500</strong><small>Validation rejects malformed input</small></div><div className="demo-stat"><span>Flood</span><strong>429, then recovers</strong><small>Rate limiting keeps the service up</small></div><div className="demo-timeline"><span className="demo-dot active" />Validate <b>→</b><span className="demo-dot active" />Rate limit <b>→</b><span className="demo-dot active" />Geo A then B <b>→</b><span className="demo-dot active" />Store <b>→</b><span className="demo-dot" />Email (non-blocking)</div></div>
+}
+
 function ResumePanel({ tab }) {
   if (tab === 'comparison') return <div className="demo-model-table"><div><span>Model</span><span>MAE</span><span>R²</span></div><div><strong>Gradient Boosting</strong><b>8.69</b><b>0.814</b></div><div><span>Tuned Random Forest</span><b>8.98</b><b>0.801</b></div><div><span>Random Forest</span><b>9.04</b><b>0.799</b></div></div>
   if (tab === 'test') return <div className="demo-panel-grid"><div className="demo-stat"><span>Genuine HR posting</span><strong>51.8</strong><small>Moderate fit</small></div><div className="demo-stat"><span>Unrelated Chef posting</span><strong>2.8</strong><small>Weak fit</small></div><div className="demo-timeline"><span className="demo-dot active" />Same resume <b>→</b><span className="demo-dot active" />Two job descriptions <b>→</b><span className="demo-dot active" />~49-point separation</div></div>
@@ -84,5 +168,5 @@ function SkillSyncPanel({ tab }) {
 export default function InteractivePreview({ type }) {
   const demo = DEMOS[type]
   const [tab, setTab] = useState(demo.tabs[0].id)
-  return <section className={`interactive-preview demo-${type}`} aria-label="Interactive case study preview using sample data"><div className="demo-header"><div><p className="demo-eyebrow">Interactive preview · repository features</p><h3>{demo.title}</h3></div><span className="demo-live"><span className="demo-pulse" /> Sample data</span></div><div className="demo-tabs" role="tablist" aria-label="Project feature modules">{demo.tabs.map((item) => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>{item.label}</button>)}</div><div className="demo-content">{type === 'medilens' && <MediLensPanel tab={tab} />}{type === 'roshanai' && <RoshanPanel tab={tab} />}{type === 'skillsync' && <SkillSyncPanel tab={tab} />}{type === 'receipt' && <ReceiptPanel tab={tab} />}{type === 'resume' && <ResumePanel tab={tab} />}</div><p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p></section>
+  return <section className={`interactive-preview demo-${type}`} aria-label="Interactive case study preview using sample data"><div className="demo-header"><div><p className="demo-eyebrow">Interactive preview · repository features</p><h3>{demo.title}</h3></div><span className="demo-live"><span className="demo-pulse" /> Sample data</span></div><div className="demo-tabs" role="tablist" aria-label="Project feature modules">{demo.tabs.map((item) => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>{item.label}</button>)}</div><div className="demo-content">{type === 'medilens' && <MediLensPanel tab={tab} />}{type === 'roshanai' && <RoshanPanel tab={tab} />}{type === 'skillsync' && <SkillSyncPanel tab={tab} />}{type === 'receipt' && <ReceiptPanel tab={tab} />}{type === 'resume' && <ResumePanel tab={tab} />}{type === 'gharfix' && <GharFixPanel tab={tab} />}{type === 'lumina' && <LuminaPanel tab={tab} />}{type === 'detector' && <DetectorPanel tab={tab} />}{type === 'complaint' && <ComplaintPanel tab={tab} />}{type === 'refresh' && <RefreshPanel tab={tab} />}{type === 'widget' && <WidgetPanel tab={tab} />}</div><p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p></section>
 }
