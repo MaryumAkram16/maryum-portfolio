@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom'
 import { BOOKING_URL, CONTACT_EMAIL } from '../siteConfig.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import OrbitAnimation from '../components/OrbitAnimation.jsx'
+import ProjectCard from '../components/ProjectCard.jsx'
+import { projects, experience, certifications } from './projectData.js'
 import './Landing.css'
 
 // ── Animated counter hook (scroll-triggered) ──
@@ -62,7 +64,7 @@ function SectionHead({ label, title, highlight, sub }) {
 }
 
 function Landing() {
-  usePageTitle('Maryum Akram — AI Automation Engineer | Lahore, Pakistan')
+  usePageTitle('Maryum Akram — AI Engineer | Lahore, Pakistan')
   const [heroVisible, setHeroVisible] = useState(false)
   const [activeStep, setActiveStep] = useState(0)
 
@@ -103,97 +105,6 @@ function Landing() {
     },
   ]
 
-  const projects = [
-    {
-      title: 'MediLens',
-      desc: 'Hospital intake automation',
-      tags: ['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard'],
-      text: 'A voice agent books, reschedules, and cancels appointments with no staff involved — plus complaint management and an admin dashboard.',
-      result: 'Independently tested by a professor via live link',
-    },
-    {
-      title: 'GharFix',
-      desc: 'Agentic local-services booking',
-      tags: ['Agentic Orchestration', 'n8n', 'Multilingual'],
-      text: 'Books local service providers from English, Urdu, or Roman Urdu requests — an Antigravity orchestrator delegates matching, booking, quality checks, disputes, and rescheduling to n8n workflows.',
-      result: '7-factor ranking of real Google Maps providers',
-      badge: 'AI Seekho 2026 — Silver Tier, Phase 2 Submission',
-      repo: 'https://github.com/MaryumAkram16/GharFix',
-    },
-    {
-      title: 'RoshanAI',
-      desc: 'Freelancer career intelligence',
-      tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
-      text: 'Pulls live job market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals.',
-      result: '3 independent users · fully solo build',
-      badge: 'AI Seekho 2026 — Silver Tier, Phase 1 Submission',
-    },
-    {
-      title: 'SkillSync AI',
-      desc: 'Career discovery pipeline',
-      tags: ['Dashboard', 'Radar', 'Assessment'],
-      text: 'Adaptive skill assessment matched against live market data, with real security, rate limiting, and audit logging in production.',
-      result: 'Externally recorded: 9 real users · 94/94 CI tests passing',
-    },
-    {
-      title: 'Receipt Extractor',
-      desc: 'Reliable document intelligence API',
-      tags: ['Structured Extraction', 'Evaluation', 'FastAPI'],
-      text: 'A strict-schema extraction service with repair limits, needs-review routing, background jobs, and PDF reporting.',
-      result: '8/8 hand-labelled evaluation cases passed',
-    },
-    {
-      title: 'Resume Screener',
-      desc: 'Classical ML for job-fit analysis',
-      tags: ['scikit-learn', 'NLP', 'Model Evaluation'],
-      text: 'A two-stage pipeline that predicts resume category and scores suitability against a specific job description.',
-      result: '68.0% accuracy · MAE 8.69 · R² 0.814',
-    },
-    {
-      title: 'AI-Human Text Detector',
-      desc: 'Classical ML text classification',
-      tags: ['scikit-learn', 'Stylometry', 'Model Comparison'],
-      text: 'Separates AI-generated from human-written text with TF-IDF and stylometric features, comparing logistic regression, random forest, and naive Bayes.',
-      result: '99.36% accuracy on 487K essays',
-      repo: 'https://github.com/MaryumAkram16/AI-Human-Text-Detector',
-    },
-  ]
-
-  const experience = [
-    {
-      title: 'Receipt Extractor',
-      text: 'strict-schema document intelligence API (featured above).',
-    },
-    {
-      title: 'Content Refresh Scoring',
-      text: 'ML capstone on a client-holdout test; a rule baseline (P@50 0.90) beat Random Forest (0.76).',
-      links: [
-        { label: 'Repo', href: 'https://github.com/MaryumAkram16/flyrank-ml-internship' },
-        { label: 'Paper', href: 'https://maryumakram16.github.io/flyrank-ml-internship/' },
-      ],
-    },
-    {
-      title: 'Embeddable Widget Platform',
-      text: 'multi-tenant lead capture with proof-of-work bot defense; 47/47 tests passing.',
-      links: [
-        { label: 'Repo', href: 'https://github.com/MaryumAkram16/flyrank-capstone-widget-platform' },
-      ],
-    },
-  ]
-
-  const certifications = [
-    {
-      label: 'Azure AI Apps and Agents Developer Associate (AI-103)',
-      href: 'https://learn.microsoft.com/api/credentials/share/en-gb/MaryumAkram-6047/5EEC173DDEF1BD6?sharingId=8A421E061C48308C',
-    },
-    {
-      label: 'Azure AI Fundamentals (AI-900)',
-      href: 'https://learn.microsoft.com/api/credentials/share/en-gb/MaryumAkram-6047/11B785908D7F25E?sharingId=8A421E061C48308C',
-    },
-    { label: 'EF SET B2', href: 'https://cert.efset.org/TUdWSk' },
-    { label: 'AI Seekho 2026 Silver Tier' },
-  ]
-
   const steps = [
     { label: 'Browse case studies', sub: 'Receipt Extractor · Resume Screener · MediLens · RoshanAI · SkillSync' },
     { label: 'Watch demo videos', sub: 'Real product walkthroughs' },
@@ -230,13 +141,13 @@ function Landing() {
         <div className="landing-hero-inner container hero-grid">
           <div className="hero-text">
             <div className={`hero-badge ${heroVisible ? 'visible' : ''}`}>
-              <span className="hero-badge-role">AI Automation Engineer</span>
+              <span className="hero-badge-role">AI Engineer</span>
               <span className="hero-badge-sep" />
               <span className="hero-badge-loc">Lahore, Pakistan</span>
             </div>
 
             <p className={`hero-greeting ${heroVisible ? 'visible' : ''}`}>
-              Assalam-o-Alaikum 👋
+              Assalam o alaikum, I&apos;m Maryum Akram, an AI Engineer.
             </p>
 
             <h1 className={`hero-title ${heroVisible ? 'visible' : ''}`}>
@@ -341,12 +252,12 @@ function Landing() {
               <div className="about-text">
                 <p>
                   <strong>
-                    Self-taught AI automation engineer, ~8 months in. BS Mathematics, no formal
+                    Self-taught AI engineer, ~1 year in. BS Mathematics, no formal
                     CS background. Based in Lahore, Pakistan.
                   </strong>
                 </p>
                 <p>
-                  In eight months I've gone from following automation tutorials to shipping seven
+                  In one year I've gone from following automation tutorials to shipping seven
                   AI systems — hospital voice workflows, agentic service booking, freelancer
                   career intelligence, a production-hardened SaaS product, document intelligence,
                   and classical ML — with the evaluation evidence for each. My math background means I
@@ -404,34 +315,7 @@ function Landing() {
           <div className="preview-grid">
             {projects.map((p, i) => (
               <Reveal key={p.title} delay={i * 90}>
-                <article className={`preview-card ${i < 2 ? 'preview-card-flagship' : ''}`}>
-                  <div className="tag-row">
-                    {p.tags.map((tag) => (
-                      <span className="tag" key={tag}>
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                  <h3>{p.title}</h3>
-                  <p className="preview-desc">{p.desc}</p>
-                  <p>{p.text}</p>
-                  <p className="preview-result">
-                    <span className="preview-result-icon" aria-hidden="true">
-                      ✓
-                    </span>
-                    {p.result}
-                    {p.badge && (
-                      <>
-                        <br />
-                        <span className="preview-badge">
-                          <span className="preview-badge-icon" aria-hidden="true">
-                            🏆
-                          </span>
-                          {p.badge}
-                        </span>
-                      </>
-                    )}
-                  </p>
+                <ProjectCard project={p} flagship={i < 2}>
                   {p.repo ? (
                     <a
                       className="preview-link"
@@ -446,7 +330,7 @@ function Landing() {
                       Read case study →
                     </Link>
                   )}
-                </article>
+                </ProjectCard>
               </Reveal>
             ))}
           </div>
@@ -463,7 +347,7 @@ function Landing() {
         </div>
       </section>
 
-      {/* ── EXPERIENCE + CERTIFICATIONS ── */}
+      {/* ── EXPERIENCE ── */}
       <section className="landing-section landing-experience">
         <div className="container">
           <Reveal>
@@ -486,7 +370,15 @@ function Landing() {
               ))}
             </ul>
           </div>
-          <p className="section-label cert-label">Certifications</p>
+        </div>
+      </section>
+
+      {/* ── CERTIFICATIONS ── */}
+      <section className="landing-section landing-certs">
+        <div className="container">
+          <Reveal>
+            <SectionHead label="Certifications" title="Credentials" highlight="and recognition" />
+          </Reveal>
           <ul className="cert-strip">
             {certifications.map((c) => (
               <li key={c.label}>
@@ -547,7 +439,7 @@ function Landing() {
               label="Why work with me"
               title="Hiring self-taught means betting on"
               highlight="proof, not pedigree"
-              sub="No formal CS degree — just eight months of shipping systems people actually use."
+              sub="No formal CS degree — just one year of shipping systems people actually use."
             />
           </Reveal>
           <div className="why-grid">

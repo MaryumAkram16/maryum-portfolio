@@ -72,11 +72,41 @@
   background: var(--bg-alt);
 }
 
-.case-card h2 {
+.case-section-head h3 {
   margin: 0;
   font-size: clamp(1.5rem, 3vw, 1.9rem);
   line-height: 1.25;
   font-family: 'Playfair Display', Georgia, serif;
+}
+
+/* ── Project groups ── */
+.work-group {
+  padding-bottom: 32px;
+}
+
+.work-group-title {
+  margin: 0 0 32px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid rgba(47, 181, 162, 0.3);
+  font-size: clamp(1.15rem, 2.4vw, 1.4rem);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  color: #5fd8c5;
+}
+
+.work-card-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 22px;
+  align-items: start;
+  margin: 0 0 48px;
+}
+
+.work-card-links {
+  margin-top: auto;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
 }
 
 /* AA contrast: #0d7a6e on dark navy only reaches ~3:1 — use brighter teal */

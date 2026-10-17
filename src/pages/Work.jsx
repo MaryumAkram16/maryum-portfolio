@@ -3,6 +3,8 @@ import { BOOKING_URL } from '../siteConfig.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
 import InteractivePreview from '../components/InteractivePreview.jsx'
+import ProjectCard from '../components/ProjectCard.jsx'
+import { projects, experience } from './projectData.js'
 import medilensVoiceAgent from '../assets/images/medilens/voice-appointment-agent.png'
 import medilensVoiceAgentWebp from '../assets/images/medilens/voice-appointment-agent.webp'
 import medilensComplaint from '../assets/images/medilens/complaint-management.png'
@@ -128,10 +130,10 @@ function CaseStudy({
 
       <div className="case-section-head">
         <p className="section-label">Case study</p>
-        <h2>
+        <h3>
           {title}
           <span className="hero-gradient"> {description}</span>
-        </h2>
+        </h3>
       </div>
 
       <div className="tag-row">
@@ -245,6 +247,67 @@ function CaseStudy({
   )
 }
 
+// Work-only summary cards; facts taken from each repo's README.
+const lumina = {
+  title: 'Lumina',
+  desc: 'E-commerce voice support agent',
+  tags: ['Retell AI', 'n8n', 'Google Sheets'],
+  text: 'Handles order tracking, cancellations, returns, and refund eligibility by voice — Retell AI runs the call while n8n workflows look up orders in Google Sheets and apply the business rules.',
+  links: [
+    { label: 'View on GitHub', href: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent' },
+    { label: 'Watch demo', href: 'https://youtu.be/P8TuDYV7eaY' },
+  ],
+}
+
+const complaintClassifier = {
+  title: 'Consumer Complaint Classifier',
+  desc: 'Complaint triage text classification',
+  tags: ['scikit-learn', 'Out-of-core Training', 'Streamlit'],
+  text: 'Routes CFPB complaint narratives to one of 9 product categories, trained out-of-core on 3.8M rows with HashingVectorizer and SGDClassifier to fit in 12GB of RAM.',
+  result: '85.3% accuracy · weighted F1 0.86 · macro F1 0.72',
+  repo: 'https://github.com/MaryumAkram16/Consumer-Complaint-Product-Classification',
+}
+
+const projectByTitle = (title) => projects.find((p) => p.title === title)
+const flyrankProject = (title) => experience.find((e) => e.title === title)
+
+function ProjectGroup({ id, title, children }) {
+  return (
+    <section className="work-group" aria-labelledby={id}>
+      <h2 className="work-group-title" id={id}>
+        {title}
+      </h2>
+      {children}
+    </section>
+  )
+}
+
+function CompactCards({ items }) {
+  return (
+    <div className="work-card-grid">
+      {items.map((item) => (
+        <ProjectCard key={item.title} project={item}>
+          {(item.links || item.repo) && (
+            <div className="work-card-links">
+              {(item.links || [{ label: 'View on GitHub', href: item.repo }]).map((link) => (
+                <a
+                  key={link.href}
+                  className="preview-link"
+                  href={link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {link.label} →
+                </a>
+              ))}
+            </div>
+          )}
+        </ProjectCard>
+      ))}
+    </div>
+  )
+}
+
 function Work() {
   usePageTitle('Work — Maryum Akram | Case Studies in AI Automation')
   return (
@@ -253,169 +316,184 @@ function Work() {
         <div className="section-head work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            Five systems,<span className="hero-gradient"> from classical ML to production AI</span>
+            11 projects,<span className="hero-gradient"> from classical ML to production AI</span>
           </h1>
           <p className="section-sub">
-            Every project solved a real problem end-to-end. Each case study below shows the
-            problem, the system I built, and the proof — architecture, evaluation, reliability, and
-            demo evidence, and honest limitations.
+            Grouped by type. Projects with a full case study show the problem, the system I built,
+            and the proof — architecture, evaluation, reliability, and demo evidence, and honest
+            limitations. The rest appear as short summary cards.
           </p>
         </div>
 
-        <CaseStudy
-          title="Receipt Extractor"
-          description="Reliable document intelligence API"
-          tags={['Structured Extraction', 'FastAPI', 'Evaluation', 'Background Jobs']}
-          problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
-          solution="A provider-agnostic FastAPI service validates input, extracts a strict schema, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
-          result="8/8 hand-labelled evaluation cases passed, including ambiguous currency and non-receipt inputs."
-          proofLine="Prompt-injection test held. Background jobs add idempotency, retries, alerting, SQLite persistence, PDF reports, and optional scheduled generation."
-          images={[]}
-          architecture={<ReceiptArchitecture />}
-          repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
-          demoType="receipt"
-          deepDive={{
-            challenge:
-              'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
-            retrospective:
-              'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
-            metrics:
-              'The current evaluation scores 8/8 hand-labelled cases. The service also logs prompt version, model, token counts, duration, repair status, and needs-review outcomes so quality and cost can be monitored together.',
-          }}
-        />
+        <ProjectGroup id="end-to-end" title="End-to-end systems">
+          <CaseStudy
+            title="MediLens"
+            description="Hospital intake automation"
+            tags={['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard']}
+            problem="Hospital booking, complaints, and admin tracking were manual, staff-run processes."
+            solution="A voice agent books, reschedules, and cancels appointments with no staff involved. Complaint management and an admin dashboard automate the rest."
+            result="Independently tested by a professor via live link."
+            evaluation="The demo is evaluated through scripted booking, cancellation, and rescheduling flows, with the system required to preserve conversation state and fall back safely instead of guessing."
+            metrics={[{ label: 'Core flows', value: '3' }, { label: 'Outcome', value: 'Auditable' }, { label: 'Mode', value: 'Live test' }]}
+            thumb={medilensVoiceAgent}
+            thumbWebp={medilensVoiceAgentWebp}
+            thumbCaption="Books, cancels, and reschedules appointments by voice — no staff involved"
+            images={[
+              {
+                src: medilensVoiceAgent,
+                webp: medilensVoiceAgentWebp,
+                caption: 'Books, cancels, and reschedules appointments by voice — no staff involved',
+              },
+              {
+                src: medilensComplaint,
+                webp: medilensComplaintWebp,
+                caption: 'Independently tested by a professor via live link',
+              },
+              { src: medilensAdmin, webp: medilensAdminWebp, caption: 'Admin dashboard for decision support' },
+            ]}
+            scopeNote="Voice Appointment Agent, Complaint Management, and Hospital Admin Command Center shown here are built by me. MediLens also includes a Lab Report Analyzer, Symptom Checker, and RAG Knowledge Base built by a collaborator (credited in the repo) — not shown in this case study."
+            repoUrl="https://github.com/MaryumAkram16/medilens"
+            demoType="medilens"
+            videoLinks={[
+              { label: 'Watch voice demo', url: 'https://www.youtube.com/watch?v=migZQqh0CoA' },
+              { label: 'Watch full demo', url: 'https://www.youtube.com/watch?v=L5w1mAUsjp0' },
+            ]}
+          />
+          <CompactCards items={[projectByTitle('GharFix')]} />
+          <CaseStudy
+            title="SkillSync AI"
+            description="Career discovery pipeline"
+            tags={['Dashboard', 'Radar', 'Assessment']}
+            problem="Career discovery tools rarely check claimed skills against real, current market demand."
+            solution="Adaptive skill assessment matched against live market data. Architected and built end-to-end, with real security and rate-limiting in production."
+            result="Externally recorded: 9 real users. 94/94 CI tests passing."
+            proofLine="Externally recorded validation: 12 adversarial payload tests, plus rate limiting and audit logging in production."
+            evaluation="Externally recorded validation combines product usage and engineering checks: nine real users, 94/94 CI tests, and 12 adversarial security payloads, alongside production rate-limit and audit-log behavior. These figures are not currently included in the public README; recommendation quality remains an area for a larger labeled evaluation set."
+            metrics={[{ label: 'Recorded users', value: '9' }, { label: 'Recorded CI tests', value: '94/94' }, { label: 'Recorded payloads', value: '12' }]}
+            thumb={skillsyncDashboard}
+            thumbWebp={skillsyncDashboardWebp}
+            thumbCaption="Real user data and journey"
+            images={[
+              { src: skillsyncDashboard, webp: skillsyncDashboardWebp, caption: 'Real user data and journey' },
+              { src: skillsyncRadar, webp: skillsyncRadarWebp, caption: 'Live market demand scan for a target role' },
+              {
+                src: skillsyncAssessment,
+                webp: skillsyncAssessmentWebp,
+                caption: 'Adaptive quiz verifying claimed skills against real performance',
+              },
+              {
+                src: skillsyncParser,
+                webp: skillsyncParserWebp,
+                caption: 'Resume + role + country parsed into live job matches with ATS scoring',
+              },
+              {
+                src: skillsyncMentor,
+                webp: skillsyncMentorWebp,
+                caption: 'Recommendations built from assessment results and live market data',
+              },
+            ]}
+            scopeNote="Dashboard, Radar, Skill Assessment, Parser, and Career Mentor shown here are built by me. Interview Prep and Roadmap features were built by a collaborator (credited in the repo) and are not shown here."
+            repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
+            demoType="skillsync"
+            videoLinks={[
+              { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
+              { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
+            ]}
+          />
+          <CaseStudy
+            title="RoshanAI"
+            description="Freelancer career intelligence"
+            tags={['Market Data', 'Skill Gap Analysis', 'Proposal Generator']}
+            problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
+            solution="Pulls live job market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals."
+            result="3 independent users. Fully solo build."
+            resultBadge="AI Seekho 2026 — Silver Tier, Phase 1 Submission"
+            evaluation="The current evidence is product validation rather than benchmark accuracy: three independent users ran the full pipeline. Gap Score is explicitly an AI-generated estimate and has not yet been benchmarked against ground truth."
+            metrics={[{ label: 'Independent users', value: '3' }, { label: 'Data source', value: 'Live jobs' }, { label: 'Gap Score', value: 'Estimate' }]}
+            thumb={roshanaiIntelligence}
+            thumbWebp={roshanaiIntelligenceWebp}
+            thumbCaption="Live market data from JSearch and SerpAPI"
+            images={[
+              { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Live market data from JSearch and SerpAPI' },
+              {
+                src: roshanaiSkillGap,
+                webp: roshanaiSkillGapWebp,
+                caption: '29 live jobs fetched and analyzed against the resume',
+              },
+              {
+                src: roshanaiProposal,
+                webp: roshanaiProposalWebp,
+                caption: 'Generated output: job analysis, rate suggestion, tailored proposal',
+              },
+            ]}
+            repoUrl="https://github.com/MaryumAkram16/RoshanAI"
+            demoType="roshanai"
+            videoLinks={[
+              { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
+            ]}
+            deepDive={{
+              challenge:
+                "Resume parsing into a meaningful gap score was the hardest part — going from raw resume text to NLP-matching a person's actual skills against live job postings, then turning that into a score that means something rather than a plausible-looking number.",
+              retrospective:
+                'Two things I would fix: the API keys are called client-side right now, which exposes them in the browser — a server-side proxy is the correct fix. And the original roshanai.com domain is dead; the live version now runs on GitHub Pages/Vercel instead.',
+              metrics:
+                '3 real users ran the full pipeline. Gap Score is an AI-generated estimate, not a measured accuracy figure — I have not benchmarked it against ground truth.',
+            }}
+          />
+        </ProjectGroup>
 
-        <CaseStudy
-          title="Resume Screener"
-          description="Classical ML for job-fit analysis"
-          tags={['scikit-learn', 'NLP', 'Model Evaluation', 'Streamlit']}
-          problem="Recruiters need a fast first pass over resumes, but category prediction and job-fit scoring are different modeling problems."
-          solution="A two-stage pipeline predicts the resume’s job category, then scores its fit against a specific job description using TF-IDF, similarity features, and Gradient Boosting."
-          result="Deployed Streamlit app with a 68.0% category-classification accuracy and a final suitability model with MAE 8.69 and R² 0.814."
-          proofLine="The model comparison, confusion matrix, feature importance, limitations, and a genuine-versus-unrelated job test are documented in the repository."
-          visual={<ResumeThumbnail />}
-          evaluation="The Stage 1 classifier covers 2,484 resumes across 20 usable categories. Stage 2 uses 2,385 resume–job pairs, synthetic negative examples, and an explicit comparison against Random Forest baselines."
-          metrics={[{ label: 'Stage 1 accuracy', value: '68.0%' }, { label: 'Final model MAE', value: '8.69' }, { label: 'Final model R²', value: '0.814' }, { label: 'Training resumes', value: '2,484' }]}
-          images={[]}
-          repoUrl="https://github.com/MaryumAkram16/Resume-Screener"
-          demoType="resume"
-          videoLinks={[]}
-        />
+        <ProjectGroup id="automations" title="n8n & voice automations">
+          <CompactCards items={[lumina]} />
+        </ProjectGroup>
 
-        <CaseStudy
-          title="MediLens"
-          description="Hospital intake automation"
-          tags={['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard']}
-          problem="Hospital booking, complaints, and admin tracking were manual, staff-run processes."
-          solution="A voice agent books, reschedules, and cancels appointments with no staff involved. Complaint management and an admin dashboard automate the rest."
-          result="Independently tested by a professor via live link."
-          evaluation="The demo is evaluated through scripted booking, cancellation, and rescheduling flows, with the system required to preserve conversation state and fall back safely instead of guessing."
-          metrics={[{ label: 'Core flows', value: '3' }, { label: 'Outcome', value: 'Auditable' }, { label: 'Mode', value: 'Live test' }]}
-          thumb={medilensVoiceAgent}
-          thumbWebp={medilensVoiceAgentWebp}
-          thumbCaption="Books, cancels, and reschedules appointments by voice — no staff involved"
-          images={[
-            {
-              src: medilensVoiceAgent,
-              webp: medilensVoiceAgentWebp,
-              caption: 'Books, cancels, and reschedules appointments by voice — no staff involved',
-            },
-            {
-              src: medilensComplaint,
-              webp: medilensComplaintWebp,
-              caption: 'Independently tested by a professor via live link',
-            },
-            { src: medilensAdmin, webp: medilensAdminWebp, caption: 'Admin dashboard for decision support' },
-          ]}
-          scopeNote="Voice Appointment Agent, Complaint Management, and Hospital Admin Command Center shown here are built by me. MediLens also includes a Lab Report Analyzer, Symptom Checker, and RAG Knowledge Base built by a collaborator (credited in the repo) — not shown in this case study."
-          repoUrl="https://github.com/MaryumAkram16/medilens"
-          demoType="medilens"
-          videoLinks={[
-            { label: 'Watch voice demo', url: 'https://www.youtube.com/watch?v=migZQqh0CoA' },
-            { label: 'Watch full demo', url: 'https://www.youtube.com/watch?v=L5w1mAUsjp0' },
-          ]}
-        />
+        <ProjectGroup id="ml-projects" title="ML projects">
+          <CompactCards
+            items={[projectByTitle('AI-Human Text Detector'), complaintClassifier]}
+          />
+          <CaseStudy
+            title="Resume Screener"
+            description="Classical ML for job-fit analysis"
+            tags={['scikit-learn', 'NLP', 'Model Evaluation', 'Streamlit']}
+            problem="Recruiters need a fast first pass over resumes, but category prediction and job-fit scoring are different modeling problems."
+            solution="A two-stage pipeline predicts the resume’s job category, then scores its fit against a specific job description using TF-IDF, similarity features, and Gradient Boosting."
+            result="Deployed Streamlit app with a 68.0% category-classification accuracy and a final suitability model with MAE 8.69 and R² 0.814."
+            proofLine="The model comparison, confusion matrix, feature importance, limitations, and a genuine-versus-unrelated job test are documented in the repository."
+            visual={<ResumeThumbnail />}
+            evaluation="The Stage 1 classifier covers 2,484 resumes across 20 usable categories. Stage 2 uses 2,385 resume–job pairs, synthetic negative examples, and an explicit comparison against Random Forest baselines."
+            metrics={[{ label: 'Stage 1 accuracy', value: '68.0%' }, { label: 'Final model MAE', value: '8.69' }, { label: 'Final model R²', value: '0.814' }, { label: 'Training resumes', value: '2,484' }]}
+            images={[]}
+            repoUrl="https://github.com/MaryumAkram16/Resume-Screener"
+            demoType="resume"
+            videoLinks={[]}
+          />
+        </ProjectGroup>
 
-        <CaseStudy
-          title="RoshanAI"
-          description="Freelancer career intelligence"
-          tags={['Market Data', 'Skill Gap Analysis', 'Proposal Generator']}
-          problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
-          solution="Pulls live job market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals."
-          result="3 independent users. Fully solo build."
-          resultBadge="AI Seekho 2026 — Silver Tier, Phase 1 Submission"
-          evaluation="The current evidence is product validation rather than benchmark accuracy: three independent users ran the full pipeline. Gap Score is explicitly an AI-generated estimate and has not yet been benchmarked against ground truth."
-          metrics={[{ label: 'Independent users', value: '3' }, { label: 'Data source', value: 'Live jobs' }, { label: 'Gap Score', value: 'Estimate' }]}
-          thumb={roshanaiIntelligence}
-          thumbWebp={roshanaiIntelligenceWebp}
-          thumbCaption="Live market data from JSearch and SerpAPI"
-          images={[
-            { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Live market data from JSearch and SerpAPI' },
-            {
-              src: roshanaiSkillGap,
-              webp: roshanaiSkillGapWebp,
-              caption: '29 live jobs fetched and analyzed against the resume',
-            },
-            {
-              src: roshanaiProposal,
-              webp: roshanaiProposalWebp,
-              caption: 'Generated output: job analysis, rate suggestion, tailored proposal',
-            },
-          ]}
-          repoUrl="https://github.com/MaryumAkram16/RoshanAI"
-          demoType="roshanai"
-          videoLinks={[
-            { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
-          ]}
-          deepDive={{
-            challenge:
-              "Resume parsing into a meaningful gap score was the hardest part — going from raw resume text to NLP-matching a person's actual skills against live job postings, then turning that into a score that means something rather than a plausible-looking number.",
-            retrospective:
-              'Two things I would fix: the API keys are called client-side right now, which exposes them in the browser — a server-side proxy is the correct fix. And the original roshanai.com domain is dead; the live version now runs on GitHub Pages/Vercel instead.',
-            metrics:
-              '3 real users ran the full pipeline. Gap Score is an AI-generated estimate, not a measured accuracy figure — I have not benchmarked it against ground truth.',
-          }}
-        />
-
-        <CaseStudy
-          title="SkillSync AI"
-          description="Career discovery pipeline"
-          tags={['Dashboard', 'Radar', 'Assessment']}
-          problem="Career discovery tools rarely check claimed skills against real, current market demand."
-          solution="Adaptive skill assessment matched against live market data. Architected and built end-to-end, with real security and rate-limiting in production."
-          result="Externally recorded: 9 real users. 94/94 CI tests passing."
-          proofLine="Externally recorded validation: 12 adversarial payload tests, plus rate limiting and audit logging in production."
-          evaluation="Externally recorded validation combines product usage and engineering checks: nine real users, 94/94 CI tests, and 12 adversarial security payloads, alongside production rate-limit and audit-log behavior. These figures are not currently included in the public README; recommendation quality remains an area for a larger labeled evaluation set."
-          metrics={[{ label: 'Recorded users', value: '9' }, { label: 'Recorded CI tests', value: '94/94' }, { label: 'Recorded payloads', value: '12' }]}
-          thumb={skillsyncDashboard}
-          thumbWebp={skillsyncDashboardWebp}
-          thumbCaption="Real user data and journey"
-          images={[
-            { src: skillsyncDashboard, webp: skillsyncDashboardWebp, caption: 'Real user data and journey' },
-            { src: skillsyncRadar, webp: skillsyncRadarWebp, caption: 'Live market demand scan for a target role' },
-            {
-              src: skillsyncAssessment,
-              webp: skillsyncAssessmentWebp,
-              caption: 'Adaptive quiz verifying claimed skills against real performance',
-            },
-            {
-              src: skillsyncParser,
-              webp: skillsyncParserWebp,
-              caption: 'Resume + role + country parsed into live job matches with ATS scoring',
-            },
-            {
-              src: skillsyncMentor,
-              webp: skillsyncMentorWebp,
-              caption: 'Recommendations built from assessment results and live market data',
-            },
-          ]}
-          scopeNote="Dashboard, Radar, Skill Assessment, Parser, and Career Mentor shown here are built by me. Interview Prep and Roadmap features were built by a collaborator (credited in the repo) and are not shown here."
-          repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
-          demoType="skillsync"
-          videoLinks={[
-            { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
-            { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
-          ]}
-        />
+        <ProjectGroup id="flyrank" title="FlyRank internship work">
+          <CaseStudy
+            title="Receipt Extractor"
+            description="Reliable document intelligence API"
+            tags={['Structured Extraction', 'FastAPI', 'Evaluation', 'Background Jobs']}
+            problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
+            solution="A provider-agnostic FastAPI service validates input, extracts a strict schema, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
+            result="8/8 hand-labelled evaluation cases passed, including ambiguous currency and non-receipt inputs."
+            proofLine="Prompt-injection test held. Background jobs add idempotency, retries, alerting, SQLite persistence, PDF reports, and optional scheduled generation."
+            images={[]}
+            architecture={<ReceiptArchitecture />}
+            repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
+            demoType="receipt"
+            deepDive={{
+              challenge:
+                'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
+              retrospective:
+                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
+              metrics:
+                'The current evaluation scores 8/8 hand-labelled cases. The service also logs prompt version, model, token counts, duration, repair status, and needs-review outcomes so quality and cost can be monitored together.',
+            }}
+          />
+          <CompactCards
+            items={[flyrankProject('Content Refresh Scoring'), flyrankProject('Embeddable Widget Platform')]}
+          />
+        </ProjectGroup>
 
         <div className="cta-bottom">
           <a className="cta-button" href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
