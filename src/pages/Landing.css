@@ -105,8 +105,9 @@
 /* Fallback: if JS never fires the entry animation, always show content */
 @supports (animation-timeline: view()) {
   .hero-visual,
+  .hero-greeting,
   .hero-name,
-  .hero-title,
+  .hero-role,
   .hero-sub,
   .hero-actions,
   .hero-stats,
@@ -119,8 +120,9 @@
 
 @media (prefers-reduced-motion: reduce) {
   .hero-visual,
+  .hero-greeting,
   .hero-name,
-  .hero-title,
+  .hero-role,
   .hero-sub,
   .hero-actions,
   .hero-stats,
@@ -142,8 +144,9 @@
 
 /* JS-driven fallback: force visibility when script class is added or after a delay */
 .js-ready .hero-visual,
+.js-ready .hero-greeting,
 .js-ready .hero-name,
-.js-ready .hero-title,
+.js-ready .hero-role,
 .js-ready .hero-sub,
 .js-ready .hero-actions,
 .js-ready .hero-stats,
@@ -161,28 +164,32 @@
   will-change: transform;
 }
 
-/* Primary headline: greeting + name. Solid teal accent (6.2:1 on the hero navy).
-   Sizing keeps "I'm Maryum Akram," (~9.5em) on one line in the hero column
-   from 360px up: 2rem fits the 320px+ mobile column, 4.2vw fits the
-   half-width desktop column, capped at 4.5rem. */
+.hero-greeting {
+  margin: 0 0 10px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #2fb5a2;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease;
+}
+
+.hero-greeting.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* Largest text on the page. Teal accent is 6.2:1 on the hero navy. */
 .hero-name {
   font-family: 'Playfair Display', var(--font);
   font-weight: 900;
-  font-size: clamp(2rem, 4.2vw, 4.5rem);
-  line-height: 1.08;
-  margin: 0 0 20px;
+  font-size: clamp(2.75rem, 6vw, 4.75rem);
+  line-height: 1.05;
+  margin: 0 0 14px;
   color: var(--text);
   opacity: 0;
   transform: translateY(30px);
   transition: all 0.8s ease 0.05s;
-}
-
-/* Two-column hero: column is (100vw - 184px) / 2, so size to ~1/19.5 of that
-   width to keep "I'm Maryum Akram," on one line at tablet widths too */
-@media (min-width: 761px) {
-  .hero-name {
-    font-size: clamp(1.75rem, calc((100vw - 184px) / 19.5), 4.5rem);
-  }
 }
 
 .hero-name.visible {
@@ -190,14 +197,60 @@
   transform: translateY(0);
 }
 
+/* Keep the name on one line; the H1 breaks after "I'm" when it must */
 .hero-name-accent {
   color: #2fb5a2;
   white-space: nowrap;
 }
 
-/* Keep "an AI Engineer." together so the line breaks after "Maryum Akram," */
-.hero-nowrap {
-  white-space: nowrap;
+/* Typing role line. The invisible longest phrase shares the grid cell with the
+   typed text, so the line's height never changes while typing. */
+.hero-role {
+  display: grid;
+  margin: 0 0 22px;
+  font-size: clamp(1.4rem, 2.6vw, 2rem);
+  font-weight: 600;
+  line-height: 1.25;
+  color: #5fd8c5;
+  opacity: 0;
+  transform: translateY(20px);
+  transition: all 0.8s ease 0.1s;
+}
+
+.hero-role.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.hero-role-reserve,
+.hero-role-typed {
+  grid-area: 1 / 1;
+}
+
+.hero-role-reserve {
+  visibility: hidden;
+}
+
+.hero-role-cursor {
+  display: inline-block;
+  width: 3px;
+  height: 1.05em;
+  margin-left: 4px;
+  vertical-align: -0.12em;
+  background: currentColor;
+  animation: heroCursorBlink 1s steps(1) infinite;
+}
+
+@keyframes heroCursorBlink {
+  50% {
+    opacity: 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hero-role-cursor {
+    animation: none;
+  }
 }
 
 .hero-stats {
@@ -297,36 +350,20 @@
   color: #b8c2cc;
 }
 
-.hero-title {
-  font-family: 'Playfair Display', var(--font);
-  font-weight: 900;
-  font-size: clamp(1.3rem, 2.8vw, 2.9rem);
-  line-height: 1.15;
-  margin: 0 0 24px;
-  max-width: 860px;
-  opacity: 0;
-  transform: translateY(30px);
-  transition: all 0.8s ease 0.1s;
-}
-
-.hero-title.visible {
-  opacity: 1;
-  transform: translateY(0);
-}
-
+/* #b8c2cc is 8.7:1 on the hero navy */
 .hero-sub {
-  font-size: 1.08rem;
-  line-height: 1.7;
-  max-width: 660px;
-  margin: 0 auto 36px;
+  font-size: 1.125rem;
+  line-height: 1.65;
+  max-width: 55ch;
+  margin: 0 0 32px;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 0.2s;
-  color: rgba(250, 250, 248, 0.8);
+  color: #b8c2cc;
 }
 
 .hero-sub.visible {
-  opacity: 0.8;
+  opacity: 1;
   transform: translateY(0);
 }
 

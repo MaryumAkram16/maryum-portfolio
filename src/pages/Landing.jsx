@@ -2,6 +2,7 @@ import { useState, useEffect, useRef } from 'react'
 import { Link } from 'react-router-dom'
 import { BOOKING_URL, CONTACT_EMAIL } from '../siteConfig.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
+import { useTypewriter } from '../hooks/useTypewriter.js'
 import OrbitAnimation from '../components/OrbitAnimation.jsx'
 import ProjectCard from '../components/ProjectCard.jsx'
 import { projects, experience, certifications } from './projectData.js'
@@ -49,6 +50,10 @@ function Reveal({ children, delay = 0 }) {
   )
 }
 
+// ── Hero role line phrases (stable array for useTypewriter) ──
+const ROLE_PHRASES = ['AI Engineer', 'Agentic Workflow Builder', 'Voice AI & n8n Automation', 'Applied ML Engineer']
+const LONGEST_ROLE = ROLE_PHRASES.reduce((a, b) => (b.length > a.length ? b : a))
+
 // ── Shared section heading: every section gets a label + h2 + optional sub ──
 function SectionHead({ label, title, highlight, sub }) {
   return (
@@ -66,6 +71,7 @@ function SectionHead({ label, title, highlight, sub }) {
 function Landing() {
   usePageTitle('Maryum Akram — AI Engineer | Lahore, Pakistan')
   const [heroVisible, setHeroVisible] = useState(false)
+  const role = useTypewriter(ROLE_PHRASES)
   const [activeStep, setActiveStep] = useState(0)
 
   useEffect(() => {
@@ -140,21 +146,31 @@ function Landing() {
 
         <div className="landing-hero-inner container hero-grid">
           <div className="hero-text">
+            <p className={`hero-greeting ${heroVisible ? 'visible' : ''}`}>
+              Assalam o alaikum 👋
+            </p>
+
             <h1 className={`hero-name ${heroVisible ? 'visible' : ''}`}>
-              Assalam o alaikum,
-              <br />
-              I&apos;m <span className="hero-name-accent">Maryum Akram</span>,{' '}
-              <span className="hero-nowrap">an AI Engineer.</span>
+              I&apos;m <span className="hero-name-accent">Maryum Akram</span>
             </h1>
 
-            <p className={`hero-title ${heroVisible ? 'visible' : ''}`}>
-              I build reliable AI systems from{' '}
-              <span className="hero-gradient">model evaluation to production.</span>
+            {/* Screen readers get the static role once; the typed text, cursor, and the
+                invisible longest phrase (which reserves the line height) are hidden */}
+            <p className={`hero-role ${heroVisible ? 'visible' : ''}`}>
+              <span className="sr-only">AI Engineer</span>
+              <span className="hero-role-reserve" aria-hidden="true">
+                {LONGEST_ROLE}
+              </span>
+              <span className="hero-role-typed" aria-hidden="true">
+                {role.text}
+                {!role.reduced && <span className="hero-role-cursor" />}
+              </span>
             </p>
 
             <p className={`hero-sub ${heroVisible ? 'visible' : ''}`}>
-              Agentic automation workflows, LLM products, and classical ML models — with the
-              evidence for each one shown below.
+              I turn slow, manual business processes into AI systems that run themselves, from
+              voice agents and n8n workflows to classical ML models, with the evidence for each
+              shown below.
             </p>
 
             <div className={`hero-actions ${heroVisible ? 'visible' : ''}`}>
