@@ -339,7 +339,15 @@ function Landing() {
                       View on GitHub →
                     </a>
                   ) : (
-                    <Link className="preview-link" to="/work">
+                    <Link
+                      className="preview-link"
+                      to={p.caseStudy ? `/work#${p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}` : '/work'}
+                    >
+                      {p.caseStudy ? 'Read case study →' : 'See all case studies →'}
+                    </Link>
+                  )}
+                  {p.repo && p.caseStudy && (
+                    <Link className="preview-link" to={`/work#${p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>
                       Read case study →
                     </Link>
                   )}

@@ -58,6 +58,7 @@
 .case-card {
   padding: 48px 0;
   position: relative;
+  scroll-margin-top: 88px;
 }
 
 .case-card + .case-card {

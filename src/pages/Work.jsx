@@ -191,7 +191,10 @@ function CaseStudy({
   const [deepDiveOpen, setDeepDiveOpen] = useState(false)
 
   return (
-    <article className="case-card">
+    <article
+      className="case-card"
+      id={title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}
+    >
       {/* Desktop: media left (~45%), text right; everything after .case-main spans full width */}
       <div className="case-main">
         <div className="case-thumb-wrap">

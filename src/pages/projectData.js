@@ -9,6 +9,7 @@ export const projects = [
   {
     title: 'MediLens',
     desc: 'Hospital intake automation',
+    caseStudy: true,
     image: medilensPreview,
     imageAlt: 'MediLens voice appointment interface with its call-to-book assistant',
     tags: ['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard'],
@@ -18,6 +19,7 @@ export const projects = [
   {
     title: 'GharFix',
     desc: 'Agentic local-services booking',
+    caseStudy: true,
     tags: ['Agentic Orchestration', 'n8n', 'Multilingual'],
     text: 'Books local service providers from English, Urdu, or Roman Urdu requests — an Antigravity orchestrator delegates matching, booking, quality checks, disputes, and rescheduling to n8n workflows.',
     result: '7-factor ranking of real Google Maps providers',
@@ -27,6 +29,7 @@ export const projects = [
   {
     title: 'RoshanAI',
     desc: 'Freelancer career intelligence',
+    caseStudy: true,
     image: roshanaiPreview,
     imageAlt: 'RoshanAI live market intelligence dashboard comparing job-market data',
     tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
@@ -37,6 +40,7 @@ export const projects = [
   {
     title: 'SkillSync AI',
     desc: 'Career discovery pipeline',
+    caseStudy: true,
     image: skillsyncPreview,
     imageAlt: 'SkillSync AI career dashboard with verified skills and progress panels',
     tags: ['Dashboard', 'Radar', 'Assessment'],
@@ -46,6 +50,7 @@ export const projects = [
   {
     title: 'Receipt Extractor',
     desc: 'Reliable document intelligence API',
+    caseStudy: true,
     tags: ['Structured Extraction', 'Evaluation', 'FastAPI'],
     text: 'A strict-schema extraction service with repair limits, needs-review routing, background jobs, and PDF reporting.',
     result: '8/8 hand-labelled evaluation cases passed',
