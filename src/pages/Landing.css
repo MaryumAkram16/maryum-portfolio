@@ -675,8 +675,10 @@
   font-weight: 600;
   color: #5fd8c5;
   display: flex;
+  flex-wrap: wrap;
   align-items: flex-start;
   gap: 6px;
+  row-gap: 2px;
 }
 
 .preview-result-icon {
@@ -692,26 +694,15 @@
   color: #5fd8c5;
   font-size: 0.8rem;
   font-weight: 600;
-  display: inline-flex;
+  display: flex;
+  width: 100%;
+  margin-top: 0;
   align-items: flex-start;
   gap: 6px;
 }
 
 .preview-card-flagship { border-color: rgba(81, 196, 177, 0.38); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.12); }
 .preview-card-flagship::before { content: 'FLAGSHIP'; position: absolute; top: 14px; right: 14px; color: #58c8b4; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.12em; }
-
-/* Mobile: inside the flex .preview-result row the badge would wrap beside
-   the proof text — force it onto its own line below the proof line */
-@media (max-width: 480px) {
-  .preview-result {
-    flex-wrap: wrap;
-  }
-  .preview-badge {
-    display: flex;
-    width: 100%;
-    margin-top: 2px;
-  }
-}
 
 .preview-link {
   margin-top: auto;
