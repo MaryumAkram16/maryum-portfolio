@@ -519,21 +519,7 @@ function Landing() {
 
 // ── Small self-contained counter for the hero stats row ──
 function CounterItem({ value }) {
-  const [val, setVal] = useState(0)
-  const started = useRef(false)
-  useEffect(() => {
-    let raf
-    const start = performance.now()
-    const step = (ts) => {
-      const progress = Math.min((ts - start) / 1400, 1)
-      const eased = 1 - Math.pow(1 - progress, 3)
-      setVal(Math.round(eased * value))
-      if (progress < 1) raf = requestAnimationFrame(step)
-    }
-    raf = requestAnimationFrame(step)
-    return () => cancelAnimationFrame(raf)
-  }, [value])
-  return <>{val.toLocaleString()}</>
+  return <>{value.toLocaleString()}</>
 }
 
 export default Landing
