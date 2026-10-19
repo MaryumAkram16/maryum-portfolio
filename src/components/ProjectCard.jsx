@@ -2,9 +2,9 @@
 // Styles live in Landing.css (.preview-card); Landing is loaded eagerly, so
 // they are always available. Optional fields render only when present.
 function ProjectCard({ project, flagship = false, children }) {
-  const { title, desc, tags, text, result, badge } = project
+  const { title, desc, tags, text, result, badge, image, imageAlt } = project
   return (
-    <article className={`preview-card ${flagship ? 'preview-card-flagship' : ''}`}>
+    <article className={`preview-card ${flagship ? 'preview-card-flagship' : ''} ${image ? 'preview-card-has-image' : ''}`}>
       {tags && (
         <div className="tag-row">
           {tags.map((tag) => (
@@ -16,6 +16,15 @@ function ProjectCard({ project, flagship = false, children }) {
       )}
       <h3>{title}</h3>
       {desc && <p className="preview-desc">{desc}</p>}
+      {image && (
+        <img
+          className="preview-card-image"
+          src={image}
+          alt={imageAlt || `${title} product screenshot`}
+          loading="lazy"
+          decoding="async"
+        />
+      )}
       {text && <p>{text}</p>}
       {(result || badge) && (
         <p className="preview-result">

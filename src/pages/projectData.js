@@ -1,10 +1,16 @@
 // Shared project, experience, and certification data for the Landing and
 // Work pages. Only claims backed by the linked repos or case studies.
 
+import medilensPreview from '../assets/images/medilens/voice-appointment-agent.webp'
+import skillsyncPreview from '../assets/images/skillsync/dashboard.webp'
+import roshanaiPreview from '../assets/images/roshanai/intelligence-layer.webp'
+
 export const projects = [
   {
     title: 'MediLens',
     desc: 'Hospital intake automation',
+    image: medilensPreview,
+    imageAlt: 'MediLens voice appointment interface with its call-to-book assistant',
     tags: ['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard'],
     text: 'A voice agent books, reschedules, and cancels appointments with no staff involved — plus complaint management and an admin dashboard.',
     result: 'Independently tested by a professor via live link',
@@ -21,6 +27,8 @@ export const projects = [
   {
     title: 'RoshanAI',
     desc: 'Freelancer career intelligence',
+    image: roshanaiPreview,
+    imageAlt: 'RoshanAI live market intelligence dashboard comparing job-market data',
     tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
     text: 'Pulls live job market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals.',
     result: '3 independent users · fully solo build',
@@ -29,6 +37,8 @@ export const projects = [
   {
     title: 'SkillSync AI',
     desc: 'Career discovery pipeline',
+    image: skillsyncPreview,
+    imageAlt: 'SkillSync AI career dashboard with verified skills and progress panels',
     tags: ['Dashboard', 'Radar', 'Assessment'],
     text: 'Adaptive skill assessment matched against live market data, with real security, rate limiting, and audit logging in production.',
     result: 'Externally recorded: 9 real users · 94/94 CI tests passing',
