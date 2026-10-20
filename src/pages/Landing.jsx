@@ -174,18 +174,22 @@ function Landing() {
               shown below.
             </p>
 
+            <p className="hero-availability">
+              Open to full-time AI engineering roles and contract projects.
+            </p>
+
             <div className={`hero-actions ${heroVisible ? 'visible' : ''}`}>
+              <Link className="cta-pill cta-solid" to="/work">
+                Explore selected work
+              </Link>
               <a
-                className="cta-pill cta-solid"
+                className="cta-pill cta-outline"
                 href={BOOKING_URL}
                 target="_blank"
                 rel="noopener noreferrer"
               >
-                🗓 Book a 30-minute intro call
+                Book a 30-minute intro call
               </a>
-              <Link className="cta-pill cta-outline" to="/work">
-                👁 See my work
-              </Link>
             </div>
 
             <div className={`hero-stats ${heroVisible ? 'visible' : ''}`}>

@@ -357,11 +357,19 @@
   font-size: 1.125rem;
   line-height: 1.65;
   max-width: 55ch;
-  margin: 0 0 32px;
+  margin: 0 0 12px;
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 0.2s;
   color: #b8c2cc;
+}
+
+.hero-availability {
+  margin: 0 0 24px;
+  color: #c4d0d9;
+  font-size: 0.94rem;
+  font-weight: 600;
+  line-height: 1.5;
 }
 
 .hero-sub.visible {
