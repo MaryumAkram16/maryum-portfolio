@@ -26,7 +26,7 @@ const heroJpg = {
 function Blog() {
   usePageTitle('Blog — Maryum Akram')
   return (
-    <main className="page blog">
+    <main id="main-content" tabIndex={-1} className="page blog">
       <div className="container">
         <div className="section-head blog-head">
           <p className="section-label">Case study journal</p>

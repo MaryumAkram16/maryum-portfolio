@@ -8,7 +8,7 @@ function Nav() {
       <NavLink to="/" end className="wordmark nav-logo">
         Maryum Akram
       </NavLink>
-      <nav className="nav-links">
+      <nav className="nav-links" aria-label="Primary">
         <NavLink to="/work" className={({ isActive }) => (isActive ? 'active' : undefined)}>
           Work
         </NavLink>

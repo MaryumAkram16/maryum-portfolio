@@ -168,5 +168,66 @@ function SkillSyncPanel({ tab }) {
 export default function InteractivePreview({ type }) {
   const demo = DEMOS[type]
   const [tab, setTab] = useState(demo.tabs[0].id)
-  return <section className={`interactive-preview demo-${type}`} aria-label="Interactive case study preview using sample data"><div className="demo-header"><div><p className="demo-eyebrow">Interactive preview · repository features</p><h3>{demo.title}</h3></div><span className="demo-live"><span className="demo-pulse" /> Sample data</span></div><div className="demo-tabs" role="tablist" aria-label="Project feature modules">{demo.tabs.map((item) => <button key={item.id} type="button" role="tab" aria-selected={tab === item.id} className={tab === item.id ? 'active' : ''} onClick={() => setTab(item.id)}>{item.label}</button>)}</div><div className="demo-content">{type === 'medilens' && <MediLensPanel tab={tab} />}{type === 'roshanai' && <RoshanPanel tab={tab} />}{type === 'skillsync' && <SkillSyncPanel tab={tab} />}{type === 'receipt' && <ReceiptPanel tab={tab} />}{type === 'resume' && <ResumePanel tab={tab} />}{type === 'gharfix' && <GharFixPanel tab={tab} />}{type === 'lumina' && <LuminaPanel tab={tab} />}{type === 'detector' && <DetectorPanel tab={tab} />}{type === 'complaint' && <ComplaintPanel tab={tab} />}{type === 'refresh' && <RefreshPanel tab={tab} />}{type === 'widget' && <WidgetPanel tab={tab} />}</div><p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p></section>
+  const handleTabKeyDown = (event, index) => {
+    let nextIndex
+    if (event.key === 'ArrowRight') nextIndex = (index + 1) % demo.tabs.length
+    if (event.key === 'ArrowLeft') nextIndex = (index - 1 + demo.tabs.length) % demo.tabs.length
+    if (event.key === 'Home') nextIndex = 0
+    if (event.key === 'End') nextIndex = demo.tabs.length - 1
+    if (nextIndex === undefined) return
+    event.preventDefault()
+    const nextTab = demo.tabs[nextIndex]
+    setTab(nextTab.id)
+    document.getElementById(`${type}-tab-${nextTab.id}`)?.focus()
+  }
+
+  return (
+    <section className={`interactive-preview demo-${type}`} aria-labelledby={`${type}-preview-title`}>
+      <div className="demo-header">
+        <div>
+          <p className="demo-eyebrow">Interactive preview · repository features</p>
+          <h3 id={`${type}-preview-title`}>{demo.title}</h3>
+        </div>
+        <span className="demo-live"><span className="demo-pulse" aria-hidden="true" />Sample data</span>
+      </div>
+      <div className="demo-tabs" role="tablist" aria-label="Project feature modules">
+        {demo.tabs.map((item, index) => (
+          <button
+            key={item.id}
+            id={`${type}-tab-${item.id}`}
+            type="button"
+            role="tab"
+            aria-selected={tab === item.id}
+            aria-controls={`${type}-tabpanel`}
+            tabIndex={tab === item.id ? 0 : -1}
+            className={tab === item.id ? 'active' : ''}
+            onClick={() => setTab(item.id)}
+            onKeyDown={(event) => handleTabKeyDown(event, index)}
+          >
+            {item.label}
+          </button>
+        ))}
+      </div>
+      <div
+        className="demo-content"
+        id={`${type}-tabpanel`}
+        role="tabpanel"
+        aria-labelledby={`${type}-tab-${tab}`}
+        tabIndex={0}
+      >
+        {type === 'medilens' && <MediLensPanel tab={tab} />}
+        {type === 'roshanai' && <RoshanPanel tab={tab} />}
+        {type === 'skillsync' && <SkillSyncPanel tab={tab} />}
+        {type === 'receipt' && <ReceiptPanel tab={tab} />}
+        {type === 'resume' && <ResumePanel tab={tab} />}
+        {type === 'gharfix' && <GharFixPanel tab={tab} />}
+        {type === 'lumina' && <LuminaPanel tab={tab} />}
+        {type === 'detector' && <DetectorPanel tab={tab} />}
+        {type === 'complaint' && <ComplaintPanel tab={tab} />}
+        {type === 'refresh' && <RefreshPanel tab={tab} />}
+        {type === 'widget' && <WidgetPanel tab={tab} />}
+      </div>
+      <p className="demo-note">A portfolio-safe simulation of the feature flow. No live API calls or private user data. Read the full case study below for proof, architecture, and demo videos.</p>
+    </section>
+  )
 }

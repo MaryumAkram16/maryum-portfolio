@@ -127,7 +127,7 @@
 .work .psr-list dt,
 .work .proof-line,
 .work .deep-dive h3 {
-  color: #22a08e;
+  color: #44d5c0;
 }
 
 .case-section-head {
@@ -141,7 +141,7 @@
 /* AA contrast: #0d7a6e on navy is 3.0:1 — brighter teal reaches 4.88:1 */
 .case-description {
   margin: 0 0 16px;
-  color: #22a08e;
+  color: #44d5c0;
   font-weight: 700;
   font-size: 0.95rem;
   text-transform: uppercase;

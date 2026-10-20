@@ -42,6 +42,7 @@ class ErrorBoundary extends Component {
 function App() {
   return (
     <ErrorBoundary>
+      <a className="skip-link" href="#main-content">Skip to main content</a>
       <Nav />
       <Suspense fallback={<div className="route-loading" role="status">Loading page…</div>}>
         <Routes>

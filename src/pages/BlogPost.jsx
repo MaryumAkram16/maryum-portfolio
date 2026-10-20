@@ -71,7 +71,7 @@ function BlogPost() {
 
   if (!post) {
     return (
-      <main className="page blog-post blog-not-found">
+      <main id="main-content" tabIndex={-1} className="page blog-post blog-not-found">
         <div className="container">
           <p className="section-label">Not found</p>
           <h1>This post doesn't exist.</h1>
@@ -84,7 +84,7 @@ function BlogPost() {
   const related = blogPosts.filter((p) => p.slug !== slug)
 
   return (
-    <main className="page blog-post">
+    <main id="main-content" tabIndex={-1} className="page blog-post">
       <article className="container">
         <Link to="/blog" className="back-link">
           ← All posts

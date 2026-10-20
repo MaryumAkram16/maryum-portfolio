@@ -40,7 +40,7 @@ function Principles() {
   usePageTitle('AI Engineering Principles — Maryum Akram')
 
   return (
-    <main className="page principles-page">
+    <main id="main-content" tabIndex={-1} className="page principles-page">
       <div className="container">
         <header className="principles-hero">
           <p className="section-label">How I build</p>
@@ -75,4 +75,3 @@ function Principles() {
 }
 
 export default Principles
-

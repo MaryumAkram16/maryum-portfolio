@@ -79,7 +79,7 @@
 }
 
 .post-category {
-  color: #22a08e;
+  color: #44d5c0;
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-size: 0.75rem;
@@ -121,7 +121,7 @@
 .post-read-more {
   font-weight: 700;
   font-size: 0.9rem;
-  color: #22a08e;
+  color: #44d5c0;
   text-decoration: none;
   white-space: nowrap;
 }

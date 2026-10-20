@@ -183,6 +183,7 @@ function CaseStudy({
   evaluation,
   metrics,
   repoUrl,
+  evidenceLinks = [],
   videoLinks,
   deepDive,
   demoType,
@@ -265,6 +266,11 @@ function CaseStudy({
       {demoType && <InteractivePreview type={demoType} />}
 
       <div className="case-links">
+        {evidenceLinks.map((item) => (
+          <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url}>
+            {item.label}
+          </a>
+        ))}
         {repoUrl && (
           <a className="case-link" href={repoUrl} target="_blank" rel="noopener noreferrer">
             View code
@@ -342,12 +348,12 @@ function ProjectGroup({ id, title, children }) {
 function Work() {
   usePageTitle('Work — Maryum Akram | Case Studies in AI Automation')
   return (
-    <main className="page work">
+    <main id="main-content" tabIndex={-1} className="page work">
       <div className="work-container">
         <div className="work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            11 projects,<span className="hero-gradient"> from classical ML to production AI</span>
+            11 projects,<span className="hero-gradient"> from classical ML to AI applications</span>
           </h1>
           <p className="section-sub">
             Grouped by type. Projects with a full case study show the problem, the system I built,
@@ -359,13 +365,13 @@ function Work() {
         <ProjectGroup id="end-to-end" title="End-to-end systems">
           <CaseStudy
             title="MediLens"
-            description="Hospital intake automation"
+            description="Hospital workflow prototype"
             tags={['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard']}
             problem="Hospital booking, complaints, and admin tracking were manual, staff-run processes."
-            solution="A voice agent books, reschedules, and cancels appointments with no staff involved. Complaint management and an admin dashboard automate the rest."
-            result="Independently tested by a professor via live link."
-            evaluation="The demo is evaluated through scripted booking, cancellation, and rescheduling flows, with the system required to preserve conversation state and fall back safely instead of guessing."
-            metrics={[{ label: 'Core flows', value: '3' }, { label: 'Outcome', value: 'Auditable' }, { label: 'Mode', value: 'Live test' }]}
+            solution="The public repository contains n8n workflow exports for voice appointment handling, complaint management, and an admin command center, plus links to product demos."
+            result="Public evidence: workflow exports and linked demos. The repository does not include a public test suite or deployment evidence."
+            evaluation="The exports document workflow structure and intended scripted booking, cancellation, and rescheduling paths; they do not establish a live hospital deployment, clinical validation, uptime, or measured patient impact. Some exported workflows are marked inactive."
+            metrics={[{ label: 'Evidence', value: 'Workflow exports' }, { label: 'Demos', value: '2 linked' }, { label: 'Public CI', value: 'None' }]}
             thumb={medilensVoiceAgent}
             thumbWebp={medilensVoiceAgentWebp}
             thumbCaption="Books, cancels, and reschedules appointments by voice — no staff involved"
@@ -378,12 +384,16 @@ function Work() {
               {
                 src: medilensComplaint,
                 webp: medilensComplaintWebp,
-                caption: 'Independently tested by a professor via live link',
+                caption: 'Complaint-management workflow interface sample',
               },
               { src: medilensAdmin, webp: medilensAdminWebp, caption: 'Admin dashboard for decision support' },
             ]}
             scopeNote="Voice Appointment Agent, Complaint Management, and Hospital Admin Command Center shown here are built by me. MediLens also includes a Lab Report Analyzer, Symptom Checker, and RAG Knowledge Base built by a collaborator (credited in the repo) — not shown in this case study."
             repoUrl="https://github.com/MaryumAkram16/medilens"
+            evidenceLinks={[
+              { label: 'Voice workflow export', url: 'https://github.com/MaryumAkram16/medilens/blob/main/Medilens_Voice_Appointment_Booking.json' },
+              { label: 'Complaint workflow export', url: 'https://github.com/MaryumAkram16/medilens/blob/main/Complaint_Management.json' },
+            ]}
             demoType="medilens"
             videoLinks={[
               { label: 'Watch voice demo', url: 'https://www.youtube.com/watch?v=migZQqh0CoA' },
@@ -395,19 +405,23 @@ function Work() {
             description="Agentic local-services booking"
             tags={['Agentic Orchestration', 'n8n', 'Multilingual', 'Google Maps']}
             problem="Finding a reliable home-service provider in Pakistan means calling around on WhatsApp and the phone, with unpredictable pricing and little support in local languages."
-            solution="An Antigravity orchestrator reads English, Urdu, or Roman Urdu requests and delegates matching, booking, lifecycle tracking, disputes, and rescheduling to eight n8n workflows, ranking real Google Maps providers on seven weighted factors."
-            result="About 4–7 seconds end to end per booking in the documented example traces, at roughly $0.012–$0.020 per booking."
-            resultBadge="AI Seekho 2026 — Silver Tier, Phase 2 Submission"
-            proofLine="Intent confidence below 70% triggers a clarifying question. A race-condition check guards every booking, and ratings of 2 or lower escalate to dispute handling."
+            solution="The public README documents an Antigravity-orchestrated design for English, Urdu, and Roman Urdu requests, with eight intended n8n workflows and a seven-factor provider-ranking model. The public repository currently contains the README, not the runnable application/workflows."
+            result="Seven weighted provider-ranking factors are documented in the README; live matching, latency, and per-booking cost are not independently reproduced by public code or benchmark artifacts."
+            resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 2 submission"
+            proofLine="The README describes clarification, double-booking checks, and dispute handling as design behavior; the public tree has no implementation or test suite to verify runtime behavior."
             visual={<GharFixThumbnail />}
-            evaluation="Evidence comes from documented example traces and cost and latency estimates in the README, not from a benchmark or user study. Some availability slots are simulated, payment is cash-on-service, and heavy-traffic scalability is untested."
+            evaluation="This is a documented design, not a publicly reproducible implementation. The README itself notes simulated availability, no stress test, and no real payment gateway; runtime behavior, costs, and speed should be treated as unverified estimates."
             metrics={[
-              { value: '8', label: 'n8n workflows' },
-              { value: '7', label: 'ranking factors' },
-              { value: '3', label: 'languages' },
+              { value: '8', label: 'workflows documented' },
+              { value: '7', label: 'ranking factors documented' },
+              { value: '3', label: 'languages in design' },
             ]}
             architecture={<GharFixArchitecture />}
             repoUrl="https://github.com/MaryumAkram16/GharFix"
+            evidenceLinks={[
+              { label: 'README: ranking factors', url: 'https://github.com/MaryumAkram16/GharFix/blob/main/README.md#8-provider-matching-factors' },
+              { label: 'README: prototype limitations', url: 'https://github.com/MaryumAkram16/GharFix/blob/main/README.md#14-limitations' },
+            ]}
             demoType="gharfix"
             deepDive={{
               challenge:
@@ -415,7 +429,7 @@ function Work() {
               retrospective:
                 'Provider data depends on Google Places, so rural coverage is sparse, and some availability is simulated. The next upgrades would be a provider onboarding portal, live GPS tracking, Urdu voice input, and a real payment gateway.',
               metrics:
-                'Intent extraction takes about 1–3 seconds and a booking confirmation 400–800 ms, for roughly 4–7 seconds end to end. Coverage is 47 service types across 71 cities.',
+                'The README gives speed, cost, service-coverage, and city-coverage estimates, but the repository contains no runnable implementation, logs, or benchmark with which to reproduce them.',
             }}
           />
           <CaseStudy
@@ -423,35 +437,39 @@ function Work() {
             description="Career discovery pipeline"
             tags={['Dashboard', 'Radar', 'Assessment']}
             problem="Career discovery tools rarely check claimed skills against real, current market demand."
-            solution="Adaptive skill assessment matched against live market data. Architected and built end-to-end, with real security and rate-limiting in production."
-            result="Externally recorded: 9 real users. 94/94 CI tests passing."
-            proofLine="Externally recorded validation: 12 adversarial payload tests, plus rate limiting and audit logging in production."
-            evaluation="Externally recorded validation combines product usage and engineering checks: nine real users, 94/94 CI tests, and 12 adversarial security payloads, alongside production rate-limit and audit-log behavior. These figures are not currently included in the public README; recommendation quality remains an area for a larger labeled evaluation set."
-            metrics={[{ label: 'Recorded users', value: '9' }, { label: 'Recorded CI tests', value: '94/94' }, { label: 'Recorded payloads', value: '12' }]}
+            solution="The public source includes an adaptive assessment flow, market-data integration paths, Firebase authentication, rate limiting, Firestore rules, and audit logging. These source artifacts do not establish production operation or an external security audit."
+            result="The public repository includes a test suite and GitHub Actions workflow. Nine users is a portfolio-reported figure, not independently substantiated by the repository."
+            proofLine="Repository code includes Firebase authentication, rate limiting, Firestore rules, and tests; these are implementation artifacts, not an external security audit."
+            evaluation="The public repository includes tests and a CI workflow, and a public Actions run is available. It does not independently substantiate the portfolio-reported user count or a 94/94 test total, and the tests do not measure recommendation quality. No larger labeled evaluation set is published."
+            metrics={[{ label: 'Users', value: '9 reported' }, { label: 'Tests', value: 'Public suite' }, { label: 'Quality benchmark', value: 'Not published' }]}
             thumb={skillsyncDashboard}
             thumbWebp={skillsyncDashboardWebp}
-            thumbCaption="Real user data and journey"
+            thumbCaption="Career dashboard interface and journey"
             images={[
-              { src: skillsyncDashboard, webp: skillsyncDashboardWebp, caption: 'Real user data and journey' },
-              { src: skillsyncRadar, webp: skillsyncRadarWebp, caption: 'Live market demand scan for a target role' },
+              { src: skillsyncDashboard, webp: skillsyncDashboardWebp, caption: 'Career dashboard interface and journey' },
+              { src: skillsyncRadar, webp: skillsyncRadarWebp, caption: 'Market-demand scan dashboard for a target role' },
               {
                 src: skillsyncAssessment,
                 webp: skillsyncAssessmentWebp,
-                caption: 'Adaptive quiz verifying claimed skills against real performance',
+                caption: 'Sample assessment interface for claimed skills',
               },
               {
                 src: skillsyncParser,
                 webp: skillsyncParserWebp,
-                caption: 'Resume + role + country parsed into live job matches with ATS scoring',
+                caption: 'Resume and target-role matching flow shown in the interface',
               },
               {
                 src: skillsyncMentor,
                 webp: skillsyncMentorWebp,
-                caption: 'Recommendations built from assessment results and live market data',
+                caption: 'Career recommendation interface',
               },
             ]}
             scopeNote="Dashboard, Radar, Skill Assessment, Parser, and Career Mentor shown here are built by me. Interview Prep and Roadmap features were built by a collaborator (credited in the repo) and are not shown here."
             repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
+            evidenceLinks={[
+              { label: 'Public test suite', url: 'https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests' },
+              { label: 'GitHub Actions runs', url: 'https://github.com/MaryumAkram16/Skillsync-AI/actions' },
+            ]}
             demoType="skillsync"
             videoLinks={[
               { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
@@ -463,20 +481,20 @@ function Work() {
             description="Freelancer career intelligence"
             tags={['Market Data', 'Skill Gap Analysis', 'Proposal Generator']}
             problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
-            solution="Pulls live job market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals."
-            result="3 independent users. Fully solo build."
-            resultBadge="AI Seekho 2026 — Silver Tier, Phase 1 Submission"
-            evaluation="The current evidence is product validation rather than benchmark accuracy: three independent users ran the full pipeline. Gap Score is explicitly an AI-generated estimate and has not yet been benchmarked against ground truth."
-            metrics={[{ label: 'Independent users', value: '3' }, { label: 'Data source', value: 'Live jobs' }, { label: 'Gap Score', value: 'Estimate' }]}
+            solution="The public React/TypeScript implementation integrates JSearch and SerpAPI with AI-assisted career analysis, profile/proposal generation, and salary-coaching flows. External API responses and output quality are not independently benchmarked."
+            result="Three users and the fully solo build are portfolio-reported; the repository supports the implementation and integration paths, not those usage claims."
+            resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 1 submission"
+            evaluation="The repository contains integrations and UI/source for the career-intelligence flows. User count is portfolio-reported. Gap Score is an AI-generated estimate with no published ground-truth evaluation; API fallbacks mean current live-data availability and quality are not guaranteed."
+            metrics={[{ label: 'Users', value: '3 reported' }, { label: 'Data source', value: 'API integrations' }, { label: 'Gap Score', value: 'Unbenchmarked estimate' }]}
             thumb={roshanaiIntelligence}
             thumbWebp={roshanaiIntelligenceWebp}
-            thumbCaption="Live market data from JSearch and SerpAPI"
+            thumbCaption="Market-intelligence dashboard interface"
             images={[
-              { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Live market data from JSearch and SerpAPI' },
+              { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Market-intelligence dashboard interface' },
               {
                 src: roshanaiSkillGap,
                 webp: roshanaiSkillGapWebp,
-                caption: '29 live jobs fetched and analyzed against the resume',
+                caption: 'Example job results shown against a resume profile',
               },
               {
                 src: roshanaiProposal,
@@ -485,6 +503,10 @@ function Work() {
               },
             ]}
             repoUrl="https://github.com/MaryumAkram16/RoshanAI"
+            evidenceLinks={[
+              { label: 'Market-data integration source', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/src/marketIntelligence.ts' },
+              { label: 'Deployment notes and limitations', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/DEPLOYMENT.md' },
+            ]}
             demoType="roshanai"
             videoLinks={[
               { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
@@ -495,7 +517,7 @@ function Work() {
               retrospective:
                 'Two things I would fix: the API keys are called client-side right now, which exposes them in the browser — a server-side proxy is the correct fix. And the original roshanai.com domain is dead; the live version now runs on GitHub Pages/Vercel instead.',
               metrics:
-                '3 real users ran the full pipeline. Gap Score is an AI-generated estimate, not a measured accuracy figure — I have not benchmarked it against ground truth.',
+                'Three users is a portfolio-reported figure. Gap Score is an AI-generated estimate, not a measured accuracy figure; it has not been benchmarked against ground truth.',
             }}
           />
         </ProjectGroup>
@@ -597,6 +619,10 @@ function Work() {
               />
             }
             repoUrl="https://github.com/MaryumAkram16/AI-Human-Text-Detector"
+            evidenceLinks={[
+              { label: 'Model-comparison results', url: 'https://github.com/MaryumAkram16/AI-Human-Text-Detector/blob/main/table_model_comparison.csv' },
+              { label: 'README: dataset limitations', url: 'https://github.com/MaryumAkram16/AI-Human-Text-Detector#honest-limitations' },
+            ]}
             demoType="detector"
             videoLinks={[{ label: 'Open live app', url: 'https://ai-human-text-detection.streamlit.app' }]}
             deepDive={{
@@ -673,6 +699,10 @@ function Work() {
             metrics={[{ label: 'Stage 1 accuracy', value: '68.0%' }, { label: 'Final model MAE', value: '8.69' }, { label: 'Final model R²', value: '0.814' }, { label: 'Training resumes', value: '2,484' }]}
             images={[]}
             repoUrl="https://github.com/MaryumAkram16/Resume-Screener"
+            evidenceLinks={[
+              { label: 'Model manifest and reported metrics', url: 'https://github.com/MaryumAkram16/Resume-Screener/blob/main/model_manifest.json' },
+              { label: 'Artifact verification workflow', url: 'https://github.com/MaryumAkram16/Resume-Screener/blob/main/.github/workflows/verify.yml' },
+            ]}
             demoType="resume"
             videoLinks={[]}
           />
@@ -685,11 +715,16 @@ function Work() {
             tags={['Structured Extraction', 'FastAPI', 'Evaluation', 'Background Jobs']}
             problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
             solution="A provider-agnostic FastAPI service validates input, extracts a strict schema, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
-            result="8/8 hand-labelled evaluation cases passed, including ambiguous currency and non-receipt inputs."
-            proofLine="Prompt-injection test held. Background jobs add idempotency, retries, alerting, SQLite persistence, PDF reports, and optional scheduled generation."
+            result="Eight hand-labelled cases and an evaluator are public. The latest public CI run passed build and smoke checks but skipped the provider-backed evaluation."
+            proofLine="The repository implements schema validation, bounded retries/repair, background jobs, SQLite persistence, PDF reports, and optional scheduled generation; these are source-supported capabilities, not production guarantees."
             images={[]}
             architecture={<ReceiptArchitecture />}
             repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
+            evidenceLinks={[
+              { label: 'Eight labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
+              { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
+              { label: 'Latest public CI run', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/32571626750' },
+            ]}
             demoType="receipt"
             deepDive={{
               challenge:
@@ -697,7 +732,7 @@ function Work() {
               retrospective:
                 'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
               metrics:
-                'The current evaluation scores 8/8 hand-labelled cases. The service also logs prompt version, model, token counts, duration, repair status, and needs-review outcomes so quality and cost can be monitored together.',
+                'Eight hand-labelled evaluation cases are published. The latest public CI run skipped the provider-backed evaluation because provider credentials were unavailable; the source includes instrumentation for prompt version, model, token counts, duration, repair status, and needs-review outcomes.',
             }}
           />
           <CaseStudy

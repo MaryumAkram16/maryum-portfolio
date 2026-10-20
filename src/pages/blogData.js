@@ -31,15 +31,15 @@ export const blogPosts = [
       },
       {
         heading: 'The hardest part',
-        body: 'Conversations are unpredictable. The voice agent had to handle cancellations mid-booking, confirm details back to the caller, and fall back gracefully when it misunderstood — all in real time. The engineering discipline was in the failure handling: a voice agent that hallucinates a booking is worse than no agent at all, so I had to script dozens of call flows (normal booking, reschedule, cancel, wrong department, silence) and harden each branch before I could call it production-ready.',
+        body: 'Conversation state and fallback handling are important design concerns for a voice workflow. The exported flows show intended branches for booking and cancellation, but no public test suite or measured failure-handling results are available, so I describe this as a workflow prototype rather than production-ready software.',
       },
       {
         heading: 'Proof',
-        body: 'Independently tested by a professor via live link. The demo and full walkthrough are available on YouTube, and the source code is open on GitHub.',
+        body: 'The repository publishes workflow exports and links to two product demos. A professor test and live deployment are portfolio-reported, but are not independently evidenced by the public repository; no public test suite or deployment endpoint is included.',
       },
     ],
     images: [
-      { src: 'medilens/complaint-management.webp', jpg: 'medilens/complaint-management.jpg', caption: 'Independently tested by a professor via live link' },
+      { src: 'medilens/complaint-management.webp', jpg: 'medilens/complaint-management.jpg', caption: 'Complaint-management workflow interface sample' },
       { src: 'medilens/admin-command-center.webp', jpg: 'medilens/admin-command-center.jpg', caption: 'Admin dashboard for decision support' },
     ],
     videos: [
@@ -52,18 +52,18 @@ export const blogPosts = [
   },
   {
     slug: 'roshanai-freelancer-market-intelligence',
-    title: 'Building market intelligence for freelancers from live job data',
+    title: 'Building a freelancer market-intelligence app with job-data integrations',
     category: 'AI Product',
     project: 'RoshanAI',
     date: 'Jul 2026',
     readTime: '7 min read',
     summary:
-      'Freelancers guess at their rates and write generic proposals. RoshanAI pulls live market data from JSearch and SerpAPI, analyzes skill gaps against real postings, and generates tailored proposals. Here is how the pipeline works — and the mistake I made with API keys.',
+      'Freelancers guess at their rates and write generic proposals. RoshanAI includes JSearch and SerpAPI integration paths, career-analysis flows, and proposal generation. Whether current data is returned depends on API access and runtime configuration; the project has no published data-freshness or recommendation-quality benchmark. Here is how the pipeline works — and the mistake I made with API keys.',
     tags: ['Market Data', 'Skill Gap Analysis', 'Proposal Generator'],
     heroImage: 'roshanai/intelligence-layer.webp',
     heroImageJpg: 'roshanai/intelligence-layer.jpg',
     pipelineSteps: [
-      { label: 'Collect', title: 'Live jobs enter the system', body: 'JSearch and SerpAPI provide current postings instead of relying on a static job description.', output: 'Market postings' },
+      { label: 'Collect', title: 'Job-data APIs are queried', body: 'The code includes JSearch and SerpAPI integration paths; current results depend on credentials, provider availability, and runtime configuration.', output: 'Market postings' },
       { label: 'Compare', title: 'Resume skills meet market demand', body: 'The resume is parsed and claimed skills are matched against what the live roles request.', output: 'Explainable skill-gap estimate' },
       { label: 'Generate', title: 'The next action is written', body: 'Job analysis, rate context, and relevant experience are combined into a tailored proposal.', output: 'Client-ready proposal' },
       { label: 'Coach', title: 'Pricing gets a market anchor', body: 'The Salary Coach turns role, location, and market data into a suggested pricing range.', output: 'Rate suggestion' },
@@ -75,7 +75,7 @@ export const blogPosts = [
       },
       {
         heading: 'The pipeline',
-        body: 'RoshanAI pulls live job postings from JSearch and SerpAPI, parses the user\u2019s resume with NLP, matches claimed skills against real postings to produce a gap score, and generates a tailored proposal with a rate suggestion grounded in actual market numbers. Everything the user sees is derived from live data, not a static template.',
+        body: 'RoshanAI pulls live job postings from JSearch and SerpAPI, parses the user\u2019s resume with NLP, matches claimed skills against real postings to produce a gap score, and generates a tailored proposal with a rate suggestion grounded in actual market numbers. API fallbacks may use model knowledge, so returned data and generated scores are not guaranteed to be current or validated.',
       },
       {
         heading: 'The hardest technical challenge',
@@ -87,11 +87,11 @@ export const blogPosts = [
       },
       {
         heading: 'Proof',
-        body: '3 real users ran the full pipeline. The Gap Score is an AI-generated estimate, not a measured accuracy figure — I have not benchmarked it against ground truth.',
+        body: 'Three users is a portfolio-reported figure, not independently substantiated by the public repository. The Gap Score is an AI-generated estimate without a published ground-truth benchmark.',
       },
     ],
     images: [
-      { src: 'roshanai/skill-gap-analysis.webp', jpg: 'roshanai/skill-gap-analysis.jpg', caption: '29 live jobs fetched and analyzed against the resume' },
+      { src: 'roshanai/skill-gap-analysis.webp', jpg: 'roshanai/skill-gap-analysis.jpg', caption: 'Example job results displayed alongside a resume profile' },
       { src: 'roshanai/proposal-generator.webp', jpg: 'roshanai/proposal-generator.jpg', caption: 'Generated output: job analysis, rate suggestion, tailored proposal' },
     ],
     videos: [{ label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' }],
@@ -105,12 +105,12 @@ export const blogPosts = [
     date: 'Jun 2026',
     readTime: '6 min read',
     summary:
-      'Career discovery tools rarely check claimed skills against real, current market demand. SkillSync AI runs an adaptive assessment, matches it against live postings, and produces market-grounded career recommendations. It also has externally recorded adversarial security testing results; the current public README does not include the figures.',
+      'Career discovery tools rarely check claimed skills against real, current market demand. The public source includes assessment, career-tool, authentication, rate-limiting, and market-integration code, and the repository has tests and a CI workflow. Usage counts are portfolio-reported; recommendation quality and external security testing are not independently established by the public artifacts.',
     tags: ['Dashboard', 'Radar', 'Assessment'],
     heroImage: 'skillsync/dashboard.webp',
     heroImageJpg: 'skillsync/dashboard.jpg',
     pipelineSteps: [
-      { label: 'Assess', title: 'The user answers a skill quiz', body: 'An adaptive assessment checks claimed ability with role-relevant questions instead of only asking what the user likes.', output: 'Evidence-backed assessment' },
+      { label: 'Assess', title: 'The user answers a skill quiz', body: 'An adaptive assessment checks claimed ability with role-relevant questions instead of only asking what the user likes.', output: 'Assessment result' },
       { label: 'Scan', title: 'Market Radar checks demand', body: 'The target role is compared with live postings to show which skills are currently being requested.', output: 'Demand signal' },
       { label: 'Parse', title: 'The profile is matched to jobs', body: 'Resume, role, and country are parsed into live matches with ATS-oriented scoring.', output: 'Market-fit profile' },
       { label: 'Guide', title: 'Career Mentor builds the next step', body: 'Assessment results and market evidence become personalized recommendations, roadmap items, and interview preparation.', output: 'Actionable career path' },
@@ -122,22 +122,22 @@ export const blogPosts = [
       },
       {
         heading: 'What I built',
-        body: 'An adaptive skill assessment matched against live market data, a radar that scans live demand for a target role, a resume parser that scores ATS fit against current postings, and a career mentor that builds recommendations from assessment results and real market data. Architected and built end-to-end, with real security and rate-limiting in production.',
+        body: 'The public repository contains adaptive-assessment, market-integration, resume-parsing, and career-recommendation code, as well as authentication, rate limiting, Firestore rules, tests, and a CI workflow. This is evidence of implementation, not proof of production usage, an independent security audit, or recommendation accuracy.',
       },
       {
         heading: 'Proof',
-        body: 'Externally recorded validation: 9 real users, 94/94 CI tests, and 12 adversarial payload tests, alongside rate limiting and audit logging in production. These figures are not currently included in the public README.',
+        body: 'Nine users is portfolio-reported, not independently confirmed by the public repository. The repository contains tests and a GitHub Actions workflow, but does not substantiate the earlier 94/94 test total or 12-payload security-test claim. No external security audit or recommendation-quality benchmark is published.',
       },
       {
         heading: 'What I learned',
-        body: 'An externally recorded security exercise — deliberately throwing 12 crafted payloads at your own endpoints — taught me more than any tutorial. The figures are not currently included in the public README. When production traffic arrives, you want to know the system holds, but this external record should not be presented as repository-verified. The same applies to the externally recorded CI result: 94 tests passing means the adaptive assessment, the parser, and the dashboard can\u2019t silently break each other when one of them changes.',
+        body: 'The project reinforced the value of testing application boundaries and reviewing security controls. The public repository exposes a test suite and CI workflow, but does not provide the claimed total of 94 tests, 12 adversarial payload results, production traffic, or an external audit; those claims should not be treated as verified.',
       },
     ],
     images: [
-      { src: 'skillsync/radar.webp', jpg: 'skillsync/radar.jpg', caption: 'Live market demand scan for a target role' },
-      { src: 'skillsync/skill-assessment.webp', jpg: 'skillsync/skill-assessment.jpg', caption: 'Adaptive quiz verifying claimed skills against real performance' },
-      { src: 'skillsync/parser.webp', jpg: 'skillsync/parser.jpg', caption: 'Resume + role + country parsed into live job matches with ATS scoring' },
-      { src: 'skillsync/career-mentor.webp', jpg: 'skillsync/career-mentor.jpg', caption: 'Recommendations built from assessment results and live market data' },
+      { src: 'skillsync/radar.webp', jpg: 'skillsync/radar.jpg', caption: 'Market-demand scan interface for a target role' },
+      { src: 'skillsync/skill-assessment.webp', jpg: 'skillsync/skill-assessment.jpg', caption: 'Sample assessment interface for claimed skills' },
+      { src: 'skillsync/parser.webp', jpg: 'skillsync/parser.jpg', caption: 'Resume, role, and country parsing interface' },
+      { src: 'skillsync/career-mentor.webp', jpg: 'skillsync/career-mentor.jpg', caption: 'Career recommendation interface' },
     ],
     videos: [
       { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },

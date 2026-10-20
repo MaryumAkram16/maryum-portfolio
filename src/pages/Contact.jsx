@@ -6,7 +6,7 @@ import './Contact.css'
 function Contact() {
   usePageTitle('Contact — Maryum Akram')
   return (
-    <main className="page contact">
+    <main id="main-content" tabIndex={-1} className="page contact">
       <div className="container">
         <div className="section-head contact-head">
           <p className="section-label">Let's work together</p>
@@ -14,9 +14,9 @@ function Contact() {
             Have a system that needs to be built right?<span className="hero-gradient"> Let's talk.</span>
           </h1>
           <p className="section-sub">
-            I build AI systems that are evaluated, secure, and production-ready — not demos. If that's
-              what you need, let's talk. No jargon, no pressure — just a straight conversation about how I
-              can help.
+            I build and evaluate AI systems, from documented workflow prototypes to tested application
+              code. If you're looking for help with a project, let's talk — no jargon, no pressure, just
+              a straight conversation about the problem and what evidence would count as success.
           </p>
         </div>
 
@@ -53,7 +53,7 @@ function Contact() {
         </div>
 
         <p className="contact-closing">
-          Based in Lahore, Pakistan · Building reliable AI systems, from model evaluation to production.
+          Based in Lahore, Pakistan · Building AI systems, from model evaluation to tested application code.
         </p>
       </div>
     </main>

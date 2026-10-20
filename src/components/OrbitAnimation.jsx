@@ -39,6 +39,8 @@ export default function OrbitAnimation({ labels = ['Python', 'React', 'OpenAI', 
   const svgRef = useRef(null)
 
   useEffect(() => {
+    if (window.matchMedia?.('(prefers-reduced-motion: reduce)').matches) return undefined
+
     let raf
     const start = performance.now()
     const render = (now) => {

@@ -86,28 +86,29 @@ function Landing() {
 
   // Auto-cycle pipeline steps
   useEffect(() => {
+    if (role.reduced) return undefined
     const interval = setInterval(() => setActiveStep((p) => (p + 1) % 6), 1600)
     return () => clearInterval(interval)
-  }, [])
+  }, [role.reduced])
 
   const capabilities = [
     {
       icon: '🎙️',
       title: 'Voice & conversational agents',
-      desc: 'Systems that book, triage, and resolve by voice — no staff in the loop.',
-      tag: 'Live',
+      desc: 'Voice-agent and conversational workflow prototypes for booking, triage, and service support.',
+      tag: 'Voice AI',
     },
     {
       icon: '⚙️',
       title: 'Backend automation pipelines',
-      desc: 'Workflows that pull live data, score it, and act on it end-to-end.',
-      tag: 'Data-driven',
+      desc: 'Automation designs and implementations that connect APIs, score data, and trigger workflows.',
+      tag: 'Automation',
     },
     {
       icon: '🚀',
       title: 'Full-stack AI products',
-      desc: 'From auth and databases to rate-limited, CI-tested APIs — shipped, not demoed.',
-      tag: 'Production',
+      desc: 'Application code and prototypes with authentication, databases, API safeguards, and tests.',
+      tag: 'Full-stack',
     },
   ]
 
@@ -122,13 +123,13 @@ function Landing() {
   const whyItems = [
     {
       icon: '🛠️',
-      title: 'Production systems, not demos',
-      desc: 'Everything I ship runs for real users — professor-tested intake platforms, freelancer tools with independent users, and APIs with an externally recorded 94/94 CI test result.',
+      title: 'Projects with evidence',
+      desc: 'Public code, workflow exports, demos, and evaluation artifacts are linked on the case studies. User counts and awards are labelled when self-reported; design-only work is called out.',
     },
     {
       icon: '📡',
-      title: 'Powered by live data',
-      desc: 'My systems pull from live APIs, not stale training data — live job postings, real hospital schedules, and market rates that refresh as conditions change.',
+      title: 'Data and integrations',
+      desc: 'Several projects include job-market API integration paths; other work uses offline model evaluation or documents a proposed workflow. Current API availability is not guaranteed.',
     },
     {
       icon: '🔗',
@@ -138,7 +139,7 @@ function Landing() {
   ]
 
   return (
-    <main className="page landing landing-v3">
+    <main id="main-content" tabIndex={-1} className="page landing landing-v3">
       {/* ── HERO: text left + orbit animation right ── */}
       <section className="landing-hero">
         <div className="hero-glow hero-glow-1" aria-hidden="true" />
@@ -192,16 +193,17 @@ function Landing() {
                 <div className="stat-value">
                   <CounterItem value={7} />
                 </div>
-                <div className="stat-label">AI systems shipped</div>
+                <div className="stat-label">Featured projects</div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  <CounterItem value={94} />
-                  <span>/94</span>
+                  CI
                 </div>
                 <div className="stat-label">
-                  CI tests passing
-                  <span className="stat-attr">— SkillSync AI</span>
+                  Public test workflow
+                  <a className="stat-attr" href="https://github.com/MaryumAkram16/Skillsync-AI/actions" target="_blank" rel="noopener noreferrer">
+                    SkillSync AI · CI runs ↗
+                  </a>
                 </div>
               </div>
               <div className="stat-item">
@@ -209,8 +211,10 @@ function Landing() {
                   <CounterItem value={9} />
                 </div>
                 <div className="stat-label">
-                  Real users
-                  <span className="stat-attr">— SkillSync AI</span>
+                  Users reported
+                  <Link className="stat-attr" to="/work#skillsync-ai">
+                    SkillSync AI · portfolio-reported
+                  </Link>
                 </div>
               </div>
             </div>
@@ -236,7 +240,7 @@ function Landing() {
             <SectionHead
               label="About me"
               title="Self-taught. Math background."
-              highlight="Ships real systems."
+              highlight="Builds AI projects."
             />
           </Reveal>
           <div className="about-grid">
@@ -270,11 +274,12 @@ function Landing() {
                   </strong>
                 </p>
                 <p>
-                  In one year I've gone from following automation tutorials to shipping seven
-                  AI systems — hospital voice workflows, agentic service booking, freelancer
-                  career intelligence, a production-hardened SaaS product, document intelligence,
-                  and classical ML — with the evaluation evidence for each. My math background means I
-                  reason through the systems I build instead of just wiring APIs together. Stack:
+                  In one year I've gone from following automation tutorials to building seven
+                  AI projects — hospital workflow prototypes, a documented service-booking design,
+                  career-intelligence applications, text-extraction APIs, and classical ML. Some
+                  have public tests and measured evaluation; others remain designs or demos, as
+                  noted in their case studies. My math background means I reason through the systems
+                  I build instead of just wiring APIs together. Stack:
                   Python, FastAPI, scikit-learn, OpenAI/Gemini, Retell AI, React, Supabase/Firebase,
                   and Cloud Run.
                 </p>
@@ -291,8 +296,8 @@ function Landing() {
             <SectionHead
               label="What I do"
               title="Three things I build,"
-              highlight="backed by live data"
-              sub="Every project below is a real system running for real people, not a tutorial clone."
+              highlight="with clear evidence"
+              sub="Cards link to code, demos, or technical case studies. Each case study distinguishes implemented features, measured results, and claims that still need independent verification."
             />
           </Reveal>
           <ul className="capability-grid">
@@ -322,7 +327,7 @@ function Landing() {
               label="Projects I've built"
               title="Seven AI systems,"
               highlight="from agentic automation to classical ML"
-              sub="Agentic and automation systems first — voice workflows, service booking, live-data products — then extraction and classical ML with measured results."
+              sub="Agentic and automation systems first — voice workflows, service-booking designs, and data-connected apps — then extraction and classical ML with measured results."
             />
           </Reveal>
           <div className="preview-grid">
