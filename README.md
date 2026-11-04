@@ -3,10 +3,11 @@
 Personal portfolio site for Maryum Akram, AI Engineer. Live at
 [maryumakram16.github.io/maryum-portfolio](https://maryumakram16.github.io/maryum-portfolio/).
 
-Three pages — Landing, Work, Contact — built around one claim ("I turn slow, manual business
-processes into AI systems that run themselves") and one action (book a 30-minute intro call).
-Work page covers three case studies: MediLens, RoshanAI, and SkillSync AI, each scoped to the
-features actually built solo or with attribution noted for collaborator-built pieces.
+Built around one positioning statement (an AI Engineer building AI-powered applications,
+backend services, and intelligent automation) and one action (book a 30-minute intro call).
+The Work page has 11 case studies, ordered by publicly verifiable engineering evidence
+(tests, CI, backend code) with classical ML grouped last. Each is scoped to the features I
+built, with collaborator-built pieces attributed, and labels prototypes and documented designs.
 
 ## Stack
 

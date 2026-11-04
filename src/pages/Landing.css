@@ -734,6 +734,13 @@
   justify-content: center;
 }
 
+/* Sub-label separating the classical ML cards from the applied AI/backend grid */
+.preview-group-label {
+  max-width: 1080px;
+  margin: 0 auto 18px;
+  text-align: center;
+}
+
 /* ── EXPERIENCE (light section; #0a6b60 teal is 6.1:1+ on white/bg-alt, WCAG AA) ── */
 .landing-experience {
   background: var(--bg-alt);
