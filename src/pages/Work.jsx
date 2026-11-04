@@ -346,29 +346,200 @@ function ProjectGroup({ id, title, children }) {
 }
 
 function Work() {
-  usePageTitle('Work — Maryum Akram | Case Studies in AI Automation')
+  usePageTitle('Work — Maryum Akram | Case Studies in AI Engineering')
   return (
     <main id="main-content" tabIndex={-1} className="page work">
       <div className="work-container">
         <div className="work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            11 projects,<span className="hero-gradient"> from classical ML to AI applications</span>
+            11 projects,<span className="hero-gradient"> from tested AI applications to classical ML</span>
           </h1>
           <p className="section-sub">
-            Grouped by type. Projects with a full case study show the problem, the system I built,
-            and the proof — architecture, evaluation, reliability, and demo evidence, and honest
-            limitations. The rest appear as short summary cards.
+            Applied AI and backend systems come first, ordered by how much of the engineering is
+            publicly verifiable. Each case study shows the problem, what I built, the evidence —
+            tests, CI, evaluation, demos — and honest limitations, and labels prototypes and
+            documented designs as such.
           </p>
         </div>
 
-        <ProjectGroup id="end-to-end" title="End-to-end systems">
+        <ProjectGroup id="end-to-end" title="Applied AI & backend systems">
+          <CaseStudy
+            title="SkillSync AI"
+            description="Full-stack AI career platform"
+            tags={['TypeScript', 'Express API', 'Firebase Auth', 'Vitest + CI', 'Gemini', 'SerpAPI']}
+            problem="Career discovery tools rarely check claimed skills against real, current market demand."
+            solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow. These source artifacts do not establish production operation or an external security audit."
+            result="The public repository has 94 automated tests in 9 Vitest files, and they all pass on the public code. A GitHub Actions workflow runs the suite and a TypeScript check on every push to main. Nine users is a portfolio-reported figure, not independently substantiated by the repository."
+            proofLine="Repository code includes Firebase authentication, rate limiting, Firestore rules, and tests; these are implementation artifacts, not an external security audit."
+            evaluation="The tests cover input validation, rate-limit keys, usage limits, resume parsing, the SerpAPI client, and assessment helpers; the suite also covers helpers for the collaborator-built Roadmap and Interview Prep features. They test application logic, not recommendation quality: no labelled quality evaluation is published, and the user count is portfolio-reported."
+            metrics={[{ label: 'automated tests', value: '94' }, { label: 'CI', value: 'Tests + type-check' }, { label: 'Users', value: '9 reported' }, { label: 'Quality benchmark', value: 'Not published' }]}
+            thumb={skillsyncDashboard}
+            thumbWebp={skillsyncDashboardWebp}
+            thumbCaption="Career dashboard interface and journey"
+            images={[
+              { src: skillsyncDashboard, webp: skillsyncDashboardWebp, caption: 'Career dashboard interface and journey' },
+              { src: skillsyncRadar, webp: skillsyncRadarWebp, caption: 'Market-demand scan dashboard for a target role' },
+              {
+                src: skillsyncAssessment,
+                webp: skillsyncAssessmentWebp,
+                caption: 'Sample assessment interface for claimed skills',
+              },
+              {
+                src: skillsyncParser,
+                webp: skillsyncParserWebp,
+                caption: 'Resume and target-role matching flow shown in the interface',
+              },
+              {
+                src: skillsyncMentor,
+                webp: skillsyncMentorWebp,
+                caption: 'Career recommendation interface',
+              },
+            ]}
+            scopeNote="Dashboard, Radar, Skill Assessment, Parser, and Career Mentor shown here are built by me. Interview Prep and Roadmap features were built by a collaborator (credited in the repo) and are not shown here."
+            repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
+            evidenceLinks={[
+              { label: 'Public test suite', url: 'https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests' },
+              { label: 'GitHub Actions runs', url: 'https://github.com/MaryumAkram16/Skillsync-AI/actions' },
+            ]}
+            demoType="skillsync"
+            videoLinks={[
+              { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
+              { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
+            ]}
+          />
+          <CaseStudy
+            title="Embeddable Widget Platform"
+            description="Multi-tenant FastAPI backend · FlyRank internship"
+            tags={['Python', 'FastAPI', 'SQLAlchemy + SQLite', 'pytest', 'Multi-tenant', 'Bot Defense']}
+            problem="A widget that collects data from strangers on any website has to survive bad input, floods, bots, and provider outages without losing or leaking a submission."
+            solution="Tenants define a signup form or CTA popover and embed it with one script tag. Each submission passes validation, rate limiting, spam checks, a two-provider geo fallback, and storage, and an email side effect can fail without blocking success."
+            result="47/47 tests passing, with multi-tenant isolation tests, a live two-origin end-to-end run, and a real-time dashboard."
+            proofLine="In the repository's measurement script, proof-of-work bot defense blocked 100% of naive bots with 0% false positives on simulated legitimate submissions, at about 117 ms average solve cost."
+            visual={
+              <FlowThumbnail
+                label="Website visitor submission transformed into a protected, stored lead"
+                input={['POST /submissions', 'any origin · public']}
+                outputTitle="Protected lead"
+                output={['validated · rate limited', 'geo enriched · stored']}
+                footerLeft="47/47 tests"
+                footerRight="100% naive bots blocked"
+              />
+            }
+            evaluation="All 47 pytest tests pass on the public code; no CI workflow is published, so they run locally. Bot-defense numbers come from the repo's evidence file and simulated traffic, not production. Rate limiting is in-memory and single-instance, authentication is API-key only, and password hashing is plain SHA-256, suitable only for local demos."
+            metrics={[
+              { value: '47/47', label: 'tests passing' },
+              { value: '100%', label: 'naive bots blocked' },
+              { value: '0%', label: 'false positives' },
+              { value: '~117 ms', label: 'avg solve cost' },
+            ]}
+            architecture={
+              <FlowArchitecture
+                label="Embeddable widget platform architecture"
+                top="Customer website · widget.js loads public, cached widget config"
+                steps={[
+                  { name: 'Validate', note: 'bad input gets 4xx' },
+                  { name: 'Rate limit + spam', note: '429, then recovers' },
+                  { name: 'Geo fallback', note: 'provider A, then B' },
+                ]}
+                output="Tenant-isolated storage · email or webhook side effect cannot block success"
+                bottom={[
+                  { name: 'Dashboard', note: 'server-rendered, SSE live updates' },
+                  { name: 'Proof of work', note: 'bot defense' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/flyrank-capstone-widget-platform"
+            demoType="widget"
+            deepDive={{
+              challenge:
+                "Making the public submission path fail safely. Bad payloads return 4xx instead of 500, floods get a 429 and recover, geo provider failure still stores the submission, and the email side effect cannot block success.",
+              retrospective:
+                "Rate limiting is in-memory and single-instance, so the production step is a shared store such as Redis, plus real session authentication and a proper password hash.",
+              metrics:
+                "47/47 tests pass. Proof-of-work bot defense blocked 100% of naive bots with 0% false positives at about 117 ms average solve cost.",
+            }}
+          />
+          <CaseStudy
+            title="Receipt Extractor"
+            description="FastAPI extraction service · FlyRank internship"
+            tags={['Python', 'FastAPI', 'Pydantic', 'Evaluation', 'Background Jobs', 'Docker']}
+            problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
+            solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
+            result="CI compiles the code, builds the Docker image, and runs a schema smoke test against the running API on every push. Eight hand-labelled evaluation cases and an evaluator are public; the latest public CI run passed build and smoke checks but skipped the provider-backed evaluation."
+            proofLine="The repository implements schema validation, bounded retries/repair, background jobs, SQLite persistence, PDF reports, and optional scheduled generation; these are source-supported capabilities, not production guarantees."
+            evaluation="There is no unit-test suite; verification is the CI smoke test plus the labelled evaluation, which needs provider credentials to run. The README reports 8/8 on prompt v2 (v1 scored 7/8); that score comes from a local run, not public CI."
+            metrics={[{ value: '8', label: 'labelled eval cases' }, { value: '8/8', label: 'README-reported, prompt v2' }, { value: 'Docker', label: 'CI build + smoke test' }]}
+            images={[]}
+            architecture={<ReceiptArchitecture />}
+            repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
+            evidenceLinks={[
+              { label: 'Eight labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
+              { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
+              { label: 'Latest public CI run', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/32571626750' },
+            ]}
+            demoType="receipt"
+            deepDive={{
+              challenge:
+                'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
+              retrospective:
+                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
+              metrics:
+                'Eight hand-labelled evaluation cases are published. The latest public CI run skipped the provider-backed evaluation because provider credentials were unavailable; the source includes instrumentation for prompt version, model, token counts, duration, repair status, and needs-review outcomes.',
+            }}
+          />
+          <CaseStudy
+            title="RoshanAI"
+            description="Full-stack freelancer career intelligence"
+            tags={['TypeScript', 'Express API', 'Firebase Auth', 'JSearch / SerpAPI', 'OpenAI']}
+            problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
+            solution="A React/TypeScript app backed by an Express API that keeps provider keys server-side, verifies Firebase ID tokens, rate-limits requests, and proxies JSearch, SerpAPI, and OpenAI calls for career analysis, profile/proposal generation, and salary coaching. External API responses and output quality are not independently benchmarked."
+            result="A CI workflow runs security-invariant checks, a TypeScript check, and a build before each backend deploy. Three users and the fully solo build are portfolio-reported; the repository supports the implementation and integration paths, not those usage claims."
+            resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 1 submission"
+            evaluation="The repository contains integrations and UI/source for the career-intelligence flows. User count is portfolio-reported. Gap Score is an AI-generated estimate with no published ground-truth evaluation; API fallbacks mean current live-data availability and quality are not guaranteed."
+            metrics={[{ label: 'CI', value: 'Security checks + build' }, { label: 'Users', value: '3 reported' }, { label: 'Data source', value: 'API integrations' }, { label: 'Gap Score', value: 'Unbenchmarked estimate' }]}
+            thumb={roshanaiIntelligence}
+            thumbWebp={roshanaiIntelligenceWebp}
+            thumbCaption="Market-intelligence dashboard interface"
+            images={[
+              { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Market-intelligence dashboard interface' },
+              {
+                src: roshanaiSkillGap,
+                webp: roshanaiSkillGapWebp,
+                caption: 'Example job results shown against a resume profile',
+              },
+              {
+                src: roshanaiProposal,
+                webp: roshanaiProposalWebp,
+                caption: 'Generated output: job analysis, rate suggestion, tailored proposal',
+              },
+            ]}
+            repoUrl="https://github.com/MaryumAkram16/RoshanAI"
+            evidenceLinks={[
+              { label: 'Authenticated API layer', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/server.ts' },
+              { label: 'Security regression checks', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/scripts/security-regression.mjs' },
+              { label: 'Market-data integration source', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/src/marketIntelligence.ts' },
+              { label: 'Deployment notes and limitations', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/DEPLOYMENT.md' },
+            ]}
+            demoType="roshanai"
+            videoLinks={[
+              { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
+            ]}
+            deepDive={{
+              challenge:
+                "Resume parsing into a meaningful gap score was the hardest part — going from raw resume text to NLP-matching a person's actual skills against live job postings, then turning that into a score that means something rather than a plausible-looking number.",
+              retrospective:
+                'Early versions called provider APIs from the browser, which exposed the keys; provider calls now go through an authenticated server-side API, and a CI check fails if browser-side key patterns reappear. The original roshanai.com domain is dead; the repository now documents a GitHub Pages frontend with a Vercel serverless backend.',
+              metrics:
+                'Three users is a portfolio-reported figure. Gap Score is an AI-generated estimate, not a measured accuracy figure; it has not been benchmarked against ground truth.',
+            }}
+          />
           <CaseStudy
             title="MediLens"
-            description="Hospital workflow prototype"
-            tags={['Voice Agent', 'Complaint Mgmt', 'Admin Dashboard']}
+            description="Voice AI hospital workflow prototype"
+            tags={['Voice AI', 'Retell AI', 'n8n', 'Complaint Mgmt', 'Admin Dashboard']}
             problem="Hospital booking, complaints, and admin tracking were manual, staff-run processes."
-            solution="The public repository contains n8n workflow exports for voice appointment handling, complaint management, and an admin command center, plus links to product demos."
+            solution="I built the Retell voice agent and the n8n workflows for voice appointment booking, complaint management, and an admin command center. The public repository contains those workflow exports plus links to product demos."
             result="Public evidence: workflow exports and linked demos. The repository does not include a public test suite or deployment evidence."
             evaluation="The exports document workflow structure and intended scripted booking, cancellation, and rescheduling paths; they do not establish a live hospital deployment, clinical validation, uptime, or measured patient impact. Some exported workflows are marked inactive."
             metrics={[{ label: 'Evidence', value: 'Workflow exports' }, { label: 'Demos', value: '2 linked' }, { label: 'Public CI', value: 'None' }]}
@@ -432,92 +603,60 @@ function Work() {
                 'The README gives speed, cost, service-coverage, and city-coverage estimates, but the repository contains no runnable implementation, logs, or benchmark with which to reproduce them.',
             }}
           />
+        </ProjectGroup>
+
+        <ProjectGroup id="flyrank" title="More FlyRank internship work">
           <CaseStudy
-            title="SkillSync AI"
-            description="Career discovery pipeline"
-            tags={['Dashboard', 'Radar', 'Assessment']}
-            problem="Career discovery tools rarely check claimed skills against real, current market demand."
-            solution="The public source includes an adaptive assessment flow, market-data integration paths, Firebase authentication, rate limiting, Firestore rules, and audit logging. These source artifacts do not establish production operation or an external security audit."
-            result="The public repository includes a test suite and GitHub Actions workflow. Nine users is a portfolio-reported figure, not independently substantiated by the repository."
-            proofLine="Repository code includes Firebase authentication, rate limiting, Firestore rules, and tests; these are implementation artifacts, not an external security audit."
-            evaluation="The public repository includes tests and a CI workflow, and a public Actions run is available. It does not independently substantiate the portfolio-reported user count or a 94/94 test total, and the tests do not measure recommendation quality. No larger labeled evaluation set is published."
-            metrics={[{ label: 'Users', value: '9 reported' }, { label: 'Tests', value: 'Public suite' }, { label: 'Quality benchmark', value: 'Not published' }]}
-            thumb={skillsyncDashboard}
-            thumbWebp={skillsyncDashboardWebp}
-            thumbCaption="Career dashboard interface and journey"
-            images={[
-              { src: skillsyncDashboard, webp: skillsyncDashboardWebp, caption: 'Career dashboard interface and journey' },
-              { src: skillsyncRadar, webp: skillsyncRadarWebp, caption: 'Market-demand scan dashboard for a target role' },
-              {
-                src: skillsyncAssessment,
-                webp: skillsyncAssessmentWebp,
-                caption: 'Sample assessment interface for claimed skills',
-              },
-              {
-                src: skillsyncParser,
-                webp: skillsyncParserWebp,
-                caption: 'Resume and target-role matching flow shown in the interface',
-              },
-              {
-                src: skillsyncMentor,
-                webp: skillsyncMentorWebp,
-                caption: 'Career recommendation interface',
-              },
+            title="Content Refresh Scoring"
+            description="Honest baseline-versus-model evaluation"
+            tags={['scikit-learn', 'Client-holdout Split', 'Precision@K', 'Error Analysis']}
+            problem="A content team can review only 20–50 pages a week, so it needs a defensible, ranked shortlist of which pages to refresh first."
+            solution="Built a two-signal baseline rule (0.7 CTR gap plus 0.3 staleness) and compared it with Logistic Regression and Random Forest on FlyRank's anonymized search data, evaluated on a client-holdout split so no client appears in both train and test."
+            result="The baseline (Precision@50 0.90) matched Logistic Regression (0.92) and beat Random Forest (0.76). Error analysis traced the gap to the model over-weighting traffic and page age."
+            proofLine="A naive random split inflated Random Forest to 0.88 with 27 overlapping clients, which is why the evaluation is grouped by client."
+            visual={
+              <FlowThumbnail
+                label="Page signals transformed into a ranked review queue"
+                input={['Page signals', 'CTR gap · staleness']}
+                outputTitle="Ranked review queue"
+                output={['top 50 pages', 'reason code + action']}
+                footerLeft="Baseline P@50 0.90"
+                footerRight="vs Random Forest 0.76"
+              />
+            }
+            evaluation="Directional only: the test set is 6 clients (about 1,260 rows), the label is a current-window proxy, and no experiment tested whether refreshing a page causes recovery. A leakage audit found no label-derived feature."
+            metrics={[
+              { value: '0.90', label: 'baseline P@50' },
+              { value: '0.92', label: 'Logistic Regression' },
+              { value: '0.76', label: 'Random Forest' },
+              { value: '16,726', label: 'pages scored' },
             ]}
-            scopeNote="Dashboard, Radar, Skill Assessment, Parser, and Career Mentor shown here are built by me. Interview Prep and Roadmap features were built by a collaborator (credited in the repo) and are not shown here."
-            repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
-            evidenceLinks={[
-              { label: 'Public test suite', url: 'https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests' },
-              { label: 'GitHub Actions runs', url: 'https://github.com/MaryumAkram16/Skillsync-AI/actions' },
-            ]}
-            demoType="skillsync"
-            videoLinks={[
-              { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
-              { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
-            ]}
-          />
-          <CaseStudy
-            title="RoshanAI"
-            description="Freelancer career intelligence"
-            tags={['Market Data', 'Skill Gap Analysis', 'Proposal Generator']}
-            problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
-            solution="The public React/TypeScript implementation integrates JSearch and SerpAPI with AI-assisted career analysis, profile/proposal generation, and salary-coaching flows. External API responses and output quality are not independently benchmarked."
-            result="Three users and the fully solo build are portfolio-reported; the repository supports the implementation and integration paths, not those usage claims."
-            resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 1 submission"
-            evaluation="The repository contains integrations and UI/source for the career-intelligence flows. User count is portfolio-reported. Gap Score is an AI-generated estimate with no published ground-truth evaluation; API fallbacks mean current live-data availability and quality are not guaranteed."
-            metrics={[{ label: 'Users', value: '3 reported' }, { label: 'Data source', value: 'API integrations' }, { label: 'Gap Score', value: 'Unbenchmarked estimate' }]}
-            thumb={roshanaiIntelligence}
-            thumbWebp={roshanaiIntelligenceWebp}
-            thumbCaption="Market-intelligence dashboard interface"
-            images={[
-              { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Market-intelligence dashboard interface' },
-              {
-                src: roshanaiSkillGap,
-                webp: roshanaiSkillGapWebp,
-                caption: 'Example job results shown against a resume profile',
-              },
-              {
-                src: roshanaiProposal,
-                webp: roshanaiProposalWebp,
-                caption: 'Generated output: job analysis, rate suggestion, tailored proposal',
-              },
-            ]}
-            repoUrl="https://github.com/MaryumAkram16/RoshanAI"
-            evidenceLinks={[
-              { label: 'Market-data integration source', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/src/marketIntelligence.ts' },
-              { label: 'Deployment notes and limitations', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/DEPLOYMENT.md' },
-            ]}
-            demoType="roshanai"
-            videoLinks={[
-              { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
-            ]}
+            architecture={
+              <FlowArchitecture
+                label="Content refresh scoring pipeline"
+                top="Anonymized starter data · 30,000 pages, 44 columns"
+                steps={[
+                  { name: 'Volume floor', note: '500+ impressions' },
+                  { name: 'Baseline rule', note: '0.7 CTR gap + 0.3 stale' },
+                  { name: 'Models', note: 'LR and Random Forest' },
+                ]}
+                output="Precision@50 on a client-holdout split · 22 train, 6 test clients"
+                bottom={[
+                  { name: 'Playbook', note: 'monitor, review, tracking audit' },
+                  { name: 'Paper', note: 'deployed write-up' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/flyrank-ml-internship"
+            demoType="refresh"
+            videoLinks={[{ label: 'Read the paper', url: 'https://maryumakram16.github.io/flyrank-ml-internship/' }]}
             deepDive={{
               challenge:
-                "Resume parsing into a meaningful gap score was the hardest part — going from raw resume text to NLP-matching a person's actual skills against live job postings, then turning that into a score that means something rather than a plausible-looking number.",
+                "Reporting a negative result plainly: a two-signal rule beat a 200-tree Random Forest, so the work focused on explaining why, not on tuning the model until it won.",
               retrospective:
-                'Two things I would fix: the API keys are called client-side right now, which exposes them in the browser — a server-side proxy is the correct fix. And the original roshanai.com domain is dead; the live version now runs on GitHub Pages/Vercel instead.',
+                "The comparison rests on 6 held-out clients, so it should be repeated on a larger or resampled evaluation. The proxy label is a current-state bucket, not a validated future outcome.",
               metrics:
-                'Three users is a portfolio-reported figure. Gap Score is an AI-generated estimate, not a measured accuracy figure; it has not been benchmarked against ground truth.',
+                "Precision@50: baseline 0.90, Logistic Regression 0.92, Random Forest 0.76. The playbook sorts pages into monitor (12,177), review for refresh (4,003), and flag for tracking audit (546).",
             }}
           />
         </ProjectGroup>
@@ -576,7 +715,27 @@ function Work() {
           />
         </ProjectGroup>
 
-        <ProjectGroup id="ml-projects" title="ML projects">
+        <ProjectGroup id="ml-projects" title="Classical ML projects">
+          <CaseStudy
+            title="Resume Screener"
+            description="Classical ML for job-fit analysis"
+            tags={['scikit-learn', 'NLP', 'Model Evaluation', 'Streamlit']}
+            problem="Recruiters need a fast first pass over resumes, but category prediction and job-fit scoring are different modeling problems."
+            solution="A two-stage pipeline predicts the resume’s job category, then scores its fit against a specific job description using TF-IDF, similarity features, and Gradient Boosting."
+            result="Deployed Streamlit app with a 68.0% category-classification accuracy and a final suitability model with MAE 8.69 and R² 0.814."
+            proofLine="The model comparison, confusion matrix, feature importance, limitations, and a genuine-versus-unrelated job test are documented in the repository."
+            visual={<ResumeThumbnail />}
+            evaluation="The Stage 1 classifier covers 2,484 resumes across 20 usable categories. Stage 2 uses 2,385 resume–job pairs, synthetic negative examples, and an explicit comparison against Random Forest baselines."
+            metrics={[{ label: 'Stage 1 accuracy', value: '68.0%' }, { label: 'Final model MAE', value: '8.69' }, { label: 'Final model R²', value: '0.814' }, { label: 'Training resumes', value: '2,484' }]}
+            images={[]}
+            repoUrl="https://github.com/MaryumAkram16/Resume-Screener"
+            evidenceLinks={[
+              { label: 'Model manifest and reported metrics', url: 'https://github.com/MaryumAkram16/Resume-Screener/blob/main/model_manifest.json' },
+              { label: 'Artifact verification workflow', url: 'https://github.com/MaryumAkram16/Resume-Screener/blob/main/.github/workflows/verify.yml' },
+            ]}
+            demoType="resume"
+            videoLinks={[]}
+          />
           <CaseStudy
             title="AI-Human Text Detector"
             description="Classical ML text classification"
@@ -684,160 +843,6 @@ function Work() {
                 "Raising epochs from 1 to 3 and adding bigrams moved accuracy only from 85.26% to 85.31%, so the linear bag-of-words model had converged. The README's next steps are merging the most-confused categories, comparing ComplementNB, and fine-tuning DistilBERT on a stratified subsample.",
               metrics:
                 "85.3% accuracy, weighted F1 0.86, and macro F1 0.72. Credit reporting reaches F1 0.92 while payday, title, and personal loans reach 0.44.",
-            }}
-          />
-          <CaseStudy
-            title="Resume Screener"
-            description="Classical ML for job-fit analysis"
-            tags={['scikit-learn', 'NLP', 'Model Evaluation', 'Streamlit']}
-            problem="Recruiters need a fast first pass over resumes, but category prediction and job-fit scoring are different modeling problems."
-            solution="A two-stage pipeline predicts the resume’s job category, then scores its fit against a specific job description using TF-IDF, similarity features, and Gradient Boosting."
-            result="Deployed Streamlit app with a 68.0% category-classification accuracy and a final suitability model with MAE 8.69 and R² 0.814."
-            proofLine="The model comparison, confusion matrix, feature importance, limitations, and a genuine-versus-unrelated job test are documented in the repository."
-            visual={<ResumeThumbnail />}
-            evaluation="The Stage 1 classifier covers 2,484 resumes across 20 usable categories. Stage 2 uses 2,385 resume–job pairs, synthetic negative examples, and an explicit comparison against Random Forest baselines."
-            metrics={[{ label: 'Stage 1 accuracy', value: '68.0%' }, { label: 'Final model MAE', value: '8.69' }, { label: 'Final model R²', value: '0.814' }, { label: 'Training resumes', value: '2,484' }]}
-            images={[]}
-            repoUrl="https://github.com/MaryumAkram16/Resume-Screener"
-            evidenceLinks={[
-              { label: 'Model manifest and reported metrics', url: 'https://github.com/MaryumAkram16/Resume-Screener/blob/main/model_manifest.json' },
-              { label: 'Artifact verification workflow', url: 'https://github.com/MaryumAkram16/Resume-Screener/blob/main/.github/workflows/verify.yml' },
-            ]}
-            demoType="resume"
-            videoLinks={[]}
-          />
-        </ProjectGroup>
-
-        <ProjectGroup id="flyrank" title="FlyRank internship work">
-          <CaseStudy
-            title="Receipt Extractor"
-            description="Reliable document intelligence API"
-            tags={['Structured Extraction', 'FastAPI', 'Evaluation', 'Background Jobs']}
-            problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
-            solution="A provider-agnostic FastAPI service validates input, extracts a strict schema, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
-            result="Eight hand-labelled cases and an evaluator are public. The latest public CI run passed build and smoke checks but skipped the provider-backed evaluation."
-            proofLine="The repository implements schema validation, bounded retries/repair, background jobs, SQLite persistence, PDF reports, and optional scheduled generation; these are source-supported capabilities, not production guarantees."
-            images={[]}
-            architecture={<ReceiptArchitecture />}
-            repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
-            evidenceLinks={[
-              { label: 'Eight labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
-              { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
-              { label: 'Latest public CI run', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/32571626750' },
-            ]}
-            demoType="receipt"
-            deepDive={{
-              challenge:
-                'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
-              retrospective:
-                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
-              metrics:
-                'Eight hand-labelled evaluation cases are published. The latest public CI run skipped the provider-backed evaluation because provider credentials were unavailable; the source includes instrumentation for prompt version, model, token counts, duration, repair status, and needs-review outcomes.',
-            }}
-          />
-          <CaseStudy
-            title="Content Refresh Scoring"
-            description="Honest baseline-versus-model evaluation"
-            tags={['scikit-learn', 'Client-holdout Split', 'Precision@K', 'Error Analysis']}
-            problem="A content team can review only 20–50 pages a week, so it needs a defensible, ranked shortlist of which pages to refresh first."
-            solution="Built a two-signal baseline rule (0.7 CTR gap plus 0.3 staleness) and compared it with Logistic Regression and Random Forest on FlyRank's anonymized search data, evaluated on a client-holdout split so no client appears in both train and test."
-            result="The baseline (Precision@50 0.90) matched Logistic Regression (0.92) and beat Random Forest (0.76). Error analysis traced the gap to the model over-weighting traffic and page age."
-            proofLine="A naive random split inflated Random Forest to 0.88 with 27 overlapping clients, which is why the evaluation is grouped by client."
-            visual={
-              <FlowThumbnail
-                label="Page signals transformed into a ranked review queue"
-                input={['Page signals', 'CTR gap · staleness']}
-                outputTitle="Ranked review queue"
-                output={['top 50 pages', 'reason code + action']}
-                footerLeft="Baseline P@50 0.90"
-                footerRight="vs Random Forest 0.76"
-              />
-            }
-            evaluation="Directional only: the test set is 6 clients (about 1,260 rows), the label is a current-window proxy, and no experiment tested whether refreshing a page causes recovery. A leakage audit found no label-derived feature."
-            metrics={[
-              { value: '0.90', label: 'baseline P@50' },
-              { value: '0.92', label: 'Logistic Regression' },
-              { value: '0.76', label: 'Random Forest' },
-              { value: '16,726', label: 'pages scored' },
-            ]}
-            architecture={
-              <FlowArchitecture
-                label="Content refresh scoring pipeline"
-                top="Anonymized starter data · 30,000 pages, 44 columns"
-                steps={[
-                  { name: 'Volume floor', note: '500+ impressions' },
-                  { name: 'Baseline rule', note: '0.7 CTR gap + 0.3 stale' },
-                  { name: 'Models', note: 'LR and Random Forest' },
-                ]}
-                output="Precision@50 on a client-holdout split · 22 train, 6 test clients"
-                bottom={[
-                  { name: 'Playbook', note: 'monitor, review, tracking audit' },
-                  { name: 'Paper', note: 'deployed write-up' },
-                ]}
-              />
-            }
-            repoUrl="https://github.com/MaryumAkram16/flyrank-ml-internship"
-            demoType="refresh"
-            videoLinks={[{ label: 'Read the paper', url: 'https://maryumakram16.github.io/flyrank-ml-internship/' }]}
-            deepDive={{
-              challenge:
-                "Reporting a negative result plainly: a two-signal rule beat a 200-tree Random Forest, so the work focused on explaining why, not on tuning the model until it won.",
-              retrospective:
-                "The comparison rests on 6 held-out clients, so it should be repeated on a larger or resampled evaluation. The proxy label is a current-state bucket, not a validated future outcome.",
-              metrics:
-                "Precision@50: baseline 0.90, Logistic Regression 0.92, Random Forest 0.76. The playbook sorts pages into monitor (12,177), review for refresh (4,003), and flag for tracking audit (546).",
-            }}
-          />
-          <CaseStudy
-            title="Embeddable Widget Platform"
-            description="Multi-tenant lead capture"
-            tags={['FastAPI', 'SQLite', 'Multi-tenant', 'Bot Defense']}
-            problem="A widget that collects data from strangers on any website has to survive bad input, floods, bots, and provider outages without losing or leaking a submission."
-            solution="Tenants define a signup form or CTA popover and embed it with one script tag. Each submission passes validation, rate limiting, spam checks, a two-provider geo fallback, and storage, and an email side effect can fail without blocking success."
-            result="47/47 tests passing, with multi-tenant isolation tests, a live two-origin end-to-end run, and a real-time dashboard."
-            proofLine="Proof-of-work bot defense blocked 100% of naive bots with 0% false positives on real traffic, at about 117 ms average solve cost."
-            visual={
-              <FlowThumbnail
-                label="Website visitor submission transformed into a protected, stored lead"
-                input={['POST /submissions', 'any origin · public']}
-                outputTitle="Protected lead"
-                output={['validated · rate limited', 'geo enriched · stored']}
-                footerLeft="47/47 tests"
-                footerRight="100% naive bots blocked"
-              />
-            }
-            evaluation="Bot-defense numbers come from the repo's evidence file and test traffic, not production. Rate limiting is in-memory and single-instance, authentication is API-key only, and password hashing is plain SHA-256, suitable only for local demos."
-            metrics={[
-              { value: '47/47', label: 'tests passing' },
-              { value: '100%', label: 'naive bots blocked' },
-              { value: '0%', label: 'false positives' },
-              { value: '~117 ms', label: 'avg solve cost' },
-            ]}
-            architecture={
-              <FlowArchitecture
-                label="Embeddable widget platform architecture"
-                top="Customer website · widget.js loads public, cached widget config"
-                steps={[
-                  { name: 'Validate', note: 'bad input gets 4xx' },
-                  { name: 'Rate limit + spam', note: '429, then recovers' },
-                  { name: 'Geo fallback', note: 'provider A, then B' },
-                ]}
-                output="Tenant-isolated storage · email or webhook side effect cannot block success"
-                bottom={[
-                  { name: 'Dashboard', note: 'server-rendered, SSE live updates' },
-                  { name: 'Proof of work', note: 'bot defense' },
-                ]}
-              />
-            }
-            repoUrl="https://github.com/MaryumAkram16/flyrank-capstone-widget-platform"
-            demoType="widget"
-            deepDive={{
-              challenge:
-                "Making the public submission path fail safely. Bad payloads return 4xx instead of 500, floods get a 429 and recover, geo provider failure still stores the submission, and the email side effect cannot block success.",
-              retrospective:
-                "Rate limiting is in-memory and single-instance, so the production step is a shared store such as Redis, plus real session authentication and a proper password hash.",
-              metrics:
-                "47/47 tests pass. Proof-of-work bot defense blocked 100% of naive bots with 0% false positives at about 117 ms average solve cost.",
             }}
           />
         </ProjectGroup>

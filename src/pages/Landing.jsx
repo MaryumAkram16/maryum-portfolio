@@ -51,7 +51,7 @@ function Reveal({ children, delay = 0 }) {
 }
 
 // ── Hero role line phrases (stable array for useTypewriter) ──
-const ROLE_PHRASES = ['AI Engineer', 'Agentic Workflow Builder', 'Voice AI & n8n Automation', 'Applied ML Engineer']
+const ROLE_PHRASES = ['AI Engineer', 'Backend & API Engineer', 'Agentic Workflow Builder', 'Voice AI & n8n Automation']
 const LONGEST_ROLE = ROLE_PHRASES.reduce((a, b) => (b.length > a.length ? b : a))
 
 // ── Shared section heading: every section gets a label + h2 + optional sub ──
@@ -64,6 +64,40 @@ function SectionHead({ label, title, highlight, sub }) {
         {highlight ? <span className="hero-gradient"> {highlight}</span> : null}
       </h2>
       {sub ? <p className="section-sub">{sub}</p> : null}
+    </div>
+  )
+}
+
+const caseStudyPath = (title) =>
+  `/work#${title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`
+
+const appliedProjects = projects.filter((p) => p.category !== 'ml')
+const mlProjects = projects.filter((p) => p.category === 'ml')
+
+// ── Project preview grid: repo link first, then case-study link ──
+function ProjectGrid({ items, flagshipCount = 0 }) {
+  return (
+    <div className="preview-grid">
+      {items.map((p, i) => (
+        <Reveal key={p.title} delay={i * 90}>
+          <ProjectCard project={p} flagship={i < flagshipCount}>
+            {p.repo ? (
+              <a className="preview-link" href={p.repo} target="_blank" rel="noopener noreferrer">
+                View on GitHub →
+              </a>
+            ) : (
+              <Link className="preview-link" to={p.caseStudy ? caseStudyPath(p.title) : '/work'}>
+                {p.caseStudy ? 'Read case study →' : 'See all case studies →'}
+              </Link>
+            )}
+            {p.repo && p.caseStudy && (
+              <Link className="preview-link" to={caseStudyPath(p.title)}>
+                Read case study →
+              </Link>
+            )}
+          </ProjectCard>
+        </Reveal>
+      ))}
     </div>
   )
 }
@@ -93,27 +127,27 @@ function Landing() {
 
   const capabilities = [
     {
-      icon: '🎙️',
-      title: 'Voice & conversational agents',
-      desc: 'Voice-agent and conversational workflow prototypes for booking, triage, and service support.',
-      tag: 'Voice AI',
-    },
-    {
       icon: '⚙️',
-      title: 'Backend automation pipelines',
-      desc: 'Automation designs and implementations that connect APIs, score data, and trigger workflows.',
-      tag: 'Automation',
+      title: 'Backend services & APIs',
+      desc: 'Python/FastAPI and Node services with schema validation, controlled retries, background jobs, authentication, and rate limiting.',
+      tag: 'Backend',
     },
     {
       icon: '🚀',
       title: 'Full-stack AI products',
-      desc: 'Application code and prototypes with authentication, databases, API safeguards, and tests.',
+      desc: 'React and TypeScript applications with authenticated APIs, databases, external data integrations, and automated tests.',
       tag: 'Full-stack',
+    },
+    {
+      icon: '🎙️',
+      title: 'Voice & agentic workflows',
+      desc: 'Voice-agent and n8n workflow prototypes for booking, triage, and service support, plus documented agentic designs.',
+      tag: 'Voice AI',
     },
   ]
 
   const steps = [
-    { label: 'Browse case studies', sub: 'Receipt Extractor · Resume Screener · MediLens · RoshanAI · SkillSync' },
+    { label: 'Browse case studies', sub: 'SkillSync AI · Receipt Extractor · RoshanAI · MediLens · GharFix' },
     { label: 'Watch demo videos', sub: 'Real product walkthroughs' },
     { label: 'Read the architecture', sub: 'Diagrams, tests, decisions' },
     { label: 'Explore the code', sub: 'Open source on GitHub' },
@@ -133,8 +167,8 @@ function Landing() {
     },
     {
       icon: '🔗',
-      title: 'Solo, end-to-end ownership',
-      desc: 'I build the full chain myself: voice agents, automation pipelines, databases, and frontends — so I can explain every decision in an interview.',
+      title: 'End-to-end ownership',
+      desc: 'On the parts I own I build the full chain — backend APIs, integrations, databases, and frontends — and credit collaborator-built modules, so I can explain every decision I made in an interview.',
     },
   ]
 
@@ -169,13 +203,13 @@ function Landing() {
             </p>
 
             <p className={`hero-sub ${heroVisible ? 'visible' : ''}`}>
-              I turn slow, manual business processes into AI systems that run themselves, from
-              voice agents and n8n workflows to classical ML models, with the evidence for each
-              shown below.
+              I build AI-powered applications, Python and FastAPI backend services, and agentic
+              voice and n8n workflows. Every project below links to its code and says plainly
+              whether it is tested, a prototype, or a documented design.
             </p>
 
             <p className="hero-availability">
-              Open to full-time AI engineering roles and contract projects.
+              Open to remote AI engineering, applied AI, and backend roles, plus contract projects.
             </p>
 
             <div className={`hero-actions ${heroVisible ? 'visible' : ''}`}>
@@ -195,30 +229,30 @@ function Landing() {
             <div className={`hero-stats ${heroVisible ? 'visible' : ''}`}>
               <div className="stat-item accent">
                 <div className="stat-value">
-                  <CounterItem value={7} />
+                  <CounterItem value={8} />
                 </div>
                 <div className="stat-label">Featured projects</div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  CI
+                  <CounterItem value={94} />
                 </div>
                 <div className="stat-label">
-                  Public test workflow
-                  <a className="stat-attr" href="https://github.com/MaryumAkram16/Skillsync-AI/actions" target="_blank" rel="noopener noreferrer">
-                    SkillSync AI · CI runs ↗
+                  Automated tests
+                  <a className="stat-attr" href="https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests" target="_blank" rel="noopener noreferrer">
+                    SkillSync AI · suite + CI ↗
                   </a>
                 </div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  <CounterItem value={9} />
+                  <CounterItem value={8} />
                 </div>
                 <div className="stat-label">
-                  Users reported
-                  <Link className="stat-attr" to="/work#skillsync-ai">
-                    SkillSync AI · portfolio-reported
-                  </Link>
+                  Labelled eval cases
+                  <a className="stat-attr" href="https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json" target="_blank" rel="noopener noreferrer">
+                    Receipt Extractor · FastAPI ↗
+                  </a>
                 </div>
               </div>
             </div>
@@ -226,7 +260,7 @@ function Landing() {
             <div className={`hero-proof ${heroVisible ? 'visible' : ''}`}>
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
-                MediLens &amp; SkillSync AI — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · RoshanAI &amp; GharFix — fully solo · Receipt Extractor &amp; Resume Screener — solo builds, self-evaluated
+                SkillSync AI &amp; MediLens — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · Embeddable Widget Platform &amp; Receipt Extractor — solo builds during my FlyRank internship · RoshanAI &amp; GharFix — fully solo · Resume Screener — solo build, self-evaluated
               </span>
             </div>
           </div>
@@ -243,8 +277,8 @@ function Landing() {
           <Reveal>
             <SectionHead
               label="About me"
-              title="Self-taught. Math background."
-              highlight="Builds AI projects."
+              title="AI Engineer with a"
+              highlight="mathematics foundation"
             />
           </Reveal>
           <div className="about-grid">
@@ -273,19 +307,22 @@ function Landing() {
               <div className="about-text">
                 <p>
                   <strong>
-                    Self-taught AI engineer, ~1 year in. BS Mathematics, no formal
-                    CS background. Based in Lahore, Pakistan.
+                    I&apos;m an AI Engineer based in Lahore, Pakistan, building AI-powered
+                    applications, backend services, and intelligent automation.
                   </strong>
                 </p>
                 <p>
-                  In one year I've gone from following automation tutorials to building seven
-                  AI projects — hospital workflow prototypes, a documented service-booking design,
-                  career-intelligence applications, text-extraction APIs, and classical ML. Some
-                  have public tests and measured evaluation; others remain designs or demos, as
-                  noted in their case studies. My math background means I reason through the systems
-                  I build instead of just wiring APIs together. Stack:
-                  Python, FastAPI, scikit-learn, OpenAI/Gemini, Retell AI, React, Supabase/Firebase,
-                  and Cloud Run.
+                  My work spans Python and FastAPI services, agentic and voice AI workflows, API
+                  integrations, and full-stack TypeScript apps. I aim for clear architecture,
+                  reliable integrations, and automated checks, and each case study separates what
+                  is tested from what is still a prototype or a design.
+                </p>
+                <p>
+                  I hold a BS in Mathematics and Microsoft Azure AI certifications, and I completed
+                  an AI Engineering internship at FlyRank across its backend AI and ML tracks. The
+                  math background means I reason through the systems I build instead of just wiring
+                  APIs together. Stack: Python, FastAPI, Pydantic, scikit-learn, OpenAI/Gemini,
+                  Retell AI, n8n, React, TypeScript, Supabase/Firebase, Docker, and Cloud Run.
                 </p>
               </div>
             </Reveal>
@@ -329,41 +366,18 @@ function Landing() {
           <Reveal>
             <SectionHead
               label="Projects I've built"
-              title="Seven AI systems,"
-              highlight="from agentic automation to classical ML"
-              sub="Agentic and automation systems first — voice workflows, service-booking designs, and data-connected apps — then extraction and classical ML with measured results."
+              title="Eight projects,"
+              highlight="tested applications first"
+              sub="Ordered by how much of the engineering you can verify: tested full-stack and backend work first, then voice and agentic workflows, then classical ML. Each card's first line states what it is, whether it was internship work, and its strongest evidence."
             />
           </Reveal>
-          <div className="preview-grid">
-            {projects.map((p, i) => (
-              <Reveal key={p.title} delay={i * 90}>
-                <ProjectCard project={p} flagship={i < 2}>
-                  {p.repo ? (
-                    <a
-                      className="preview-link"
-                      href={p.repo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                    >
-                      View on GitHub →
-                    </a>
-                  ) : (
-                    <Link
-                      className="preview-link"
-                      to={p.caseStudy ? `/work#${p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}` : '/work'}
-                    >
-                      {p.caseStudy ? 'Read case study →' : 'See all case studies →'}
-                    </Link>
-                  )}
-                  {p.repo && p.caseStudy && (
-                    <Link className="preview-link" to={`/work#${p.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}`}>
-                      Read case study →
-                    </Link>
-                  )}
-                </ProjectCard>
-              </Reveal>
-            ))}
-          </div>
+          <ProjectGrid items={appliedProjects} flagshipCount={2} />
+          <Reveal>
+            <p className="section-label preview-group-label">
+              Classical ML projects
+            </p>
+          </Reveal>
+          <ProjectGrid items={mlProjects} />
           <Reveal delay={200}>
             <div className="preview-cta-row">
               <Link className="cta-pill cta-outline" to="/work">
@@ -467,9 +481,9 @@ function Landing() {
           <Reveal>
             <SectionHead
               label="Why work with me"
-              title="Hiring self-taught means betting on"
-              highlight="proof, not pedigree"
-              sub="No formal CS degree — just one year of shipping systems people actually use."
+              title="Judge the work by"
+              highlight="its evidence"
+              sub="Every case study links to its code, plus tests, evaluation cases, or demos where they exist. Prototypes and designs are labelled as such."
             />
           </Reveal>
           <div className="why-grid">

@@ -1,5 +1,5 @@
-import { Component, lazy, Suspense } from 'react'
-import { Routes, Route } from 'react-router-dom'
+import { Component, lazy, Suspense, useEffect } from 'react'
+import { Routes, Route, useLocation, useNavigationType } from 'react-router-dom'
 import Nav from './components/Nav.jsx'
 import Footer from './components/Footer.jsx'
 import Landing from './pages/Landing.jsx'
@@ -39,9 +39,37 @@ class ErrorBoundary extends Component {
   }
 }
 
+// Client-side navigation otherwise keeps the previous page's scroll offset, so
+// links like /work#skillsync-ai would land mid-page. On push/replace, scroll to
+// the #hash target once the (lazy-loaded) page renders it, or to the top.
+// Back/forward (POP) and first load keep the browser's own scroll handling.
+function RouteScroll() {
+  const { pathname, hash } = useLocation()
+  const navigationType = useNavigationType()
+  useEffect(() => {
+    if (navigationType === 'POP') return undefined
+    if (!hash) {
+      window.scrollTo(0, 0)
+      return undefined
+    }
+    const id = decodeURIComponent(hash.slice(1))
+    let frame = 0
+    let attempts = 0
+    const scrollToTarget = () => {
+      const target = document.getElementById(id)
+      if (target) target.scrollIntoView({ block: 'start' })
+      else if (++attempts < 120) frame = requestAnimationFrame(scrollToTarget)
+    }
+    scrollToTarget()
+    return () => cancelAnimationFrame(frame)
+  }, [pathname, hash, navigationType])
+  return null
+}
+
 function App() {
   return (
     <ErrorBoundary>
+      <RouteScroll />
       <a className="skip-link" href="#main-content">Skip to main content</a>
       <Nav />
       <Suspense fallback={<div className="route-loading" role="status">Loading page…</div>}>
