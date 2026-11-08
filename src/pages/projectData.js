@@ -73,6 +73,17 @@ export const projects = [
     evidenceLabel: 'See workflow exports',
   },
   {
+    title: 'Smart Job Finder',
+    desc: 'n8n AI agent · workflow export + demo',
+    caseStudy: true,
+    tags: ['n8n', 'OpenAI', 'JSearch / SerpAPI', 'Google Sheets'],
+    text: 'Scheduled n8n workflow that pulls remote jobs from JSearch and SerpAPI, normalizes and deduplicates them, drops poor fits with a free rule filter, then has gpt-4o-mini score each one against my resume on a fixed rubric and emails the top five through Gmail.',
+    result: 'Demo run: 36 jobs scored, 5 emailed, top score 85/100 (README-reported) · no automated tests',
+    repo: 'https://github.com/MaryumAkram16/smart-job-finder',
+    evidenceUrl: 'https://github.com/MaryumAkram16/smart-job-finder/blob/main/docs/node-reference.md',
+    evidenceLabel: 'See node-by-node reference',
+  },
+  {
     title: 'GharFix',
     desc: 'Documented agentic design · README only',
     caseStudy: true,

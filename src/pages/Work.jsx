@@ -353,7 +353,7 @@ function Work() {
         <div className="work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            11 projects,<span className="hero-gradient"> from tested AI applications to classical ML</span>
+            12 projects,<span className="hero-gradient"> from tested AI applications to classical ML</span>
           </h1>
           <p className="section-sub">
             Applied AI and backend systems come first, ordered by how much of the engineering is
@@ -662,6 +662,62 @@ function Work() {
         </ProjectGroup>
 
         <ProjectGroup id="automations" title="n8n & voice automations">
+          <CaseStudy
+            title="Smart Job Finder"
+            description="n8n AI agent for remote job matching"
+            tags={['n8n', 'OpenAI', 'JSearch API', 'SerpAPI', 'Google Sheets', 'Gmail']}
+            problem="Remote AI job listings are scattered across boards, and many are US-only, very senior, or off-stack, so checking them by hand is slow and repetitive."
+            solution="A 21-node n8n workflow on a 6-hour schedule queries JSearch and SerpAPI Google Jobs in parallel, fails loudly on API errors, normalizes both sources into one schema, and removes jobs already emailed (tracked in a Google Sheet) plus in-batch duplicates. A free keyword pre-filter runs before any model call; gpt-4o-mini then scores each remaining job 0–100 against my resume and returns structured JSON. Jobs scoring 50+ with remote-anywhere eligibility and no red flags are ranked, and the top five are emailed as an HTML digest."
+            result="The workflow export, a node-by-node reference, and a demo video are public. The README reports one demo run: 36 jobs scored, 5 emailed, top score 85/100."
+            proofLine="Cost control is a design decision: the rule pre-filter drops US-only, relocation, clearance, core ML research, and very senior roles before any OpenAI call is made."
+            visual={
+              <FlowThumbnail
+                label="Job listings transformed into a scored, emailed shortlist"
+                input={['JSearch + SerpAPI', 'remote AI roles · every 6 h']}
+                outputTitle="Top 5 digest"
+                output={['score 0–100 · verdict', 'Gmail HTML cards']}
+                footerLeft="36 scored → 5 emailed"
+                footerRight="demo run"
+              />
+            }
+            evaluation="There are no automated tests, and the scoring rubric has no labelled accuracy evaluation; the 36/5/85 figures come from a single README-reported run. The node reference notes that the exported Save Seen IDs step maps only job_id, so the 7-day dedupe window needs a date_seen mapping to take effect."
+            metrics={[
+              { value: '21', label: 'n8n nodes' },
+              { value: '2', label: 'job APIs in parallel' },
+              { value: '36 → 5', label: 'scored → emailed, demo run' },
+              { value: '85/100', label: 'top demo score' },
+            ]}
+            architecture={
+              <FlowArchitecture
+                label="Smart Job Finder workflow architecture"
+                top="Schedule trigger · every 6 hours · search terms split into one item each"
+                steps={[
+                  { name: 'JSearch API', note: 'RapidAPI · status check' },
+                  { name: 'SerpAPI Google Jobs', note: 'status check' },
+                  { name: 'Normalize + dedupe', note: 'one schema · Seen Jobs sheet' },
+                ]}
+                output="Rule pre-filter → gpt-4o-mini rubric score (JSON) → score ≥ 50, top 5"
+                bottom={[
+                  { name: 'Gmail', note: 'HTML job digest' },
+                  { name: 'Google Sheets', note: 'resume text + seen job IDs' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/smart-job-finder"
+            evidenceLinks={[
+              { label: 'Workflow export', url: 'https://github.com/MaryumAkram16/smart-job-finder/blob/main/workflow/smart-job-finder.json' },
+              { label: 'Node-by-node reference', url: 'https://github.com/MaryumAkram16/smart-job-finder/blob/main/docs/node-reference.md' },
+            ]}
+            videoLinks={[{ label: 'Watch demo', url: 'https://www.youtube.com/watch?v=Y1jvCwc8wrA' }]}
+            deepDive={{
+              challenge:
+                'Keeping model spend proportional to value. Two APIs return overlapping, inconsistently shaped results, so normalization, cross-run and in-batch deduplication, and a keyword pre-filter all run first, and the model only sees jobs that could plausibly fit.',
+              retrospective:
+                'I would map date_seen in the save step so the 7-day window applies, match scores back to jobs by ID instead of item order, and build a small labelled set of jobs to check the rubric against my own judgement.',
+              metrics:
+                'One README-reported demo run: 36 jobs scored, 5 emailed, top score 85/100. No accuracy or cost benchmark is published.',
+            }}
+          />
           <CaseStudy
             title="Lumina"
             description="E-commerce voice support agent"
