@@ -47,7 +47,7 @@ const DEMOS = {
     title: 'Voice question → order lookup → spoken answer.',
     tabs: [
       { id: 'call', label: 'Call to intent' },
-      { id: 'lookup', label: 'Order lookup' },
+      { id: 'lookup', label: 'Verified lookup' },
       { id: 'analysis', label: 'Post-call analysis' },
     ],
   },
@@ -123,7 +123,7 @@ function GharFixPanel({ tab }) {
 }
 
 function LuminaPanel({ tab }) {
-  if (tab === 'lookup') return <div className="demo-panel-grid"><div className="demo-stat"><span>Intent</span><strong>track_order</strong><small>Webhook payload: order_id, phone, email</small></div><div className="demo-stat"><span>Google Sheets</span><strong>Row found</strong><small>Status, carrier, delivery date returned</small></div><div className="demo-timeline"><span className="demo-dot active" />Webhook <b>→</b><span className="demo-dot active" />Sheets lookup <b>→</b><span className="demo-dot active" />Business rules <b>→</b><span className="demo-dot" />Spoken reply</div></div>
+  if (tab === 'lookup') return <div className="demo-panel-grid"><div className="demo-stat"><span>Retell signature</span><strong>Verified</strong><small>Unsigned requests are rejected</small></div><div className="demo-stat"><span>Caller check</span><strong>Email matches</strong><small>Required to cancel, return, or refund</small></div><div className="demo-timeline"><span className="demo-dot active" />Signed request <b>→</b><span className="demo-dot active" />Validate <b>→</b><span className="demo-dot active" />Business rules <b>→</b><span className="demo-dot" />Spoken reply</div></div>
   if (tab === 'analysis') return <div className="demo-panel-grid"><div className="demo-stat"><span>Gemini 2.5 Flash</span><strong>Post-call analysis</strong><small>Sentiment and call metrics after each call</small></div><div className="demo-stat"><span>Cost model</span><strong>~$81 / month</strong><small>Estimate for 100–500 calls</small></div><div className="demo-timeline"><span className="demo-dot active" />Call ends <b>→</b><span className="demo-dot active" />Transcript analyzed <b>→</b><span className="demo-dot" />Metrics stored</div></div>
   return <div className="demo-conversation"><div className="demo-status"><span className="demo-pulse" /> Voice order tracking · sample data</div><div className="demo-bubble assistant">Hi, I am Lumina. How can I help with your order?</div><div className="demo-bubble user">Where is my order?</div><div className="demo-bubble assistant">Your order has shipped. I can read you the carrier and delivery date.</div></div>
 }

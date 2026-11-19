@@ -807,6 +807,64 @@ function Work() {
 
         <ProjectGroup id="automations" title="n8n & voice automations">
           <CaseStudy
+            title="Lumina"
+            description="Voice support agent · TypeScript serverless backend"
+            tags={['Retell AI', 'TypeScript', 'Vercel Functions', 'Vitest + CI', 'Zod', 'n8n']}
+            problem="E-commerce support is expensive and slow for simple requests like order tracking, and quality becomes inconsistent when sales spike."
+            solution="Retell AI runs the voice call and calls a backend for each order action. The first backend was an n8n workflow over Google Sheets. I added a TypeScript serverless backend on Vercel that applies the same cancellation, return, and refund rules, ported from the n8n Code nodes, and returns the same response fields, so the agent prompts don't change. Every request is checked for a valid Retell signature, rate-limited, and validated with zod. Data comes from synthetic demo orders by default, or from Google Sheets or Supabase."
+            result="261 Vitest tests pass on the public code, covering business rules, response contracts, signature checks, security, data adapters, and integration. CI runs lint, a type check, the tests, a dependency audit, and a gitleaks secret scan."
+            proofLine="Stricter than the n8n original: cancel, return, and refund require an email or phone that matches the order, and a confirmed action re-checks eligibility before anything is written."
+            visual={
+              <FlowThumbnail
+                label="Spoken order question transformed into a verified order answer"
+                input={['"Cancel my order"', 'Retell call · signed request']}
+                outputTitle="cancel-order"
+                output={['caller verified · rules applied', 'spoken decision']}
+                footerLeft="261 tests"
+                footerRight="signed requests only"
+              />
+            }
+            evaluation="The tests cover the backend's rules and request handling, not the voice experience: no call-volume or resolution-rate benchmark is published. The public deployment links in the README are still placeholders, so the recorded demo is the evidence of the full call. Post-call logging and Gemini sentiment analysis stay on the n8n path. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
+            metrics={[
+              { value: '261', label: 'Vitest tests passing' },
+              { value: '7', label: 'serverless endpoints' },
+              { value: 'Signed', label: 'Retell requests verified' },
+              { value: 'CI', label: 'lint, types, audit, secrets' },
+            ]}
+            architecture={
+              <FlowArchitecture
+                label="Lumina voice support architecture"
+                top="Customer call · Retell AI voice agent calls one URL per order action"
+                steps={[
+                  { name: 'Request guard', note: 'signature, rate limit, zod' },
+                  { name: 'lib/rules.ts', note: 'pure business rules' },
+                  { name: 'Order repository', note: 'demo, Sheets, or Supabase' },
+                ]}
+                output="Spoken response · status, cancellation, return, or refund decision"
+                bottom={[
+                  { name: 'n8n path', note: 'original no-code backend' },
+                  { name: 'Gemini 2.5 Flash', note: 'post-call sentiment (n8n)' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent"
+            evidenceLinks={[
+              { label: 'Serverless backend', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/tree/main/serverless' },
+              { label: 'Business rule tests', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/blob/main/serverless/tests/rules.test.ts' },
+              { label: 'CI workflow', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/blob/main/.github/workflows/serverless-ci.yml' },
+            ]}
+            demoType="lumina"
+            videoLinks={[{ label: 'Watch demo', url: 'https://youtu.be/P8TuDYV7eaY' }]}
+            deepDive={{
+              challenge:
+                'Keeping two backends interchangeable. Each Retell custom function has its own URL, so the serverless routes had to return exactly the fields the n8n workflow returned, and /api/order switches on intent like the n8n webhook so it works as a drop-in replacement. The business rules live in one pure module that every route shares, which is what makes them testable without a phone call.',
+              retrospective:
+                'Next steps are a public deployment so the README links are real, moving post-call logging off n8n, and a shared store for rate limiting. Google Sheets stays available as a lightweight data source, with Supabase for anything larger.',
+              metrics:
+                '261 tests in 12 files pass locally and in CI. No call-volume or resolution benchmark is published. The repo documents a cost model of about $81 per month at 100–500 calls and $688+ per month at 5,000+ calls.',
+            }}
+          />
+          <CaseStudy
             title="Smart Job Finder"
             description="n8n AI agent for remote job matching"
             tags={['n8n', 'OpenAI', 'JSearch API', 'SerpAPI', 'Google Sheets', 'Gmail']}
@@ -860,57 +918,6 @@ function Work() {
                 'I would map date_seen in the save step so the 7-day window applies, match scores back to jobs by ID instead of item order, and build a small labelled set of jobs to check the rubric against my own judgement.',
               metrics:
                 'One README-reported demo run: 36 jobs scored, 5 emailed, top score 85/100. No accuracy or cost benchmark is published.',
-            }}
-          />
-          <CaseStudy
-            title="Lumina"
-            description="E-commerce voice support agent"
-            tags={['Retell AI', 'n8n', 'Google Sheets', 'Gemini']}
-            problem="E-commerce support is expensive and slow for simple requests like order tracking, and quality becomes inconsistent when sales spike."
-            solution="Retell AI runs the voice call and sends the detected intent to an n8n webhook. n8n looks up the order in Google Sheets, applies the cancellation, return, and refund rules, and the answer is spoken back. Gemini analyzes sentiment after each call."
-            result="A working end-to-end voice flow for order tracking, cancellations, returns, and refund checks, shown in a demo video, with a provider-free local demo in the repo."
-            proofLine="Call, then intent, then n8n webhook, then Sheets lookup, then business rules, then spoken response, then post-call analytics."
-            visual={
-              <FlowThumbnail
-                label="Spoken order question transformed into an order status answer"
-                input={['"Where is my order?"', 'Voice call · sample']}
-                outputTitle="track_order"
-                output={['status · carrier', 'delivery_date']}
-                footerLeft="5 architecture layers"
-                footerRight="Retell + n8n + Sheets"
-              />
-            }
-            evaluation="The repo publishes no call-volume or resolution-rate benchmark, so the evidence is the demo video, workflow screenshots, and the local demo. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
-            metrics={[
-              { value: '5', label: 'architecture layers' },
-              { value: '~$81', label: 'est. monthly cost, 100–500 calls' },
-            ]}
-            architecture={
-              <FlowArchitecture
-                label="Lumina voice support architecture"
-                top="Customer call · Retell AI voice layer (speech-to-text, text-to-speech)"
-                steps={[
-                  { name: 'Intent', note: 'track, cancel, return' },
-                  { name: 'n8n webhook', note: 'business logic' },
-                  { name: 'Google Sheets', note: 'order records' },
-                ]}
-                output="Spoken response · order status, cancellation or return decision"
-                bottom={[
-                  { name: 'Gemini 2.5 Flash', note: 'post-call sentiment' },
-                  { name: 'Analytics', note: 'call metrics' },
-                ]}
-              />
-            }
-            repoUrl="https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent"
-            demoType="lumina"
-            videoLinks={[{ label: 'Watch demo', url: 'https://youtu.be/P8TuDYV7eaY' }]}
-            deepDive={{
-              challenge:
-                "Keeping a voice conversation fast when the answer depends on a spreadsheet lookup. Retell tool names have to match the n8n switch logic exactly, and slow Sheets queries risk webhook timeouts.",
-              retrospective:
-                "Google Sheets works as a lightweight database for a template, but the next step would be caching or a real database, written-down business-rule thresholds, and hosting close to the voice provider to cut latency.",
-              metrics:
-                "No call-volume or resolution benchmark is published. The repo documents a cost model of about $81 per month at 100–500 calls and $688+ per month at 5,000+ calls.",
             }}
           />
         </ProjectGroup>
