@@ -408,7 +408,6 @@ function Work() {
               { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
             ]}
           />
- 
           <CaseStudy
             title="GharFix"
             description="Tested TypeScript booking platform"
@@ -593,6 +592,104 @@ function Work() {
             }}
           />
           <CaseStudy
+            title="Embeddable Widget Platform"
+            description="Multi-tenant FastAPI backend · FlyRank internship"
+            tags={['Python', 'FastAPI', 'SQLAlchemy + SQLite', 'pytest', 'Multi-tenant', 'Bot Defense']}
+            problem="A widget that collects data from strangers on any website has to survive bad input, floods, bots, and provider outages without losing or leaking a submission."
+            solution="Tenants define a signup form or CTA popover and embed it with one script tag. Each submission passes validation, rate limiting, spam checks, a two-provider geo fallback, and storage, and an email side effect can fail without blocking success."
+            result="47/47 tests passing, with multi-tenant isolation tests, a live two-origin end-to-end run, and a real-time dashboard."
+            proofLine="In the repository's measurement script, proof-of-work bot defense blocked 100% of naive bots with 0% false positives on simulated legitimate submissions, at about 117 ms average solve cost."
+            visual={
+              <FlowThumbnail
+                label="Website visitor submission transformed into a protected, stored lead"
+                input={['POST /submissions', 'any origin · public']}
+                outputTitle="Protected lead"
+                output={['validated · rate limited', 'geo enriched · stored']}
+                footerLeft="47/47 tests"
+                footerRight="100% naive bots blocked"
+              />
+            }
+            evaluation="All 47 pytest tests pass on the public code; no CI workflow is published, so they run locally. Bot-defense numbers come from the repo's evidence file and simulated traffic, not production. Rate limiting is in-memory and single-instance, authentication is API-key only, and password hashing is plain SHA-256, suitable only for local demos."
+            metrics={[
+              { value: '47/47', label: 'tests passing' },
+              { value: '100%', label: 'naive bots blocked' },
+              { value: '0%', label: 'false positives' },
+              { value: '~117 ms', label: 'avg solve cost' },
+            ]}
+            architecture={
+              <FlowArchitecture
+                label="Embeddable widget platform architecture"
+                top="Customer website · widget.js loads public, cached widget config"
+                steps={[
+                  { name: 'Validate', note: 'bad input gets 4xx' },
+                  { name: 'Rate limit + spam', note: '429, then recovers' },
+                  { name: 'Geo fallback', note: 'provider A, then B' },
+                ]}
+                output="Tenant-isolated storage · email or webhook side effect cannot block success"
+                bottom={[
+                  { name: 'Dashboard', note: 'server-rendered, SSE live updates' },
+                  { name: 'Proof of work', note: 'bot defense' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/flyrank-capstone-widget-platform"
+            demoType="widget"
+            deepDive={{
+              challenge:
+                "Making the public submission path fail safely. Bad payloads return 4xx instead of 500, floods get a 429 and recover, geo provider failure still stores the submission, and the email side effect cannot block success.",
+              retrospective:
+                "Rate limiting is in-memory and single-instance, so the production step is a shared store such as Redis, plus real session authentication and a proper password hash.",
+              metrics:
+                "47/47 tests pass. Proof-of-work bot defense blocked 100% of naive bots with 0% false positives at about 117 ms average solve cost.",
+            }}
+          />
+          <CaseStudy
+            title="RoshanAI"
+            description="Full-stack freelancer career intelligence"
+            tags={['TypeScript', 'Express API', 'Firebase Auth', 'JSearch / SerpAPI', 'OpenAI']}
+            problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
+            solution="A React/TypeScript app backed by an Express API that keeps provider keys server-side, verifies Firebase ID tokens, rate-limits requests, and proxies JSearch, SerpAPI, and OpenAI calls for career analysis, profile/proposal generation, and salary coaching. External API responses and output quality are not independently benchmarked."
+            result="A CI workflow runs security-invariant checks, a TypeScript check, and a build before each backend deploy. Three users and the fully solo build are portfolio-reported; the repository supports the implementation and integration paths, not those usage claims."
+            resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 1 submission"
+            evaluation="The repository contains integrations and UI/source for the career-intelligence flows. User count is portfolio-reported. Gap Score is an AI-generated estimate with no published ground-truth evaluation; API fallbacks mean current live-data availability and quality are not guaranteed."
+            metrics={[{ label: 'CI', value: 'Security checks + build' }, { label: 'Users', value: '3 reported' }, { label: 'Data source', value: 'API integrations' }, { label: 'Gap Score', value: 'Unbenchmarked estimate' }]}
+            thumb={roshanaiIntelligence}
+            thumbWebp={roshanaiIntelligenceWebp}
+            thumbCaption="Market-intelligence dashboard interface"
+            images={[
+              { src: roshanaiIntelligence, webp: roshanaiIntelligenceWebp, caption: 'Market-intelligence dashboard interface' },
+              {
+                src: roshanaiSkillGap,
+                webp: roshanaiSkillGapWebp,
+                caption: 'Example job results shown against a resume profile',
+              },
+              {
+                src: roshanaiProposal,
+                webp: roshanaiProposalWebp,
+                caption: 'Generated output: job analysis, rate suggestion, tailored proposal',
+              },
+            ]}
+            repoUrl="https://github.com/MaryumAkram16/RoshanAI"
+            evidenceLinks={[
+              { label: 'Authenticated API layer', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/server.ts' },
+              { label: 'Security regression checks', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/scripts/security-regression.mjs' },
+              { label: 'Market-data integration source', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/src/marketIntelligence.ts' },
+              { label: 'Deployment notes and limitations', url: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/DEPLOYMENT.md' },
+            ]}
+            demoType="roshanai"
+            videoLinks={[
+              { label: 'Watch demo', url: 'https://www.youtube.com/watch?v=crTVbzsgehc' },
+            ]}
+            deepDive={{
+              challenge:
+                "Resume parsing into a meaningful gap score was the hardest part — going from raw resume text to NLP-matching a person's actual skills against live job postings, then turning that into a score that means something rather than a plausible-looking number.",
+              retrospective:
+                'Early versions called provider APIs from the browser, which exposed the keys; provider calls now go through an authenticated server-side API, and a CI check fails if browser-side key patterns reappear. The original roshanai.com domain is dead; the repository now documents a GitHub Pages frontend with a Vercel serverless backend.',
+              metrics:
+                'Three users is a portfolio-reported figure. Gap Score is an AI-generated estimate, not a measured accuracy figure; it has not been benchmarked against ground truth.',
+            }}
+          />
+          <CaseStudy
             title="MediLens"
             description="Voice AI hospital workflow prototype"
             tags={['Voice AI', 'Retell AI', 'n8n', 'Complaint Mgmt', 'Admin Dashboard']}
@@ -629,7 +726,7 @@ function Work() {
               { label: 'Watch full demo', url: 'https://www.youtube.com/watch?v=L5w1mAUsjp0' },
             ]}
           />
-       </ProjectGroup>
+        </ProjectGroup>
 
         <ProjectGroup id="flyrank" title="More FlyRank internship work">
           <CaseStudy
