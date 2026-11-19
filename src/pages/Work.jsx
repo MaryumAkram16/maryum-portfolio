@@ -190,14 +190,18 @@ function CaseStudy({
 }) {
   const [open, setOpen] = useState(false)
   const [deepDiveOpen, setDeepDiveOpen] = useState(false)
+  const [evalOpen, setEvalOpen] = useState(false)
+  const hasDetails = images.length > 0 || Boolean(scopeNote)
 
   return (
     <article
       className="case-card"
       id={title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}
     >
-      {/* Desktop: media left (~45%), text right; everything after .case-main spans full width */}
-      <div className="case-main">
+      {/* Desktop: thumbnail and interactive preview stack in the left column,
+          the case study text and its actions in the right. Mobile: thumbnail,
+          text, actions, then the preview. Expanded panels span full width. */}
+      <div className={`case-main ${demoType ? 'has-preview' : ''}`}>
         <div className="case-thumb-wrap">
           {visual || (thumb ? (
             <picture>
@@ -210,10 +214,8 @@ function CaseStudy({
         <div className="case-body">
           <div className="case-section-head">
             <p className="section-label">Case study</p>
-            <h3>
-              {title}
-              <span className="hero-gradient"> {description}</span>
-            </h3>
+            <h3>{title}</h3>
+            <p className="case-description">{description}</p>
           </div>
 
           <div className="tag-row">
@@ -252,63 +254,81 @@ function CaseStudy({
           {proofLine && <p className="proof-line">{proofLine}</p>}
 
           {evaluation && (
-            <section className="evaluation-panel" aria-label={`${title} evaluation and metrics`}>
+            <section
+              className={`evaluation-panel ${evalOpen ? 'is-open' : ''}`}
+              aria-label={`${title} evaluation and metrics`}
+            >
               <div className="evaluation-copy">
                 <p className="evaluation-label">Evaluation</p>
-                <p>{evaluation}</p>
+                <p className="evaluation-text">{evaluation}</p>
+                {/* Mobile only: the notes start collapsed so metrics stay in view */}
+                <button
+                  type="button"
+                  className="evaluation-toggle"
+                  onClick={() => setEvalOpen((prev) => !prev)}
+                  aria-expanded={evalOpen}
+                >
+                  {evalOpen ? 'Hide evaluation notes' : 'Show evaluation notes'}
+                </button>
               </div>
               {metrics && <div className="metric-row">{metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>}
             </section>
           )}
+
+          <div className="case-links">
+            {repoUrl && (
+              <a className="case-link case-link-primary" href={repoUrl} target="_blank" rel="noopener noreferrer">
+                View code
+              </a>
+            )}
+            {evidenceLinks.map((item) => (
+              <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url}>
+                {item.label}
+              </a>
+            ))}
+            {videoLinks &&
+              videoLinks.map((video) => (
+                <a
+                  className="case-link"
+                  href={video.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  key={video.url}
+                >
+                  {video.label}
+                </a>
+              ))}
+            {(hasDetails || deepDive) && (
+              <div className="case-toggles">
+                {hasDetails && (
+                  <button
+                    type="button"
+                    className="view-details-btn"
+                    onClick={() => setOpen((prev) => !prev)}
+                    aria-expanded={open}
+                  >
+                    {open ? 'Hide screenshots' : 'View screenshots'}
+                  </button>
+                )}
+                {deepDive && (
+                  <button
+                    type="button"
+                    className="view-details-btn"
+                    onClick={() => setDeepDiveOpen((prev) => !prev)}
+                    aria-expanded={deepDiveOpen}
+                  >
+                    {deepDiveOpen ? 'Hide technical deep-dive' : 'Technical deep-dive'}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
+
+        {demoType && <InteractivePreview type={demoType} />}
       </div>
 
-      {demoType && <InteractivePreview type={demoType} />}
-
-      <div className="case-links">
-        {evidenceLinks.map((item) => (
-          <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url}>
-            {item.label}
-          </a>
-        ))}
-        {repoUrl && (
-          <a className="case-link" href={repoUrl} target="_blank" rel="noopener noreferrer">
-            View code
-          </a>
-        )}
-        {videoLinks &&
-          videoLinks.map((video) => (
-            <a
-              className="case-link"
-              href={video.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={video.url}
-            >
-              {video.label}
-            </a>
-          ))}
-        <button
-          type="button"
-          className="view-details-btn"
-          onClick={() => setOpen((prev) => !prev)}
-          aria-expanded={open}
-        >
-          {open ? 'Hide details' : 'View details'}
-        </button>
-        {deepDive && (
-          <button
-            type="button"
-            className="view-details-btn"
-            onClick={() => setDeepDiveOpen((prev) => !prev)}
-            aria-expanded={deepDiveOpen}
-          >
-            {deepDiveOpen ? 'Hide technical deep-dive' : 'Technical deep-dive'}
-          </button>
-        )}
-      </div>
-
-      {open && (
+      {open && hasDetails && (
         <div className="case-expanded">
           <Gallery images={images} />
           {scopeNote && <p className="scope-note">{scopeNote}</p>}

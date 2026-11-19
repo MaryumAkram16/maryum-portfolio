@@ -282,7 +282,7 @@
 }
 
 .stat-item .stat-label {
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 600;
   letter-spacing: 0.3px;
   color: #c4d0d9;
@@ -294,7 +294,7 @@
 .stat-attr {
   display: block;
   margin-top: 3px;
-  font-size: 0.62rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2px;
   color: #2fb5a2;
@@ -601,8 +601,14 @@
   margin: 0 auto 44px;
 }
 
+.preview-grid > * {
+  display: flex;
+}
+
 .preview-card {
   position: relative;
+  flex: 1;
+  min-width: 0;
   display: flex;
   flex-direction: column;
   gap: 12px;
@@ -627,7 +633,7 @@
 }
 
 .preview-card .tag {
-  font-size: 0.66rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.6px;
   text-transform: uppercase;
@@ -648,7 +654,7 @@
 
 .preview-desc {
   margin: 0;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -706,11 +712,21 @@
 }
 
 .preview-card-flagship { border-color: rgba(81, 196, 177, 0.38); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.12); }
-.preview-card-flagship::before { content: 'FLAGSHIP'; position: absolute; top: 14px; right: 14px; color: #58c8b4; font-size: 0.6rem; font-weight: 800; letter-spacing: 0.12em; }
+.preview-card-flagship::before { content: 'FLAGSHIP'; position: absolute; top: 14px; right: 14px; color: #58c8b4; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; }
+
+/* Links sit in one row pinned to the card bottom, so cards in a row line up */
+.preview-links {
+  margin-top: auto;
+  padding-top: 6px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px 20px;
+}
 
 .preview-link {
-  margin-top: auto;
-  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
   font-size: 0.85rem;
   font-weight: 700;
   color: #2fb5a2;
@@ -768,7 +784,7 @@
 
 .experience-meta {
   margin: 0 0 14px;
-  font-size: 0.72rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
@@ -928,7 +944,7 @@
 }
 
 .capability-tag {
-  font-size: 0.68rem;
+  font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.8px;
   text-transform: uppercase;

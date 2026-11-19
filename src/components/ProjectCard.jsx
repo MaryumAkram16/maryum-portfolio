@@ -49,12 +49,14 @@ function ProjectCard({ project, flagship = false, children }) {
           )}
         </p>
       )}
-      {children}
-      {evidenceUrl && (
-        <a className="preview-link" href={evidenceUrl} target="_blank" rel="noopener noreferrer">
-          {evidenceLabel || `View ${title} evidence →`}
-        </a>
-      )}
+      <div className="preview-links">
+        {children}
+        {evidenceUrl && (
+          <a className="preview-link" href={evidenceUrl} target="_blank" rel="noopener noreferrer">
+            {evidenceLabel || `View ${title} evidence →`}
+          </a>
+        )}
+      </div>
     </article>
   )
 }

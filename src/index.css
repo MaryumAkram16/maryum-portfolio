@@ -8,6 +8,30 @@
   --accent-glow-soft: rgba(13, 122, 110, 0.16);
   --font: 'IBM Plex Sans', sans-serif;
 
+  /* Design tokens, taken from values already used across the site.
+     New and edited rules use these; older rules move over gradually. */
+  --surface: #1c2b37;
+  --text-2: #b8c2cc;        /* 8.7:1 on --bg */
+  --text-3: #8fa5a7;        /* 6.1:1 on --bg */
+  --accent-text: #44d5c0;   /* teal text on dark, 8.7:1 */
+  --accent-soft: #58c8b4;
+  --border: rgba(250, 250, 248, 0.1);
+  --border-accent: rgba(81, 196, 177, 0.26);
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --sp-2: 8px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-12: 48px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+  --dur-fast: 150ms;
+  --dur: 250ms;
+
   color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;

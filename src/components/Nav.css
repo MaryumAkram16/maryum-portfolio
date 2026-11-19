@@ -7,6 +7,19 @@
   padding: 20px 24px;
 }
 
+/* Sticky from tablet up: the Work page is ~19,000px tall, so the nav and the
+   CV link stay one glance away. Phones keep the static header, where the
+   wrapped nav would take too much of the screen. */
+@media (min-width: 768px) {
+  .nav {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: var(--bg);
+    border-bottom: 1px solid rgba(250, 250, 248, 0.06);
+  }
+}
+
 .nav-logo {
   font-size: 1.125rem;
 }
@@ -39,6 +52,14 @@
 .nav-links a.active {
   opacity: 1;
   text-shadow: 0 0 12px var(--accent-glow-soft);
+}
+
+/* Current page: an underline as well as full opacity, so it doesn't rely on a subtle fade */
+.nav-links a.active:not(.nav-cv) {
+  text-decoration: underline;
+  text-decoration-color: #44d5c0;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 8px;
 }
 
 .nav-cv {
