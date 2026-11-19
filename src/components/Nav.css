@@ -57,7 +57,7 @@
 /* Current page: an underline as well as full opacity, so it doesn't rely on a subtle fade */
 .nav-links a.active:not(.nav-cv) {
   text-decoration: underline;
-  text-decoration-color: #44d5c0;
+  text-decoration-color: var(--accent-text);
   text-decoration-thickness: 2px;
   text-underline-offset: 8px;
 }
@@ -67,7 +67,7 @@
   opacity: 0.9;
   color: var(--text);
   border: 1px solid var(--accent-glow);
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   padding: 6px 14px;
 }
 

@@ -51,7 +51,7 @@
 .footer-cv {
   font-weight: 700;
   border: 1px solid var(--accent-glow);
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   padding: 6px 14px;
 }
 
