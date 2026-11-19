@@ -52,7 +52,7 @@ function ReceiptThumbnail() {
         <div className="receipt-thumb-arrow">→</div>
         <div className="receipt-thumb-output"><b>Validated output</b><br />vendor · date · total<br />currency · confidence</div>
       </div>
-      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> needs_review: false <span>8/8 eval cases</span></div>
+      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> needs_review: false <span>50 labelled eval cases</span></div>
     </div>
   )
 }
@@ -348,6 +348,19 @@ function CaseStudy({
 
           <h3>Metrics</h3>
           <p>{deepDive.metrics}</p>
+
+          {deepDive.links && (
+            <>
+              <h3>More evidence</h3>
+              <div className="case-links deep-dive-links">
+                {deepDive.links.map((item) => (
+                  <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url}>
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </article>
@@ -449,14 +462,12 @@ function Work() {
             repoUrl="https://github.com/MaryumAkram16/gharfix-capstone"
             evidenceLinks={[
               { label: 'Parity tests vs n8n', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/tests/matching/golden.test.ts' },
-              { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/db/001_booking_integrity.sql' },
               { label: 'Reschedule crash-and-retry test', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/tests/reschedule/handler.test.ts' },
             ]}
             demoType="gharfix"
             videoLinks={[
               { label: 'Try the live app', url: 'https://gharfix-capstone-bvq8.vercel.app/' },
               { label: 'Watch demo', url: 'https://www.loom.com/share/ced16dc728b04e53920382d191875de5' },
-              { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/assets/demo-video.mp4' },
             ]}
             deepDive={{
               challenge:
@@ -465,6 +476,10 @@ function Work() {
                 'Next steps are a Postgres exclusion constraint for overlapping windows (the 23P01 error is already mapped to slot_taken), a CI workflow that runs the suite on every push, and provider and customer login. The original n8n workflows stay in the repository as the design record.',
               metrics:
                 '723 tests pass locally, with 22 Postgres migration tests skipped unless a local database is configured. All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
+              links: [
+                { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/db/001_booking_integrity.sql' },
+                { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/assets/demo-video.mp4' },
+              ],
             }}
           />
           <CaseStudy
@@ -473,15 +488,15 @@ function Work() {
             tags={['Python', 'FastAPI', 'Pydantic', 'Evaluation', 'Background Jobs', 'Docker']}
             problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
             solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
-            result="181 pytest tests run in CI on every push and pull request, covering input validation, provider failures and retry policy, background-job idempotency, reports, and path-traversal protection. CI also runs a stub-mode contract check against the live API and a Docker build with a container smoke test."
-            proofLine="An ambiguous receipt returns needs_review: true instead of a guessed value, and changing the prompt from v1 to v2 moved the labelled evaluation from 7/8 to 8/8 in a local run."
-            evaluation="The tests use a fake provider client and block real model calls, so they verify the service, not model quality. Model quality is measured by eight hand-labelled cases in a separate, manually triggered workflow that refuses to score unless the server reports live mode. The 8/8 result (prompt v2; v1 scored 7/8) is from a manual run on 2026-08-15. Eight cases is a regression check, not an accuracy estimate."
-            metrics={[{ value: '181', label: 'tests in CI' }, { value: '8/8', label: 'labelled eval, prompt v2' }, { value: 'Live-only', label: 'eval refuses stub mode' }, { value: 'Docker', label: 'CI build + smoke test' }]}
+            result="298 pytest tests run in CI on every push and pull request, covering input validation, provider failures and retry policy, background-job idempotency, reports, path-traversal protection, and the evaluation scorer and labelling rules. CI also runs a stub-mode contract check against the live API and a Docker build with a container smoke test."
+            proofLine="An ambiguous receipt returns needs_review: true instead of a guessed value. The labelled evaluation has 50 cases across eight categories, scored per field, with needs_review precision and recall."
+            evaluation="The tests use a fake provider client and block real model calls, so they verify the service, not model quality. Model quality is measured by 50 hand-labelled cases (currencies, date formats, total selection, OCR noise, discounts and refunds, multi-page invoices, non-receipts including a prompt-injection attempt, and ambiguous inputs) in a separate, manually triggered workflow that refuses to score unless the server reports live mode. No live run on the 50-case set yet. On the original 8 cases, prompt v2 scored 8/8 (v1 scored 7/8) in a manual run on 2026-08-15."
+            metrics={[{ value: '298', label: 'tests in CI' }, { value: '50', label: 'labelled eval cases, 8 categories' }, { value: 'Per field', label: 'accuracy + needs_review P/R' }, { value: 'Pending', label: 'live run on 50-case set' }]}
             images={[]}
             architecture={<ReceiptArchitecture />}
             repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
             evidenceLinks={[
-              { label: 'Eight labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
+              { label: '50 labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
               { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
               { label: 'CI workflow', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/.github/workflows/verify.yml' },
               { label: 'Test suite', url: 'https://github.com/MaryumAkram16/receipt-extractor/tree/main/tests' },
@@ -491,9 +506,9 @@ function Work() {
               challenge:
                 'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
               retrospective:
-                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
+                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a first live run of the 50-case evaluation to set a baseline.',
               metrics:
-                '181 tests pass offline in about two seconds and run in CI. Eight hand-labelled evaluation cases are published; the live evaluation runs in its own manually triggered workflow and refuses to score stub responses. Each call logs prompt version, model, token counts, duration, and repair status.',
+                '298 tests pass offline in about five seconds and run in CI. 50 hand-labelled evaluation cases are published, with per-field and per-category scoring and a dated report; the live evaluation runs in its own manually triggered workflow and refuses to score stub responses. Each call logs prompt version, model, token counts, duration, and repair status.',
             }}
           />
           <CaseStudy
