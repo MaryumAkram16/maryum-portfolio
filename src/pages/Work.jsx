@@ -348,6 +348,19 @@ function CaseStudy({
 
           <h3>Metrics</h3>
           <p>{deepDive.metrics}</p>
+
+          {deepDive.links && (
+            <>
+              <h3>More evidence</h3>
+              <div className="case-links deep-dive-links">
+                {deepDive.links.map((item) => (
+                  <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url}>
+                    {item.label}
+                  </a>
+                ))}
+              </div>
+            </>
+          )}
         </div>
       )}
     </article>
@@ -449,14 +462,12 @@ function Work() {
             repoUrl="https://github.com/MaryumAkram16/gharfix-capstone"
             evidenceLinks={[
               { label: 'Parity tests vs n8n', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/tests/matching/golden.test.ts' },
-              { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/db/001_booking_integrity.sql' },
               { label: 'Reschedule crash-and-retry test', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/tests/reschedule/handler.test.ts' },
             ]}
             demoType="gharfix"
             videoLinks={[
               { label: 'Try the live app', url: 'https://gharfix-capstone-bvq8.vercel.app/' },
               { label: 'Watch demo', url: 'https://www.loom.com/share/ced16dc728b04e53920382d191875de5' },
-              { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/assets/demo-video.mp4' },
             ]}
             deepDive={{
               challenge:
@@ -465,6 +476,10 @@ function Work() {
                 'Next steps are a Postgres exclusion constraint for overlapping windows (the 23P01 error is already mapped to slot_taken), a CI workflow that runs the suite on every push, and provider and customer login. The original n8n workflows stay in the repository as the design record.',
               metrics:
                 '723 tests pass locally, with 22 Postgres migration tests skipped unless a local database is configured. All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
+              links: [
+                { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/db/001_booking_integrity.sql' },
+                { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/assets/demo-video.mp4' },
+              ],
             }}
           />
           <CaseStudy

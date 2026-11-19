@@ -532,6 +532,13 @@ function Landing() {
                 ✉ Send a message instead
               </Link>
             </div>
+            <p className="cta-contact cta-hiring">
+              Hiring for an AI or backend role?{' '}
+              <a href={`${import.meta.env.BASE_URL}Maryum_Akram_Resume.pdf`} download="Maryum_Akram_Resume.pdf">
+                Download my CV
+              </a>{' '}
+              or book the same call.
+            </p>
             <p className="cta-contact">
               <a href={BOOKING_URL} target="_blank" rel="noopener noreferrer">
                 Book a 30-minute intro call

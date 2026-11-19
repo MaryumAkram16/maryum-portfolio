@@ -1232,6 +1232,10 @@
   overflow-wrap: anywhere;
 }
 
+.landing-cta .cta-hiring + .cta-contact {
+  margin-top: 10px;
+}
+
 .landing-cta .cta-contact a {
   color: #0d7a6e;
   font-weight: 700;
