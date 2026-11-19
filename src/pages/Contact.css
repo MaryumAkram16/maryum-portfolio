@@ -39,14 +39,14 @@
   color: #22a08e;
 }
 
-.hero-gradient {
+.contact .hero-gradient {
   background: linear-gradient(92deg, #0d7a6e, #2fb5a2);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.section-sub {
+.contact .section-sub {
   margin: 14px 0 0;
   max-width: 560px;
   font-size: 0.95rem;

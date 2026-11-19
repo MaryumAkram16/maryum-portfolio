@@ -12,7 +12,7 @@
   text-align: left;
 }
 
-.section-label {
+.work .section-label {
   margin: 0 0 10px;
   font-size: 0.8rem;
   font-weight: 700;
@@ -21,14 +21,14 @@
   color: var(--accent);
 }
 
-.hero-gradient {
+.work .hero-gradient {
   background: linear-gradient(92deg, #0d7a6e, #2fb5a2);
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
 }
 
-.section-sub {
+.work .section-sub {
   margin: 14px 0 0;
   max-width: 560px;
   font-size: 0.95rem;
@@ -148,21 +148,6 @@
   letter-spacing: 0.04em;
 }
 
-.tag-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-  margin: 0 0 20px;
-}
-
-.tag {
-  font-size: 0.78rem;
-  padding: 4px 10px;
-  border-radius: 999px;
-  background: var(--accent-glow-soft);
-  color: var(--text);
-  border: 1px solid var(--accent-glow);
-}
 
 .psr-list {
   margin: 0 0 20px;
