@@ -153,6 +153,9 @@ function Landing() {
     { label: 'Explore the code', sub: 'Open source on GitHub' },
     { label: 'Book an intro call', sub: '30 minutes, free' },
   ]
+  // With reduced motion the steps don't cycle, so show them all as active
+  // instead of leaving steps 2–5 faded for good.
+  const shownStep = role.reduced ? steps.length : activeStep
 
   const whyItems = [
     {
@@ -453,7 +456,7 @@ function Landing() {
           <div className="pipe-track">
             {steps.map((step, i) => (
               <div key={i} className="pipe-track-item">
-                <div className={`pipe-step ${activeStep >= i ? 'active' : ''}`}>
+                <div className={`pipe-step ${shownStep >= i ? 'active' : ''}`}>
                   <div className="pipe-circle">{i + 1}</div>
                   <div className="pipe-text">
                     <div className="pipe-label">{step.label}</div>
@@ -468,9 +471,11 @@ function Landing() {
             <Link className="cta-pill cta-solid" to="/work">
               🧭 Start with the case studies
             </Link>
-            <button type="button" className="pipe-replay" onClick={() => setActiveStep(0)}>
-              ↺ Replay animation
-            </button>
+            {!role.reduced && (
+              <button type="button" className="pipe-replay" onClick={() => setActiveStep(0)}>
+                ↺ Replay animation
+              </button>
+            )}
           </div>
         </div>
       </section>

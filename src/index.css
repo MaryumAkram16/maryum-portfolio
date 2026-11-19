@@ -8,6 +8,30 @@
   --accent-glow-soft: rgba(13, 122, 110, 0.16);
   --font: 'IBM Plex Sans', sans-serif;
 
+  /* Design tokens, taken from values already used across the site.
+     New and edited rules use these; older rules move over gradually. */
+  --surface: #1c2b37;
+  --text-2: #b8c2cc;        /* 8.7:1 on --bg */
+  --text-3: #8fa5a7;        /* 6.1:1 on --bg */
+  --accent-text: #44d5c0;   /* teal text on dark, 8.7:1 */
+  --accent-soft: #58c8b4;
+  --border: rgba(250, 250, 248, 0.1);
+  --border-accent: rgba(81, 196, 177, 0.26);
+  --fs-xs: 0.75rem;
+  --fs-sm: 0.875rem;
+  --fs-base: 1rem;
+  --fs-md: 1.125rem;
+  --sp-2: 8px;
+  --sp-4: 16px;
+  --sp-6: 24px;
+  --sp-12: 48px;
+  --r-sm: 6px;
+  --r-md: 10px;
+  --r-lg: 16px;
+  --r-pill: 999px;
+  --dur-fast: 150ms;
+  --dur: 250ms;
+
   color-scheme: dark;
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -37,6 +61,50 @@ h3 {
   min-height: 100svh;
   display: flex;
   flex-direction: column;
+}
+
+/* ── Shared primitives ──
+   Used on several routes. They live here, not in a lazily loaded page
+   stylesheet, so they look the same whichever page a visitor opens first.
+   Pages scope their own variations (e.g. .work .section-label). */
+.hero-gradient {
+  background: linear-gradient(135deg, #0d7a6e, #2fb5a2);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.section-label {
+  margin: 0 0 12px;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: #22a08e;
+}
+
+.section-sub {
+  color: rgba(250, 250, 248, 0.65);
+  font-size: 0.95rem;
+  max-width: 560px;
+  margin: 0 auto;
+  line-height: 1.6;
+}
+
+.tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 0 0 20px;
+}
+
+.tag {
+  font-size: 0.78rem;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--accent-glow-soft);
+  color: var(--text);
+  border: 1px solid var(--accent-glow);
 }
 
 /* Visible to screen readers only */

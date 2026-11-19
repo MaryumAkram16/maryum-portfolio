@@ -190,14 +190,18 @@ function CaseStudy({
 }) {
   const [open, setOpen] = useState(false)
   const [deepDiveOpen, setDeepDiveOpen] = useState(false)
+  const [evalOpen, setEvalOpen] = useState(false)
+  const hasDetails = images.length > 0 || Boolean(scopeNote)
 
   return (
     <article
       className="case-card"
       id={title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}
     >
-      {/* Desktop: media left (~45%), text right; everything after .case-main spans full width */}
-      <div className="case-main">
+      {/* Desktop: thumbnail and interactive preview stack in the left column,
+          the case study text and its actions in the right. Mobile: thumbnail,
+          text, actions, then the preview. Expanded panels span full width. */}
+      <div className={`case-main ${demoType ? 'has-preview' : ''}`}>
         <div className="case-thumb-wrap">
           {visual || (thumb ? (
             <picture>
@@ -210,10 +214,8 @@ function CaseStudy({
         <div className="case-body">
           <div className="case-section-head">
             <p className="section-label">Case study</p>
-            <h3>
-              {title}
-              <span className="hero-gradient"> {description}</span>
-            </h3>
+            <h3>{title}</h3>
+            <p className="case-description">{description}</p>
           </div>
 
           <div className="tag-row">
@@ -252,63 +254,81 @@ function CaseStudy({
           {proofLine && <p className="proof-line">{proofLine}</p>}
 
           {evaluation && (
-            <section className="evaluation-panel" aria-label={`${title} evaluation and metrics`}>
+            <section
+              className={`evaluation-panel ${evalOpen ? 'is-open' : ''}`}
+              aria-label={`${title} evaluation and metrics`}
+            >
               <div className="evaluation-copy">
                 <p className="evaluation-label">Evaluation</p>
-                <p>{evaluation}</p>
+                <p className="evaluation-text">{evaluation}</p>
+                {/* Mobile only: the notes start collapsed so metrics stay in view */}
+                <button
+                  type="button"
+                  className="evaluation-toggle"
+                  onClick={() => setEvalOpen((prev) => !prev)}
+                  aria-expanded={evalOpen}
+                >
+                  {evalOpen ? 'Hide evaluation notes' : 'Show evaluation notes'}
+                </button>
               </div>
               {metrics && <div className="metric-row">{metrics.map((metric) => <div key={metric.label}><strong>{metric.value}</strong><span>{metric.label}</span></div>)}</div>}
             </section>
           )}
+
+          <div className="case-links">
+            {repoUrl && (
+              <a className="case-link case-link-primary" href={repoUrl} target="_blank" rel="noopener noreferrer">
+                View code
+              </a>
+            )}
+            {evidenceLinks.map((item) => (
+              <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url}>
+                {item.label}
+              </a>
+            ))}
+            {videoLinks &&
+              videoLinks.map((video) => (
+                <a
+                  className="case-link"
+                  href={video.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  key={video.url}
+                >
+                  {video.label}
+                </a>
+              ))}
+            {(hasDetails || deepDive) && (
+              <div className="case-toggles">
+                {hasDetails && (
+                  <button
+                    type="button"
+                    className="view-details-btn"
+                    onClick={() => setOpen((prev) => !prev)}
+                    aria-expanded={open}
+                  >
+                    {open ? 'Hide screenshots' : 'View screenshots'}
+                  </button>
+                )}
+                {deepDive && (
+                  <button
+                    type="button"
+                    className="view-details-btn"
+                    onClick={() => setDeepDiveOpen((prev) => !prev)}
+                    aria-expanded={deepDiveOpen}
+                  >
+                    {deepDiveOpen ? 'Hide technical deep-dive' : 'Technical deep-dive'}
+                  </button>
+                )}
+              </div>
+            )}
+          </div>
         </div>
+
+        {demoType && <InteractivePreview type={demoType} />}
       </div>
 
-      {demoType && <InteractivePreview type={demoType} />}
-
-      <div className="case-links">
-        {evidenceLinks.map((item) => (
-          <a className="case-link" href={item.url} target="_blank" rel="noopener noreferrer" key={item.url}>
-            {item.label}
-          </a>
-        ))}
-        {repoUrl && (
-          <a className="case-link" href={repoUrl} target="_blank" rel="noopener noreferrer">
-            View code
-          </a>
-        )}
-        {videoLinks &&
-          videoLinks.map((video) => (
-            <a
-              className="case-link"
-              href={video.url}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={video.url}
-            >
-              {video.label}
-            </a>
-          ))}
-        <button
-          type="button"
-          className="view-details-btn"
-          onClick={() => setOpen((prev) => !prev)}
-          aria-expanded={open}
-        >
-          {open ? 'Hide details' : 'View details'}
-        </button>
-        {deepDive && (
-          <button
-            type="button"
-            className="view-details-btn"
-            onClick={() => setDeepDiveOpen((prev) => !prev)}
-            aria-expanded={deepDiveOpen}
-          >
-            {deepDiveOpen ? 'Hide technical deep-dive' : 'Technical deep-dive'}
-          </button>
-        )}
-      </div>
-
-      {open && (
+      {open && hasDetails && (
         <div className="case-expanded">
           <Gallery images={images} />
           {scopeNote && <p className="scope-note">{scopeNote}</p>}
@@ -428,15 +448,15 @@ function Work() {
             architecture={<GharFixArchitecture />}
             repoUrl="https://github.com/MaryumAkram16/gharfix-capstone"
             evidenceLinks={[
-              { label: 'Parity tests vs n8n', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/tests/matching/golden.test.ts' },
-              { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/db/001_booking_integrity.sql' },
-              { label: 'Reschedule crash-and-retry test', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/tests/reschedule/handler.test.ts' },
+              { label: 'Parity tests vs n8n', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/tests/matching/golden.test.ts' },
+              { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/db/001_booking_integrity.sql' },
+              { label: 'Reschedule crash-and-retry test', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/tests/reschedule/handler.test.ts' },
             ]}
             demoType="gharfix"
             videoLinks={[
               { label: 'Try the live app', url: 'https://gharfix-capstone-bvq8.vercel.app/' },
               { label: 'Watch demo', url: 'https://www.loom.com/share/ced16dc728b04e53920382d191875de5' },
-              { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/assets/demo-video.mp4' },
+              { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/assets/demo-video.mp4' },
             ]}
             deepDive={{
               challenge:
@@ -453,17 +473,18 @@ function Work() {
             tags={['Python', 'FastAPI', 'Pydantic', 'Evaluation', 'Background Jobs', 'Docker']}
             problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
             solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
-            result="CI compiles the code, builds the Docker image, and runs a schema smoke test against the running API on every push. Eight hand-labelled evaluation cases and an evaluator are public; the latest public CI run passed build and smoke checks but skipped the provider-backed evaluation."
+            result="181 pytest tests run in CI on every push and pull request, covering input validation, provider failures and retry policy, background-job idempotency, reports, and path-traversal protection. CI also runs a stub-mode contract check against the live API and a Docker build with a container smoke test."
             proofLine="An ambiguous receipt returns needs_review: true instead of a guessed value, and changing the prompt from v1 to v2 moved the labelled evaluation from 7/8 to 8/8 in a local run."
-            evaluation="There is no unit-test suite; verification is the CI smoke test plus the labelled evaluation, which needs provider credentials to run. The README reports 8/8 on prompt v2 (v1 scored 7/8); that score comes from a local run, not public CI."
-            metrics={[{ value: '8', label: 'labelled eval cases' }, { value: '8/8', label: 'README-reported, prompt v2' }, { value: 'Docker', label: 'CI build + smoke test' }]}
+            evaluation="The tests use a fake provider client and block real model calls, so they verify the service, not model quality. Model quality is measured by eight hand-labelled cases in a separate, manually triggered workflow that refuses to score unless the server reports live mode. The 8/8 result (prompt v2; v1 scored 7/8) is from a manual run on 2026-08-15. Eight cases is a regression check, not an accuracy estimate."
+            metrics={[{ value: '181', label: 'tests in CI' }, { value: '8/8', label: 'labelled eval, prompt v2' }, { value: 'Live-only', label: 'eval refuses stub mode' }, { value: 'Docker', label: 'CI build + smoke test' }]}
             images={[]}
             architecture={<ReceiptArchitecture />}
             repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
             evidenceLinks={[
               { label: 'Eight labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
               { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
-              { label: 'Latest public CI run', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/32571626750' },
+              { label: 'CI workflow', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/.github/workflows/verify.yml' },
+              { label: 'Test suite', url: 'https://github.com/MaryumAkram16/receipt-extractor/tree/main/tests' },
             ]}
             demoType="receipt"
             deepDive={{
@@ -472,7 +493,7 @@ function Work() {
               retrospective:
                 'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
               metrics:
-                'Eight hand-labelled evaluation cases are published. The latest public CI run skipped the provider-backed evaluation because provider credentials were unavailable; the source includes instrumentation for prompt version, model, token counts, duration, repair status, and needs-review outcomes.',
+                '181 tests pass offline in about two seconds and run in CI. Eight hand-labelled evaluation cases are published; the live evaluation runs in its own manually triggered workflow and refuses to score stub responses. Each call logs prompt version, model, token counts, duration, and repair status.',
             }}
           />
           <CaseStudy
