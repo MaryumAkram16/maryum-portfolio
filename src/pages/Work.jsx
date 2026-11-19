@@ -435,6 +435,7 @@ function Work() {
             demoType="gharfix"
             videoLinks={[
               { label: 'Try the live app', url: 'https://gharfix-capstone-bvq8.vercel.app/' },
+              { label: 'Watch demo', url: 'https://www.loom.com/share/ced16dc728b04e53920382d191875de5' },
               { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/assets/demo-video.mp4' },
             ]}
             deepDive={{
@@ -516,9 +517,6 @@ function Work() {
               />
             }
             repoUrl="https://github.com/MaryumAkram16/flyrank-capstone-metering-billing"
-            videoLinks={[
-              { label: 'Watch demo', url: 'https://www.loom.com/share/ced16dc728b04e53920382d191875de5' },
-            ]}
             evidenceLinks={[
               { label: 'Tests mapped to requirements', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/EVIDENCE.md' },
               { label: 'API implementation', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/app/main.py' },
