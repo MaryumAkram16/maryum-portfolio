@@ -66,7 +66,7 @@ function GharFixThumbnail() {
         <div className="receipt-thumb-arrow">→</div>
         <div className="receipt-thumb-output"><b>Booked provider</b><br />intent · area · slot<br />7-factor ranked match</div>
       </div>
-      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> 8 n8n workflows <span>~4–7 s end-to-end</span></div>
+      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> Original n8n prototype <span>TypeScript port + tests</span></div>
     </div>
   )
 }
@@ -371,7 +371,7 @@ function Work() {
             problem="Career discovery tools rarely check claimed skills against real, current market demand."
             solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow. These source artifacts do not establish production operation or an external security audit."
             result="The public repository has 94 automated tests in 9 Vitest files, and they all pass on the public code. A GitHub Actions workflow runs the suite and a TypeScript check on every push to main. Nine users is a portfolio-reported figure, not independently substantiated by the repository."
-            proofLine="Repository code includes Firebase authentication, rate limiting, Firestore rules, and tests; these are implementation artifacts, not an external security audit."
+            proofLine="94 repository-reported Vitest tests, authenticated Express API, Firestore rules, and CI checks; recommendation quality is not yet benchmarked against labelled examples."
             evaluation="The tests cover input validation, rate-limit keys, usage limits, resume parsing, the SerpAPI client, and assessment helpers; the suite also covers helpers for the collaborator-built Roadmap and Interview Prep features. They test application logic, not recommendation quality: no labelled quality evaluation is published, and the user count is portfolio-reported."
             metrics={[{ label: 'automated tests', value: '94' }, { label: 'CI', value: 'Tests + type-check' }, { label: 'Users', value: '9 reported' }, { label: 'Quality benchmark', value: 'Not published' }]}
             thumb={skillsyncDashboard}
@@ -401,6 +401,7 @@ function Work() {
             evidenceLinks={[
               { label: 'Public test suite', url: 'https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests' },
               { label: 'GitHub Actions runs', url: 'https://github.com/MaryumAkram16/Skillsync-AI/actions' },
+              { label: 'Implementation source', url: 'https://github.com/MaryumAkram16/Skillsync-AI' },
             ]}
             demoType="skillsync"
             videoLinks={[
@@ -433,6 +434,7 @@ function Work() {
               { label: 'Original n8n prototype', url: 'https://github.com/MaryumAkram16/GharFix' },
             ]}
             demoType="gharfix"
+            scopeNote="The illustrated workflow and original demo represent the earlier n8n prototype. The linked gharfix-capstone repository contains the locally runnable TypeScript port; public Vercel deployment is not verified."
             deepDive={{
               challenge: 'Porting the n8n booking workflow into testable TypeScript without changing the client API contract, while preventing duplicate confirmations and normalizing booking slots.',
               retrospective: 'The repository documents that a unique index protects the same normalized start time, but overlapping windows with different starts need stronger transactional enforcement. Public deployment remains unverified.',
@@ -447,7 +449,7 @@ function Work() {
             problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
             solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
             result="CI compiles the code, builds the Docker image, and runs a schema smoke test against the running API on every push. Eight hand-labelled evaluation cases and an evaluator are public; the latest public CI run passed build and smoke checks but skipped the provider-backed evaluation."
-            proofLine="The repository implements schema validation, bounded retries/repair, background jobs, SQLite persistence, PDF reports, and optional scheduled generation; these are source-supported capabilities, not production guarantees."
+            proofLine="POST /extract · Pydantic validation · bounded provider retries · one repair attempt · README-reported 8/8 on eight labelled cases (not public CI).";
             evaluation="There is no unit-test suite; verification is the CI smoke test plus the labelled evaluation, which needs provider credentials to run. The README reports 8/8 on prompt v2 (v1 scored 7/8); that score comes from a local run, not public CI."
             metrics={[{ value: '8', label: 'labelled eval cases' }, { value: '8/8', label: 'README-reported, prompt v2' }, { value: 'Docker', label: 'CI build + smoke test' }]}
             images={[]}
