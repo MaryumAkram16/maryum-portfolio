@@ -25,7 +25,7 @@ export const projects = [
   },
   {
     title: 'GharFix',
-    desc: 'TypeScript serverless backend · 723 tests · n8n port',
+    desc: 'TypeScript serverless backend · 723 tests · live on Vercel',
     caseStudy: true,
     tags: ['TypeScript', 'Vercel Functions', 'PostgreSQL', 'Vitest'],
     text: 'I ported my eight-workflow n8n booking prototype to TypeScript serverless handlers: Gemini intent parsing for English, Urdu, and Roman Urdu, OpenStreetMap provider search, seven-factor ranking and pricing, and booking, dispute, and reschedule endpoints with injected dependencies.',

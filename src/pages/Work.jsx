@@ -418,12 +418,12 @@ function Work() {
             resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 2 submission (original n8n version)"
             proofLine="A golden test runs the original n8n scoring and pricing code from the workflow JSON next to the TypeScript port and requires identical output."
             visual={<GharFixThumbnail />}
-            evaluation="The suite runs locally; the repository's two GitHub Actions workflows are schedulers (reconcile and nightly scores), not a test pipeline. The README records one live end-to-end run on Vercel but there is no public URL. The unique index catches identical start times only: overlapping windows with different start times are a documented gap, with an exclusion constraint planned. There is no login yet, so tracking and disputes check booking id plus email."
+            evaluation="The suite runs locally; the repository's two GitHub Actions workflows are schedulers (reconcile and nightly scores), not a test pipeline. The app is deployed on Vercel; the README notes which live paths (Gemini, Google Places, Supabase, Gmail) were checked in production and which are covered only by fakes. The unique index catches identical start times only: overlapping windows with different start times are a documented gap, with an exclusion constraint planned. There is no login yet, so tracking and disputes check booking id plus email."
             metrics={[
               { value: '723', label: 'Vitest tests passing' },
               { value: '7/7', label: 'endpoints ported from n8n' },
               { value: 'Identical', label: 'scoring + pricing vs n8n' },
-              { value: 'None yet', label: 'public deployment' },
+              { value: 'Live', label: 'Vercel deployment' },
             ]}
             architecture={<GharFixArchitecture />}
             repoUrl="https://github.com/MaryumAkram16/gharfix-capstone"
@@ -434,13 +434,14 @@ function Work() {
             ]}
             demoType="gharfix"
             videoLinks={[
+              { label: 'Try the live app', url: 'https://gharfix-capstone-bvq8.vercel.app/' },
               { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/assets/demo-video.mp4' },
             ]}
             deepDive={{
               challenge:
                 'Proving the port kept the original behavior. The golden test loads the n8n Code nodes straight from the workflow JSON and runs them beside the TypeScript, across complexity tiers, budgets, multi-service requests, and surge-hour boundaries, so changing any weight or threshold fails the build. Double booking needed the same care: slots are normalized identically in TypeScript and SQL (about 200 inputs checked against both), and a Postgres unique index turns the losing concurrent insert into a 409.',
               retrospective:
-                'Next steps are a Postgres exclusion constraint for overlapping windows (the 23P01 error is already mapped to slot_taken), a CI workflow that runs the suite on every push, a public deployment, and provider and customer login. The original n8n workflows stay in the repository as the design record.',
+                'Next steps are a Postgres exclusion constraint for overlapping windows (the 23P01 error is already mapped to slot_taken), a CI workflow that runs the suite on every push, and provider and customer login. The original n8n workflows stay in the repository as the design record.',
               metrics:
                 '723 tests pass locally, with 22 Postgres migration tests skipped unless a local database is configured. All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
             }}
@@ -475,7 +476,7 @@ function Work() {
           />
           <CaseStudy
             title="Usage Metering & Billing Engine"
-            description="FastAPI billing backend · FlyRank internship"
+            description="FastAPI billing backend · solo build, FlyRank internship"
             tags={['Python', 'FastAPI', 'SQLModel', 'pytest', 'Idempotency', 'Signed Webhooks']}
             problem="A SaaS backend has to know how much each customer used, what it cost, and whether they hit their limit, and a retried request or replayed webhook must never change the bill."
             solution="A FastAPI service that records usage under a per-tenant idempotency key, returns 429 at the quota boundary and 402 without an active subscription, prices AI tokens (input, cached input, output, reasoning) in integer micro-dollars from pinned constants, and syncs plans through a Stripe-style checkout with HMAC-signed, deduplicated webhooks."
@@ -515,6 +516,9 @@ function Work() {
               />
             }
             repoUrl="https://github.com/MaryumAkram16/flyrank-capstone-metering-billing"
+            videoLinks={[
+              { label: 'Watch demo', url: 'https://www.loom.com/share/ced16dc728b04e53920382d191875de5' },
+            ]}
             evidenceLinks={[
               { label: 'Tests mapped to requirements', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/EVIDENCE.md' },
               { label: 'API implementation', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/app/main.py' },

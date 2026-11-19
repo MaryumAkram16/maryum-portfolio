@@ -260,7 +260,7 @@ function Landing() {
             <div className={`hero-proof ${heroVisible ? 'visible' : ''}`}>
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
-                SkillSync AI &amp; MediLens — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · Embeddable Widget Platform &amp; Receipt Extractor — solo builds during my FlyRank internship · RoshanAI, Smart Job Finder &amp; GharFix — fully solo · Resume Screener — solo build, self-evaluated
+                SkillSync AI &amp; MediLens — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · Embeddable Widget Platform, Receipt Extractor &amp; Usage Metering &amp; Billing Engine — solo builds during my FlyRank internship · RoshanAI, Smart Job Finder &amp; GharFix — fully solo · Resume Screener — solo build, self-evaluated
               </span>
             </div>
           </div>
