@@ -147,7 +147,7 @@ function Landing() {
   ]
 
   const steps = [
-    { label: 'Browse case studies', sub: 'SkillSync AI · Receipt Extractor · RoshanAI · MediLens · GharFix' },
+    { label: 'Browse case studies', sub: 'SkillSync AI · GharFix · Receipt Extractor · Usage Metering' },
     { label: 'Watch demo videos', sub: 'Real product walkthroughs' },
     { label: 'Read the architecture', sub: 'Diagrams, tests, decisions' },
     { label: 'Explore the code', sub: 'Open source on GitHub' },
@@ -229,7 +229,7 @@ function Landing() {
             <div className={`hero-stats ${heroVisible ? 'visible' : ''}`}>
               <div className="stat-item accent">
                 <div className="stat-value">
-                  <CounterItem value={9} />
+                  <CounterItem value={10} />
                 </div>
                 <div className="stat-label">Featured projects</div>
               </div>
@@ -260,7 +260,7 @@ function Landing() {
             <div className={`hero-proof ${heroVisible ? 'visible' : ''}`}>
               <span className="proof-dot" aria-hidden="true" />
               <span className="proof-text">
-                SkillSync AI &amp; MediLens — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · Embeddable Widget Platform &amp; Receipt Extractor — solo builds during my FlyRank internship · RoshanAI, Smart Job Finder &amp; GharFix — fully solo · Resume Screener — solo build, self-evaluated
+                SkillSync AI &amp; MediLens — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · Embeddable Widget Platform, Receipt Extractor &amp; Usage Metering &amp; Billing Engine — solo builds during my FlyRank internship · RoshanAI, Smart Job Finder &amp; GharFix — fully solo · Resume Screener — solo build, self-evaluated
               </span>
             </div>
           </div>
@@ -366,7 +366,7 @@ function Landing() {
           <Reveal>
             <SectionHead
               label="Projects I've built"
-              title="Nine projects,"
+              title="Ten projects,"
               highlight="tested applications first"
               sub="Ordered by how much of the engineering you can verify: tested full-stack and backend work first, then voice and agentic workflows, then classical ML. Each card's first line states what it is, whether it was internship work, and its strongest evidence."
             />

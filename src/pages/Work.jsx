@@ -66,31 +66,31 @@ function GharFixThumbnail() {
         <div className="receipt-thumb-arrow">→</div>
         <div className="receipt-thumb-output"><b>Booked provider</b><br />intent · area · slot<br />7-factor ranked match</div>
       </div>
-      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> 8 n8n workflows <span>~4–7 s end-to-end</span></div>
+      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> 723 tests <span>scoring identical to n8n</span></div>
     </div>
   )
 }
 
 function GharFixArchitecture() {
   return (
-    <div className="receipt-architecture" aria-label="GharFix orchestration architecture">
-      <div className="receipt-arch-row receipt-arch-primary">User request · English, Urdu, or Roman Urdu</div>
+    <div className="receipt-architecture" aria-label="GharFix TypeScript serverless architecture">
+      <div className="receipt-arch-row receipt-arch-primary">React frontend · POST /api/proxy · request contract unchanged from n8n</div>
       <div className="receipt-arch-arrow">↓</div>
-      <div className="receipt-arch-row receipt-arch-output">Google Antigravity orchestrator · planning, tool choice, fallback</div>
+      <div className="receipt-arch-row receipt-arch-output">createApp() · one router for Vercel functions and the local dev server · dependencies injected</div>
       <div className="receipt-arch-arrow">↓</div>
       <div className="receipt-arch-row receipt-arch-grid">
-        <div><b>WF1–3</b><span>intent, provider match, pricing</span></div>
-        <div><b>WF4</b><span>slot check + booking race guard</span></div>
-        <div><b>WF5</b><span>en route, arrived, completed, feedback</span></div>
-        <div><b>WF6</b><span>disputes routed by type</span></div>
-        <div><b>WF7</b><span>cancellation, reschedule, waitlist</span></div>
-        <div><b>WF8</b><span>provider performance dashboard</span></div>
+        <div><b>Intent</b><span>Gemini + strict validation, keyword fallback</span></div>
+        <div><b>Matching</b><span>OSM search, 7-factor score, pricing</span></div>
+        <div><b>Booking</b><span>slots, idempotent confirm, 409 on clash</span></div>
+        <div><b>Quality + disputes</b><span>status loop, refund rules</span></div>
+        <div><b>Reschedule</b><span>cancel, rebook, waitlist</span></div>
+        <div><b>Dashboard</b><span>provider scores, nightly refresh</span></div>
       </div>
       <div className="receipt-arch-arrow">↓</div>
       <div className="receipt-arch-row receipt-arch-grid receipt-arch-secondary">
-        <div><b>Google Maps</b><span>geocoding, places, distance</span></div>
-        <div><b>Supabase</b><span>PostgreSQL bookings + capacity</span></div>
-        <div><b>Gmail API</b><span>booking and status emails</span></div>
+        <div><b>Supabase Postgres</b><span>unique slot index, migrations</span></div>
+        <div><b>Resilience</b><span>safe retries, incidents, alerts</span></div>
+        <div><b>Reconcile</b><span>re-sends unsent confirmations</span></div>
       </div>
     </div>
   )
@@ -353,7 +353,7 @@ function Work() {
         <div className="work-head">
           <p className="section-label">Projects I've built</p>
           <h1>
-            12 projects,<span className="hero-gradient"> from tested AI applications to classical ML</span>
+            13 projects,<span className="hero-gradient"> from tested AI applications to classical ML</span>
           </h1>
           <p className="section-sub">
             Applied AI and backend systems come first, ordered by how much of the engineering is
@@ -369,11 +369,11 @@ function Work() {
             description="Full-stack AI career platform"
             tags={['TypeScript', 'Express API', 'Firebase Auth', 'Vitest + CI', 'Gemini', 'SerpAPI']}
             problem="Career discovery tools rarely check claimed skills against real, current market demand."
-            solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow. These source artifacts do not establish production operation or an external security audit."
-            result="The public repository has 94 automated tests in 9 Vitest files, and they all pass on the public code. A GitHub Actions workflow runs the suite and a TypeScript check on every push to main. Nine users is a portfolio-reported figure, not independently substantiated by the repository."
-            proofLine="Repository code includes Firebase authentication, rate limiting, Firestore rules, and tests; these are implementation artifacts, not an external security audit."
-            evaluation="The tests cover input validation, rate-limit keys, usage limits, resume parsing, the SerpAPI client, and assessment helpers; the suite also covers helpers for the collaborator-built Roadmap and Interview Prep features. They test application logic, not recommendation quality: no labelled quality evaluation is published, and the user count is portfolio-reported."
-            metrics={[{ label: 'automated tests', value: '94' }, { label: 'CI', value: 'Tests + type-check' }, { label: 'Users', value: '9 reported' }, { label: 'Quality benchmark', value: 'Not published' }]}
+            solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow."
+            result="The public repository has 94 automated tests in 9 Vitest files, and they all pass on the public code. A GitHub Actions workflow runs the suite and a TypeScript check on every push to main."
+            proofLine="GitHub Actions runs all 94 Vitest tests and a TypeScript check on every push to main."
+            evaluation="The tests cover input validation, rate-limit keys, usage limits, resume parsing, the SerpAPI client, and assessment helpers; the suite also covers helpers for the collaborator-built Roadmap and Interview Prep features. They test application logic, not recommendation quality: no labelled quality evaluation of the matching is published yet."
+            metrics={[{ label: 'automated tests', value: '94' }, { label: 'CI', value: 'Tests + type-check' }, { label: 'Quality benchmark', value: 'Not published' }]}
             thumb={skillsyncDashboard}
             thumbWebp={skillsyncDashboardWebp}
             thumbCaption="Career dashboard interface and journey"
@@ -407,6 +407,129 @@ function Work() {
               { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
               { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
             ]}
+          />
+          <CaseStudy
+            title="GharFix"
+            description="TypeScript serverless booking backend · n8n port"
+            tags={['TypeScript', 'Vercel Functions', 'PostgreSQL / Supabase', 'Vitest', 'Gemini', 'OpenStreetMap']}
+            problem="Finding a home-service provider in Pakistan means phone calls and WhatsApp, unpredictable pricing, and little support for Urdu or Roman Urdu. My first version ran as eight n8n workflows and stopped working when its n8n host went down."
+            solution="I ported the workflows to TypeScript serverless handlers: Gemini intent parsing with a keyword fallback, OpenStreetMap provider search, the original seven-factor ranking and pricing, and booking, quality, dispute, reschedule, and provider-dashboard endpoints. Every handler receives its database, email, map, and clock dependencies as arguments, so each one is tested with fakes."
+            result="723 Vitest tests pass on the public code, plus 22 migration tests that run against a local Postgres. A unique index blocks double booking of the same start time, and confirm requests are idempotent, so a retry after a timeout replays the original booking instead of creating a second one."
+            resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 2 submission (original n8n version)"
+            proofLine="A golden test runs the original n8n scoring and pricing code from the workflow JSON next to the TypeScript port and requires identical output."
+            visual={<GharFixThumbnail />}
+            evaluation="The suite runs locally; the repository's two GitHub Actions workflows are schedulers (reconcile and nightly scores), not a test pipeline. The app is deployed on Vercel; the README notes which live paths (Gemini, Google Places, Supabase, Gmail) were checked in production and which are covered only by fakes. The unique index catches identical start times only: overlapping windows with different start times are a documented gap, with an exclusion constraint planned. There is no login yet, so tracking and disputes check booking id plus email."
+            metrics={[
+              { value: '723', label: 'Vitest tests passing' },
+              { value: '7/7', label: 'endpoints ported from n8n' },
+              { value: 'Identical', label: 'scoring + pricing vs n8n' },
+              { value: 'Live', label: 'Vercel deployment' },
+            ]}
+            architecture={<GharFixArchitecture />}
+            repoUrl="https://github.com/MaryumAkram16/gharfix-capstone"
+            evidenceLinks={[
+              { label: 'Parity tests vs n8n', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/tests/matching/golden.test.ts' },
+              { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/db/001_booking_integrity.sql' },
+              { label: 'Reschedule crash-and-retry test', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/tests/reschedule/handler.test.ts' },
+            ]}
+            demoType="gharfix"
+            videoLinks={[
+              { label: 'Try the live app', url: 'https://gharfix-capstone-bvq8.vercel.app/' },
+              { label: 'Watch demo', url: 'https://www.loom.com/share/ced16dc728b04e53920382d191875de5' },
+              { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/main/assets/demo-video.mp4' },
+            ]}
+            deepDive={{
+              challenge:
+                'Proving the port kept the original behavior. The golden test loads the n8n Code nodes straight from the workflow JSON and runs them beside the TypeScript, across complexity tiers, budgets, multi-service requests, and surge-hour boundaries, so changing any weight or threshold fails the build. Double booking needed the same care: slots are normalized identically in TypeScript and SQL (about 200 inputs checked against both), and a Postgres unique index turns the losing concurrent insert into a 409.',
+              retrospective:
+                'Next steps are a Postgres exclusion constraint for overlapping windows (the 23P01 error is already mapped to slot_taken), a CI workflow that runs the suite on every push, and provider and customer login. The original n8n workflows stay in the repository as the design record.',
+              metrics:
+                '723 tests pass locally, with 22 Postgres migration tests skipped unless a local database is configured. All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
+            }}
+          />
+          <CaseStudy
+            title="Receipt Extractor"
+            description="FastAPI extraction service · FlyRank internship"
+            tags={['Python', 'FastAPI', 'Pydantic', 'Evaluation', 'Background Jobs', 'Docker']}
+            problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
+            solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
+            result="CI compiles the code, builds the Docker image, and runs a schema smoke test against the running API on every push. Eight hand-labelled evaluation cases and an evaluator are public; the latest public CI run passed build and smoke checks but skipped the provider-backed evaluation."
+            proofLine="An ambiguous receipt returns needs_review: true instead of a guessed value, and changing the prompt from v1 to v2 moved the labelled evaluation from 7/8 to 8/8 in a local run."
+            evaluation="There is no unit-test suite; verification is the CI smoke test plus the labelled evaluation, which needs provider credentials to run. The README reports 8/8 on prompt v2 (v1 scored 7/8); that score comes from a local run, not public CI."
+            metrics={[{ value: '8', label: 'labelled eval cases' }, { value: '8/8', label: 'README-reported, prompt v2' }, { value: 'Docker', label: 'CI build + smoke test' }]}
+            images={[]}
+            architecture={<ReceiptArchitecture />}
+            repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
+            evidenceLinks={[
+              { label: 'Eight labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
+              { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
+              { label: 'Latest public CI run', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/32571626750' },
+            ]}
+            demoType="receipt"
+            deepDive={{
+              challenge:
+                'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
+              retrospective:
+                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
+              metrics:
+                'Eight hand-labelled evaluation cases are published. The latest public CI run skipped the provider-backed evaluation because provider credentials were unavailable; the source includes instrumentation for prompt version, model, token counts, duration, repair status, and needs-review outcomes.',
+            }}
+          />
+          <CaseStudy
+            title="Usage Metering & Billing Engine"
+            description="FastAPI billing backend · solo build, FlyRank internship"
+            tags={['Python', 'FastAPI', 'SQLModel', 'pytest', 'Idempotency', 'Signed Webhooks']}
+            problem="A SaaS backend has to know how much each customer used, what it cost, and whether they hit their limit, and a retried request or replayed webhook must never change the bill."
+            solution="A FastAPI service that records usage under a per-tenant idempotency key, returns 429 at the quota boundary and 402 without an active subscription, prices AI tokens (input, cached input, output, reasoning) in integer micro-dollars from pinned constants, and syncs plans through a Stripe-style checkout with HMAC-signed, deduplicated webhooks."
+            result="46 pytest tests pass on the public code, covering idempotency, quota boundaries, pricing, usage alerts, input validation, and webhook signature, timestamp, replay, and dedup cases. A small dashboard drives the real endpoints locally."
+            proofLine="Retrying with the same idempotency key returns the original result: no second usage event and no double-counted cost."
+            visual={
+              <FlowThumbnail
+                label="Metered API request transformed into an idempotent, priced usage event"
+                input={['POST /generate', 'tenant · idempotency_key']}
+                outputTitle="Usage recorded once"
+                output={['quota checked · 429 / 402', 'cost in micro-dollars']}
+                footerLeft="46/46 tests"
+                footerRight="signed + deduped webhooks"
+              />
+            }
+            evaluation="Tests run locally; no CI workflow is published. The payment provider is simulated because Stripe and similar providers don't onboard sellers in Pakistan, but it reproduces Stripe's HMAC signing scheme, so a real Stripe swap touches two modules. Quota is checked before the usage event is written, in a separate step: the tests pin exact boundaries, but enforcement is not atomic under concurrent requests. AI token counts are simulated, and proration and invoicing are out of scope."
+            metrics={[
+              { value: '46/46', label: 'tests passing' },
+              { value: 'Integer', label: 'micro-dollar cost math' },
+              { value: '429 / 402', label: 'quota responses' },
+              { value: 'HMAC', label: 'signed, deduped webhooks' },
+            ]}
+            architecture={
+              <FlowArchitecture
+                label="Usage metering and billing architecture"
+                top="POST /generate · tenant_id, idempotency_key, usage type, quantity"
+                steps={[
+                  { name: 'Idempotency', note: 'same key returns the original' },
+                  { name: 'Quota check', note: '429 over limit, 402 unpaid' },
+                  { name: 'Pricing', note: 'pinned token rates, integers' },
+                ]}
+                output="usage_events → GET /usage rollup · used, limit, cost, alerts"
+                bottom={[
+                  { name: 'Checkout', note: 'simulated Stripe-style session' },
+                  { name: 'Webhooks', note: 'raw-body HMAC, replay + dedup' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/flyrank-capstone-metering-billing"
+            evidenceLinks={[
+              { label: 'Tests mapped to requirements', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/EVIDENCE.md' },
+              { label: 'API implementation', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/app/main.py' },
+              { label: 'Webhook tests', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/tests/test_webhooks.py' },
+            ]}
+            deepDive={{
+              challenge:
+                'The dashboard checkout failed webhook verification even though the same flow passed from Python. The endpoint returned the signed event as parsed JSON, and the browser re-serialized it with different whitespace, so the HMAC no longer matched. The fix sends the raw payload verbatim, and a regression test pins it: always verify against the exact bytes delivered.',
+              retrospective:
+                'Quota checking and recording happen in separate steps, so the first production change is an atomic check-and-record (a conditional update or row lock inside one transaction). After that: a CI workflow, real Stripe behind the existing interface, and real token counts from model calls.',
+              metrics:
+                '46/46 tests pass, including 8 alert tests (99.9% usage never rounds up to a 100% warning) and 6 validation tests added after a cross-check found that negative quantities produced negative cost.',
+            }}
           />
           <CaseStudy
             title="Embeddable Widget Platform"
@@ -458,34 +581,6 @@ function Work() {
                 "Rate limiting is in-memory and single-instance, so the production step is a shared store such as Redis, plus real session authentication and a proper password hash.",
               metrics:
                 "47/47 tests pass. Proof-of-work bot defense blocked 100% of naive bots with 0% false positives at about 117 ms average solve cost.",
-            }}
-          />
-          <CaseStudy
-            title="Receipt Extractor"
-            description="FastAPI extraction service · FlyRank internship"
-            tags={['Python', 'FastAPI', 'Pydantic', 'Evaluation', 'Background Jobs', 'Docker']}
-            problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
-            solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
-            result="CI compiles the code, builds the Docker image, and runs a schema smoke test against the running API on every push. Eight hand-labelled evaluation cases and an evaluator are public; the latest public CI run passed build and smoke checks but skipped the provider-backed evaluation."
-            proofLine="The repository implements schema validation, bounded retries/repair, background jobs, SQLite persistence, PDF reports, and optional scheduled generation; these are source-supported capabilities, not production guarantees."
-            evaluation="There is no unit-test suite; verification is the CI smoke test plus the labelled evaluation, which needs provider credentials to run. The README reports 8/8 on prompt v2 (v1 scored 7/8); that score comes from a local run, not public CI."
-            metrics={[{ value: '8', label: 'labelled eval cases' }, { value: '8/8', label: 'README-reported, prompt v2' }, { value: 'Docker', label: 'CI build + smoke test' }]}
-            images={[]}
-            architecture={<ReceiptArchitecture />}
-            repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
-            evidenceLinks={[
-              { label: 'Eight labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
-              { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
-              { label: 'Latest public CI run', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/32571626750' },
-            ]}
-            demoType="receipt"
-            deepDive={{
-              challenge:
-                'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
-              retrospective:
-                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting and a larger labelled evaluation set.',
-              metrics:
-                'Eight hand-labelled evaluation cases are published. The latest public CI run skipped the provider-backed evaluation because provider credentials were unavailable; the source includes instrumentation for prompt version, model, token counts, duration, repair status, and needs-review outcomes.',
             }}
           />
           <CaseStudy
@@ -570,38 +665,6 @@ function Work() {
               { label: 'Watch voice demo', url: 'https://www.youtube.com/watch?v=migZQqh0CoA' },
               { label: 'Watch full demo', url: 'https://www.youtube.com/watch?v=L5w1mAUsjp0' },
             ]}
-          />
-          <CaseStudy
-            title="GharFix"
-            description="Agentic local-services booking"
-            tags={['Agentic Orchestration', 'n8n', 'Multilingual', 'Google Maps']}
-            problem="Finding a reliable home-service provider in Pakistan means calling around on WhatsApp and the phone, with unpredictable pricing and little support in local languages."
-            solution="The public README documents an Antigravity-orchestrated design for English, Urdu, and Roman Urdu requests, with eight intended n8n workflows and a seven-factor provider-ranking model. The public repository currently contains the README, not the runnable application/workflows."
-            result="Seven weighted provider-ranking factors are documented in the README; live matching, latency, and per-booking cost are not independently reproduced by public code or benchmark artifacts."
-            resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 2 submission"
-            proofLine="The README describes clarification, double-booking checks, and dispute handling as design behavior; the public tree has no implementation or test suite to verify runtime behavior."
-            visual={<GharFixThumbnail />}
-            evaluation="This is a documented design, not a publicly reproducible implementation. The README itself notes simulated availability, no stress test, and no real payment gateway; runtime behavior, costs, and speed should be treated as unverified estimates."
-            metrics={[
-              { value: '8', label: 'workflows documented' },
-              { value: '7', label: 'ranking factors documented' },
-              { value: '3', label: 'languages in design' },
-            ]}
-            architecture={<GharFixArchitecture />}
-            repoUrl="https://github.com/MaryumAkram16/GharFix"
-            evidenceLinks={[
-              { label: 'README: ranking factors', url: 'https://github.com/MaryumAkram16/GharFix/blob/main/README.md#8-provider-matching-factors' },
-              { label: 'README: prototype limitations', url: 'https://github.com/MaryumAkram16/GharFix/blob/main/README.md#14-limitations' },
-            ]}
-            demoType="gharfix"
-            deepDive={{
-              challenge:
-                'Turning free-form, mixed-language requests into reliable bookings: the orchestrator had to decide when to act and when to ask a clarifying question, rank providers fairly on seven weighted factors, and avoid double-booking a slot.',
-              retrospective:
-                'Provider data depends on Google Places, so rural coverage is sparse, and some availability is simulated. The next upgrades would be a provider onboarding portal, live GPS tracking, Urdu voice input, and a real payment gateway.',
-              metrics:
-                'The README gives speed, cost, service-coverage, and city-coverage estimates, but the repository contains no runnable implementation, logs, or benchmark with which to reproduce them.',
-            }}
           />
         </ProjectGroup>
 
