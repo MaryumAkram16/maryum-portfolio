@@ -8,7 +8,7 @@ const principles = [
     number: '01',
     title: 'Evaluate the behavior, not the demo',
     text: 'I define the task contract first, then test representative successes, ambiguous inputs, deliberate mismatches, and failure cases. A polished interface is not evidence of model quality.',
-    evidence: 'Receipt Extractor: 8/8 hand-labelled cases. Resume Screener: accuracy, MAE, R², model comparison, and real-versus-unrelated job test.',
+    evidence: 'Receipt Extractor: 50 hand-labelled cases in eight categories, scored per field (8/8 on the original eight). Resume Screener: accuracy, MAE, R², model comparison, and real-versus-unrelated job test.',
   },
   {
     number: '02',

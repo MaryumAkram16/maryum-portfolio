@@ -249,7 +249,7 @@ function Landing() {
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  <CounterItem value={8} />
+                  <CounterItem value={50} />
                 </div>
                 <div className="stat-label">
                   Labelled eval cases
@@ -325,7 +325,7 @@ function Landing() {
                   an AI Engineering internship at FlyRank across its backend AI and ML tracks. The
                   math background means I reason through the systems I build instead of just wiring
                   APIs together. Stack: Python, FastAPI, Pydantic, scikit-learn, OpenAI/Gemini,
-                  Retell AI, n8n, React, TypeScript, Supabase/Firebase, Docker, and Cloud Run.
+                  Retell AI, n8n, React, TypeScript, Supabase/Firebase, Docker, AWS, and Cloud Run.
                 </p>
               </div>
             </Reveal>
