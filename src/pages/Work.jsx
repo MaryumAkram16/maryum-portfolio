@@ -187,17 +187,50 @@ function CaseStudy({
   videoLinks,
   deepDive,
   demoType,
+  collapsed = false,
 }) {
+  const id = title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')
+  // A collapsed card opens straight away when a link points at it (/work#id)
+  const [expanded, setExpanded] = useState(
+    () => !collapsed || (typeof window !== 'undefined' && window.location.hash === `#${id}`),
+  )
   const [open, setOpen] = useState(false)
   const [deepDiveOpen, setDeepDiveOpen] = useState(false)
   const [evalOpen, setEvalOpen] = useState(false)
   const hasDetails = images.length > 0 || Boolean(scopeNote)
 
+  // Compact view: name, subtitle, headline result and code link, with the
+  // full case study one click away. Nothing is removed, only folded.
+  if (!expanded) {
+    return (
+      <article className="case-card case-card-compact" id={id}>
+        <div className="case-section-head">
+          <p className="section-label">Also built</p>
+          <h3>{title}</h3>
+          <p className="case-description">{description}</p>
+        </div>
+        <p className="case-compact-result">{result}</p>
+        <div className="case-links">
+          {repoUrl && (
+            <a className="case-link case-link-primary" href={repoUrl} target="_blank" rel="noopener noreferrer">
+              View code
+            </a>
+          )}
+          <button
+            type="button"
+            className="view-details-btn"
+            onClick={() => setExpanded(true)}
+            aria-expanded={false}
+          >
+            Show full case study
+          </button>
+        </div>
+      </article>
+    )
+  }
+
   return (
-    <article
-      className="case-card"
-      id={title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '')}
-    >
+    <article className="case-card" id={id}>
       {/* Desktop: thumbnail and interactive preview stack in the left column,
           the case study text and its actions in the right. Mobile: thumbnail,
           text, actions, then the preview. Expanded panels span full width. */}
@@ -625,10 +658,10 @@ function Work() {
             tags={['TypeScript', 'Express API', 'Firebase Auth', 'JSearch / SerpAPI', 'OpenAI']}
             problem="Freelancers had no easy way to see live market data when pricing and pitching for work."
             solution="A React/TypeScript app backed by an Express API that keeps provider keys server-side, verifies Firebase ID tokens, rate-limits requests, and proxies JSearch, SerpAPI, and OpenAI calls for career analysis, profile/proposal generation, and salary coaching. External API responses and output quality are not independently benchmarked."
-            result="A CI workflow runs security-invariant checks, a TypeScript check, and a build before each backend deploy. Three users and the fully solo build are portfolio-reported; the repository supports the implementation and integration paths, not those usage claims."
+            result="A CI workflow runs security-invariant checks, a TypeScript check, and a build before each backend deploy."
             resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 1 submission"
-            evaluation="The repository contains integrations and UI/source for the career-intelligence flows. User count is portfolio-reported. Gap Score is an AI-generated estimate with no published ground-truth evaluation; API fallbacks mean current live-data availability and quality are not guaranteed."
-            metrics={[{ label: 'CI', value: 'Security checks + build' }, { label: 'Users', value: '3 reported' }, { label: 'Data source', value: 'API integrations' }, { label: 'Gap Score', value: 'Unbenchmarked estimate' }]}
+            evaluation="The repository contains integrations and UI/source for the career-intelligence flows. Gap Score is an AI-generated estimate with no published ground-truth evaluation; API fallbacks mean current live-data availability and quality are not guaranteed."
+            metrics={[{ label: 'CI', value: 'Security checks + build' }, { label: 'Data source', value: 'API integrations' }, { label: 'Gap Score', value: 'Unbenchmarked estimate' }]}
             thumb={roshanaiIntelligence}
             thumbWebp={roshanaiIntelligenceWebp}
             thumbCaption="Market-intelligence dashboard interface"
@@ -662,7 +695,7 @@ function Work() {
               retrospective:
                 'Early versions called provider APIs from the browser, which exposed the keys; provider calls now go through an authenticated server-side API, and a CI check fails if browser-side key patterns reappear. The original roshanai.com domain is dead; the repository now documents a GitHub Pages frontend with a Vercel serverless backend.',
               metrics:
-                'Three users is a portfolio-reported figure. Gap Score is an AI-generated estimate, not a measured accuracy figure; it has not been benchmarked against ground truth.',
+                'Gap Score is an AI-generated estimate, not a measured accuracy figure; it has not been benchmarked against ground truth.',
             }}
           />
           <CaseStudy
@@ -872,6 +905,58 @@ function Work() {
 
         <ProjectGroup id="ml-projects" title="Classical ML projects">
           <CaseStudy
+            title="Consumer Complaint Classifier"
+            description="Complaint triage text classification"
+            tags={['scikit-learn', 'Out-of-core Training', 'HashingVectorizer', 'Streamlit']}
+            problem="Complaint triage is done by manual tagging, and the CFPB dataset is about 8GB with 3.8M+ narratives, which does not fit an ordinary in-memory scikit-learn workflow on a 12GB machine."
+            solution="Streams the data with Polars, hashes text into 2^19 features so no vocabulary is stored, and trains an SGDClassifier with partial_fit in 30,000-row batches and manual class weights across 9 consolidated product categories."
+            result="85.3% accuracy, weighted F1 0.86, and macro F1 0.72 across 9 categories, against a roughly 55% majority-class baseline."
+            proofLine="The weakest classes are named openly: payday, title, and personal loans (F1 0.44) and vehicle loans (F1 0.55), mostly from real semantic overlap between categories."
+            visual={
+              <FlowThumbnail
+                label="Spoken or typed complaint transformed into a ranked product category"
+                input={['Complaint text', 'English or Urdu · voice or typed']}
+                outputTitle="Product category"
+                output={['9 classes', 'ranked confidence']}
+                footerLeft="85.3% accuracy"
+                footerRight="3.8M rows · 12GB RAM"
+              />
+            }
+            evaluation="Macro F1 sits well below accuracy because credit reporting dominates the data and minority classes are harder. The 55% baseline is an estimate in the README, not a separately run experiment, and Urdu is translated to English before classification, not understood natively."
+            metrics={[
+              { value: '85.3%', label: 'accuracy' },
+              { value: '0.86', label: 'weighted F1' },
+              { value: '0.72', label: 'macro F1' },
+              { value: '3.8M', label: 'training rows' },
+            ]}
+            architecture={
+              <FlowArchitecture
+                label="Out-of-core complaint classification pipeline"
+                top="CFPB complaints · ~8GB CSV, narratives only"
+                steps={[
+                  { name: 'Polars', note: 'lazy scan' },
+                  { name: 'HashingVectorizer', note: '2^19 features, no vocabulary' },
+                  { name: 'SGDClassifier', note: 'partial_fit, 30K batches' },
+                ]}
+                output="9 product categories · class-weighted"
+                bottom={[
+                  { name: 'Streamlit app', note: 'ranked confidence, radar chart' },
+                  { name: 'Urdu + voice', note: 'speech-to-text, translate, classify' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/Consumer-Complaint-Product-Classification"
+            demoType="complaint"
+            deepDive={{
+              challenge:
+                "Training on 8GB of text with 12GB of RAM. Hashing avoids storing a vocabulary, and class weights had to be computed manually because partial_fit does not support the 'balanced' option.",
+              retrospective:
+                "Raising epochs from 1 to 3 and adding bigrams moved accuracy only from 85.26% to 85.31%, so the linear bag-of-words model had converged. The README's next steps are merging the most-confused categories, comparing ComplementNB, and fine-tuning DistilBERT on a stratified subsample.",
+              metrics:
+                "85.3% accuracy, weighted F1 0.86, and macro F1 0.72. Credit reporting reaches F1 0.92 while payday, title, and personal loans reach 0.44.",
+            }}
+          />
+          <CaseStudy
             title="Resume Screener"
             description="Classical ML for job-fit analysis"
             tags={['scikit-learn', 'NLP', 'Model Evaluation', 'Streamlit']}
@@ -893,6 +978,7 @@ function Work() {
           />
           <CaseStudy
             title="AI-Human Text Detector"
+            collapsed
             description="Classical ML text classification"
             tags={['scikit-learn', 'Stylometry', 'TF-IDF', 'Streamlit']}
             problem="Telling AI-generated essays from human-written ones matters for academic integrity and editorial review. The question was how far classic, explainable ML can go without transformers."
@@ -946,58 +1032,6 @@ function Work() {
                 "The model was trained and tested on one dataset, so the honest next step is evaluating on essays from other sources. The basic regex sentence splitter could also distort sentence-length features around abbreviations.",
               metrics:
                 "Logistic Regression scored 99.36% accuracy and F1, Random Forest 99.15%, and Naive Bayes 95.47% accuracy (95.45% F1) on 97,447 held-out rows.",
-            }}
-          />
-          <CaseStudy
-            title="Consumer Complaint Classifier"
-            description="Complaint triage text classification"
-            tags={['scikit-learn', 'Out-of-core Training', 'HashingVectorizer', 'Streamlit']}
-            problem="Complaint triage is done by manual tagging, and the CFPB dataset is about 8GB with 3.8M+ narratives, which does not fit an ordinary in-memory scikit-learn workflow on a 12GB machine."
-            solution="Streams the data with Polars, hashes text into 2^19 features so no vocabulary is stored, and trains an SGDClassifier with partial_fit in 30,000-row batches and manual class weights across 9 consolidated product categories."
-            result="85.3% accuracy, weighted F1 0.86, and macro F1 0.72 across 9 categories, against a roughly 55% majority-class baseline."
-            proofLine="The weakest classes are named openly: payday, title, and personal loans (F1 0.44) and vehicle loans (F1 0.55), mostly from real semantic overlap between categories."
-            visual={
-              <FlowThumbnail
-                label="Spoken or typed complaint transformed into a ranked product category"
-                input={['Complaint text', 'English or Urdu · voice or typed']}
-                outputTitle="Product category"
-                output={['9 classes', 'ranked confidence']}
-                footerLeft="85.3% accuracy"
-                footerRight="3.8M rows · 12GB RAM"
-              />
-            }
-            evaluation="Macro F1 sits well below accuracy because credit reporting dominates the data and minority classes are harder. The 55% baseline is an estimate in the README, not a separately run experiment, and Urdu is translated to English before classification, not understood natively."
-            metrics={[
-              { value: '85.3%', label: 'accuracy' },
-              { value: '0.86', label: 'weighted F1' },
-              { value: '0.72', label: 'macro F1' },
-              { value: '3.8M', label: 'training rows' },
-            ]}
-            architecture={
-              <FlowArchitecture
-                label="Out-of-core complaint classification pipeline"
-                top="CFPB complaints · ~8GB CSV, narratives only"
-                steps={[
-                  { name: 'Polars', note: 'lazy scan' },
-                  { name: 'HashingVectorizer', note: '2^19 features, no vocabulary' },
-                  { name: 'SGDClassifier', note: 'partial_fit, 30K batches' },
-                ]}
-                output="9 product categories · class-weighted"
-                bottom={[
-                  { name: 'Streamlit app', note: 'ranked confidence, radar chart' },
-                  { name: 'Urdu + voice', note: 'speech-to-text, translate, classify' },
-                ]}
-              />
-            }
-            repoUrl="https://github.com/MaryumAkram16/Consumer-Complaint-Product-Classification"
-            demoType="complaint"
-            deepDive={{
-              challenge:
-                "Training on 8GB of text with 12GB of RAM. Hashing avoids storing a vocabulary, and class weights had to be computed manually because partial_fit does not support the 'balanced' option.",
-              retrospective:
-                "Raising epochs from 1 to 3 and adding bigrams moved accuracy only from 85.26% to 85.31%, so the linear bag-of-words model had converged. The README's next steps are merging the most-confused categories, comparing ComplementNB, and fine-tuning DistilBERT on a stratified subsample.",
-              metrics:
-                "85.3% accuracy, weighted F1 0.86, and macro F1 0.72. Credit reporting reaches F1 0.92 while payday, title, and personal loans reach 0.44.",
             }}
           />
         </ProjectGroup>
