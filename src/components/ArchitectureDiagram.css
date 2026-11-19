@@ -23,7 +23,7 @@
   min-height: 0;
   width: 100%;
   padding: 12px 16px;
-  border-radius: 6px;
+  border-radius: var(--r-sm);
   background: var(--accent-glow-soft);
   border: 1px solid var(--accent-glow);
   font-size: 0.85rem;

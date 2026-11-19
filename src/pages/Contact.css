@@ -28,7 +28,7 @@
   font-size: clamp(1.4rem, 3vw, 1.85rem);
 }
 
-/* AA contrast: #0d7a6e on navy is 3.0:1 — brighter teal reaches 4.88:1 */
+/* AA contrast: var(--accent) on navy is 3.0:1 — brighter teal reaches 4.88:1 */
 /* Scoped to .contact so it doesn't override labels on light sections elsewhere */
 .contact .section-label {
   margin: 0 0 10px;
@@ -36,11 +36,11 @@
   font-weight: 700;
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #22a08e;
+  color: var(--teal-500);
 }
 
 .contact .hero-gradient {
-  background: linear-gradient(92deg, #0d7a6e, #2fb5a2);
+  background: linear-gradient(92deg, var(--accent), var(--teal-400));
   -webkit-background-clip: text;
   background-clip: text;
   color: transparent;
@@ -62,7 +62,7 @@
 .cta-pill {
   display: inline-block;
   padding: 14px 32px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   font-family: var(--font);
   font-weight: 700;
   font-size: 1rem;
@@ -71,7 +71,7 @@
 }
 
 .cta-solid {
-  background: linear-gradient(92deg, #0d7a6e, #2fb5a2);
+  background: linear-gradient(92deg, var(--accent), var(--teal-400));
   color: #fff;
   box-shadow: 0 4px 24px rgba(47, 181, 162, 0.35);
 }

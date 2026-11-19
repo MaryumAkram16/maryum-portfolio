@@ -197,6 +197,8 @@ function CaseStudy({
   const [open, setOpen] = useState(false)
   const [deepDiveOpen, setDeepDiveOpen] = useState(false)
   const [evalOpen, setEvalOpen] = useState(false)
+  // Phones only: the interactive preview starts folded (CSS ignores this on desktop)
+  const [previewOpen, setPreviewOpen] = useState(false)
   const hasDetails = images.length > 0 || Boolean(scopeNote)
 
   // Compact view: name, subtitle, headline result and code link, with the
@@ -234,7 +236,7 @@ function CaseStudy({
       {/* Desktop: thumbnail and interactive preview stack in the left column,
           the case study text and its actions in the right. Mobile: thumbnail,
           text, actions, then the preview. Expanded panels span full width. */}
-      <div className={`case-main ${demoType ? 'has-preview' : ''}`}>
+      <div className={`case-main ${demoType ? 'has-preview' : ''} ${previewOpen ? 'preview-open' : ''}`}>
         <div className="case-thumb-wrap">
           {visual || (thumb ? (
             <picture>
@@ -331,8 +333,18 @@ function CaseStudy({
                   {video.label}
                 </a>
               ))}
-            {(hasDetails || deepDive) && (
+            {(hasDetails || deepDive || demoType) && (
               <div className="case-toggles">
+                {demoType && (
+                  <button
+                    type="button"
+                    className="view-details-btn preview-toggle"
+                    onClick={() => setPreviewOpen((prev) => !prev)}
+                    aria-expanded={previewOpen}
+                  >
+                    {previewOpen ? 'Hide interactive preview' : 'Show interactive preview'}
+                  </button>
+                )}
                 {hasDetails && (
                   <button
                     type="button"

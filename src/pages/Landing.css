@@ -17,7 +17,7 @@
   justify-content: center;
   padding: 104px 24px 88px;
   overflow: hidden;
-  background: linear-gradient(160deg, #1a2332 0%, #16202e 50%, #121b29 100%);
+  background: linear-gradient(160deg, var(--bg) 0%, #16202e 50%, #121b29 100%);
 }
 
 .hero-grid {
@@ -162,7 +162,7 @@
   margin: 0 0 10px;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #2fb5a2;
+  color: var(--teal-400);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease;
@@ -193,7 +193,7 @@
 
 /* Keep the name on one line; the H1 breaks after "I'm" when it must */
 .hero-name-accent {
-  color: #2fb5a2;
+  color: var(--teal-400);
   white-space: nowrap;
 }
 
@@ -205,7 +205,7 @@
   font-size: clamp(1.4rem, 2.6vw, 2rem);
   font-weight: 600;
   line-height: 1.25;
-  color: #5fd8c5;
+  color: var(--teal-200);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 0.1s;
@@ -253,7 +253,7 @@
   flex-wrap: wrap;
   margin-bottom: 28px;
   padding: 18px 0 0;
-  border-top: 1px solid rgba(250, 250, 248, 0.1);
+  border-top: 1px solid var(--border);
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 0.35s;
@@ -278,7 +278,7 @@
 }
 
 .stat-item.accent .stat-value {
-  color: #2fb5a2;
+  color: var(--teal-400);
 }
 
 .stat-item .stat-label {
@@ -297,7 +297,7 @@
   font-size: 0.75rem;
   font-weight: 700;
   letter-spacing: 0.2px;
-  color: #2fb5a2;
+  color: var(--teal-400);
   opacity: 0.9;
   text-decoration: underline;
   text-underline-offset: 2px;
@@ -324,8 +324,8 @@
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: #2fb5a2;
-  box-shadow: 0 0 12px #2fb5a2;
+  background: var(--teal-400);
+  box-shadow: 0 0 12px var(--teal-400);
   animation: proofPulse 1.8s ease-in-out infinite;
 }
 
@@ -339,14 +339,14 @@
   }
 }
 
-/* #b8c2cc is 8.7:1+ on the hero navy (WCAG AA) */
+/* var(--text-2) is 8.7:1+ on the hero navy (WCAG AA) */
 .proof-text {
   font-size: 0.875rem;
   line-height: 1.5;
-  color: #b8c2cc;
+  color: var(--text-2);
 }
 
-/* #b8c2cc is 8.7:1 on the hero navy */
+/* var(--text-2) is 8.7:1 on the hero navy */
 .hero-sub {
   font-size: 1.125rem;
   line-height: 1.65;
@@ -355,7 +355,7 @@
   opacity: 0;
   transform: translateY(20px);
   transition: all 0.8s ease 0.2s;
-  color: #b8c2cc;
+  color: var(--text-2);
 }
 
 .hero-availability {
@@ -398,7 +398,7 @@
   font-weight: 700;
   font-size: 0.95rem;
   padding: 14px 30px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   text-decoration: none;
   border: none;
   cursor: pointer;
@@ -406,7 +406,7 @@
 }
 
 .cta-solid {
-  background: linear-gradient(135deg, #0d7a6e, #2fb5a2);
+  background: linear-gradient(135deg, var(--accent), var(--teal-400));
   color: #fff;
   box-shadow: 0 8px 28px var(--accent-glow);
 }
@@ -464,7 +464,7 @@
 }
 
 .stat-card.accent .stat-value {
-  color: #22a08e;
+  color: var(--teal-500);
 }
 
 .stat-label {
@@ -513,15 +513,15 @@
   width: 150px;
   height: 150px;
   border-radius: 50%;
-  background: linear-gradient(160deg, #1a2332, #0d7a6e);
-  color: #fafaf8;
+  background: linear-gradient(160deg, var(--bg), var(--accent));
+  color: var(--text);
   font-family: 'Playfair Display', var(--font);
   font-weight: 900;
   font-size: 3.2rem;
   display: flex;
   align-items: center;
   justify-content: center;
-  box-shadow: 0 16px 44px rgba(13, 122, 110, 0.35);
+  box-shadow: 0 16px 44px var(--accent-glow);
 }
 
 /* ── Real photo avatar (professional circular crop) ── */
@@ -534,7 +534,7 @@
   object-fit: cover;
   object-position: 50% 35%;
   border: 3px solid rgba(13, 122, 110, 0.25);
-  box-shadow: 0 16px 44px rgba(13, 122, 110, 0.35);
+  box-shadow: 0 16px 44px var(--accent-glow);
 }
 .about-avatar-ring,
 .about-avatar-ring-2 {
@@ -545,7 +545,7 @@
   position: absolute;
   inset: 0;
   border-radius: 50%;
-  border: 1.5px dashed rgba(13, 122, 110, 0.35);
+  border: 1.5px dashed var(--accent-glow);
   animation: avatarSpin 30s linear infinite;
 }
 
@@ -616,13 +616,13 @@
 
 .landing-about .stack-tags li {
   background: #fff;
-  color: #22a08e;
+  color: var(--teal-500);
   border: 1.5px solid rgba(13, 122, 110, 0.2);
 }
 
 /* ── PROJECT PREVIEW ── */
 .landing-projects {
-  background: linear-gradient(160deg, #1a2332, #14202f);
+  background: linear-gradient(160deg, var(--bg), #14202f);
 }
 
 .preview-grid {
@@ -645,14 +645,14 @@
   flex-direction: column;
   gap: 12px;
   padding: 30px 28px;
-  border-radius: 20px;
+  border-radius: var(--r-xl);
   background: rgba(250, 250, 248, 0.04);
   border: 1.5px solid rgba(250, 250, 248, 0.09);
   transition: all 0.35s ease;
 }
 
 .preview-card:hover {
-  border-color: #22a08e;
+  border-color: var(--teal-500);
   background: rgba(47, 181, 162, 0.05);
   transform: translateY(-6px);
   box-shadow: 0 20px 48px rgba(13, 122, 110, 0.18);
@@ -670,10 +670,10 @@
   letter-spacing: 0.6px;
   text-transform: uppercase;
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   background: rgba(47, 181, 162, 0.12);
   border: 1px solid rgba(47, 181, 162, 0.3);
-  color: #5fd8c5;
+  color: var(--teal-200);
 }
 
 .preview-card h3 {
@@ -690,7 +690,7 @@
   font-weight: 700;
   letter-spacing: 0.5px;
   text-transform: uppercase;
-  color: #2fb5a2;
+  color: var(--teal-400);
 }
 
 .preview-card-image {
@@ -700,7 +700,7 @@
   object-fit: cover;
   object-position: top center;
   border: 1px solid rgba(250, 250, 248, 0.12);
-  border-radius: 12px;
+  border-radius: var(--r-lg);
   background: rgba(250, 250, 248, 0.06);
 }
 
@@ -715,7 +715,7 @@
   margin: 0 !important;
   font-size: 0.8rem;
   font-weight: 600;
-  color: #5fd8c5;
+  color: var(--teal-200);
   display: flex;
   flex-wrap: wrap;
   align-items: flex-start;
@@ -733,7 +733,7 @@
 }
 
 .preview-badge {
-  color: #5fd8c5;
+  color: var(--teal-200);
   font-size: 0.8rem;
   font-weight: 600;
   display: flex;
@@ -744,7 +744,7 @@
 }
 
 .preview-card-flagship { border-color: rgba(81, 196, 177, 0.38); box-shadow: 0 12px 34px rgba(0, 0, 0, 0.12); }
-.preview-card-flagship::before { content: 'FLAGSHIP'; position: absolute; top: 14px; right: 14px; color: #58c8b4; font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; }
+.preview-card-flagship::before { content: 'FLAGSHIP'; position: absolute; top: 14px; right: 14px; color: var(--accent-soft); font-size: 0.75rem; font-weight: 800; letter-spacing: 0.12em; }
 
 /* Links sit in one row pinned to the card bottom, so cards in a row line up */
 .preview-links {
@@ -761,13 +761,13 @@
   min-height: 44px;
   font-size: 0.85rem;
   font-weight: 700;
-  color: #2fb5a2;
+  color: var(--teal-400);
   text-decoration: none;
   transition: all 0.25s ease;
 }
 
 .preview-link:hover {
-  color: #5fd8c5;
+  color: var(--teal-200);
   transform: translateX(4px);
 }
 
@@ -808,7 +808,7 @@
   max-width: 760px;
   margin: 0 auto;
   padding: 26px 28px;
-  border-radius: 20px;
+  border-radius: var(--r-xl);
   background: #fff;
   border: 1px solid rgba(17, 19, 24, 0.1);
   box-shadow: 0 8px 24px rgba(17, 19, 24, 0.05);
@@ -869,14 +869,14 @@
 .cert-strip li {
   font-size: 0.8rem;
   padding: 7px 14px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   border: 1px solid rgba(47, 181, 162, 0.3);
   background: rgba(47, 181, 162, 0.08);
   color: rgba(250, 250, 248, 0.8);
 }
 
 .cert-strip a {
-  color: #5fd8c5;
+  color: var(--teal-200);
   font-weight: 700;
   text-decoration: none;
 }
@@ -949,7 +949,7 @@
 
 .capability-card {
   padding: 28px 26px;
-  border-radius: 20px;
+  border-radius: var(--r-xl);
   background: var(--bg-alt);
   color: var(--ink);
   border: 1.5px solid transparent;
@@ -959,7 +959,7 @@
 
 .capability-card.visible:hover {
   transform: translateY(-6px) scale(1.02);
-  border-color: #22a08e;
+  border-color: var(--teal-500);
   box-shadow: 0 20px 48px var(--accent-glow-soft), 0 4px 16px rgba(0, 0, 0, 0.06);
 }
 
@@ -984,19 +984,19 @@
   background: var(--accent-glow-soft);
   border: 1px solid var(--accent-glow);
   padding: 4px 10px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
 }
 .landing-about .section-head .section-label {
-  color: #0d7a6e;
+  color: var(--accent);
 }
-/* Dark sections: labels in #0d7a6e only reach 3.0:1 on navy — use brighter teal for AA 4.5:1 */
+/* Dark sections: labels in var(--accent) only reach 3.0:1 on navy — use brighter teal for AA 4.5:1 */
 .landing-hero .section-label,
 .landing-pipeline .section-label,
 .landing-cta .section-label,
 .landing-why .section-label,
 .landing-projects .section-label,
 .hero-proof .section-label {
-  color: #22a08e;
+  color: var(--teal-500);
 }
 .landing-why .section-sub {
   color: inherit;
@@ -1078,7 +1078,7 @@
 }
 
 .pipe-step.active .pipe-circle {
-  background: linear-gradient(135deg, #0d7a6e, #2fb5a2);
+  background: linear-gradient(135deg, var(--accent), var(--teal-400));
   border-color: transparent;
   color: #fff;
   box-shadow: 0 8px 24px var(--accent-glow);
@@ -1123,7 +1123,7 @@
 .pipe-replay {
   background: none;
   border: 1px solid rgba(250, 250, 248, 0.18);
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   padding: 8px 20px;
   font-size: 0.78rem;
   color: rgba(250, 250, 248, 0.55);
@@ -1153,8 +1153,8 @@
 
 .why-card {
   background: rgba(250, 250, 248, 0.05);
-  border: 1px solid rgba(250, 250, 248, 0.1);
-  border-radius: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--r-lg);
   padding: 24px 20px;
   text-align: left;
 }
@@ -1203,7 +1203,7 @@
 .stack-tags li {
   font-size: 0.78rem;
   padding: 6px 14px;
-  border-radius: 999px;
+  border-radius: var(--r-pill);
   background: var(--accent-glow-soft);
   color: var(--text);
   border: 1px solid var(--accent-glow);
@@ -1227,7 +1227,7 @@
   width: 64px;
   height: 64px;
   border-radius: 50%;
-  background: linear-gradient(135deg, #0d7a6e, #2fb5a2);
+  background: linear-gradient(135deg, var(--accent), var(--teal-400));
   box-shadow: 0 12px 40px var(--accent-glow);
   display: flex;
   align-items: center;
@@ -1269,7 +1269,7 @@
 }
 
 .landing-cta .cta-contact a {
-  color: #0d7a6e;
+  color: var(--accent);
   font-weight: 700;
 }
 
@@ -1284,7 +1284,7 @@
 
 .landing-cta .cta-outline:hover,
 .landing-cta .cta-outline:focus-visible {
-  border-color: #22a08e;
+  border-color: var(--teal-500);
 }
 
 /* ── RESPONSIVE ── */
