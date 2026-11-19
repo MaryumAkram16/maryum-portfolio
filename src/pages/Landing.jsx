@@ -260,12 +260,6 @@ function Landing() {
               </div>
             </div>
 
-            <div className={`hero-proof ${heroVisible ? 'visible' : ''}`}>
-              <span className="proof-dot" aria-hidden="true" />
-              <span className="proof-text">
-                SkillSync AI &amp; MediLens — architected and built by me, collaborator-credited modules excluded from what&apos;s shown · Embeddable Widget Platform, Receipt Extractor &amp; Usage Metering &amp; Billing Engine — solo builds during my FlyRank internship · RoshanAI, Smart Job Finder &amp; GharFix — fully solo · Resume Screener — solo build, self-evaluated
-              </span>
-            </div>
           </div>
 
           <div className={`hero-visual ${heroVisible ? 'visible' : ''}`} aria-hidden="true">
@@ -327,6 +321,25 @@ function Landing() {
                   APIs together. Stack: Python, FastAPI, Pydantic, scikit-learn, OpenAI/Gemini,
                   Retell AI, n8n, React, TypeScript, Supabase/Firebase, Docker, AWS, and Cloud Run.
                 </p>
+                <div className="about-ownership">
+                  <p className="about-ownership-label">Who built what</p>
+                  <ul>
+                    <li>
+                      <b>SkillSync AI &amp; MediLens:</b> architected and built by me;
+                      collaborator-built modules are credited and not shown
+                    </li>
+                    <li>
+                      <b>Embeddable Widget Platform, Receipt Extractor &amp; Usage Metering &amp; Billing Engine:</b>{' '}
+                      solo builds during my FlyRank internship
+                    </li>
+                    <li>
+                      <b>RoshanAI, Smart Job Finder &amp; GharFix:</b> fully solo
+                    </li>
+                    <li>
+                      <b>Resume Screener:</b> solo build, self-evaluated
+                    </li>
+                  </ul>
+                </div>
               </div>
             </Reveal>
           </div>

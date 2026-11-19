@@ -76,7 +76,7 @@ export const projects = [
     imageAlt: 'RoshanAI market-intelligence dashboard interface',
     tags: ['TypeScript', 'Express API', 'Firebase Auth', 'JSearch / SerpAPI'],
     text: 'Career-intelligence app with an authenticated Express backend that keeps provider keys server-side, verifies Firebase ID tokens, rate-limits requests, and proxies JSearch, SerpAPI, and OpenAI calls for career analysis and proposal generation.',
-    result: 'CI runs security-invariant checks, a type-check, and a build before deploying · 3 users and solo build portfolio-reported; output quality not benchmarked',
+    result: 'CI runs security-invariant checks, a type-check, and a build before deploying · output quality not benchmarked',
     badge: 'Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 1 submission',
     repo: 'https://github.com/MaryumAkram16/RoshanAI',
     evidenceUrl: 'https://github.com/MaryumAkram16/RoshanAI/blob/main/server.ts',
