@@ -106,7 +106,7 @@
   .principles-hero { padding: 20px 0 38px; }
   .principles-intro { font-size: 0.95rem; line-height: 1.6; }
   .principle-card { grid-template-columns: 34px minmax(0, 1fr); gap: 9px; padding: 20px 0; }
-  .principle-number { font-size: 0.7rem; }
+  .principle-number { font-size: 0.75rem; }
   .principle-body p { font-size: 0.88rem; line-height: 1.6; }
   .principle-evidence { font-size: 0.78rem !important; }
   .principles-cta { margin: 34px 0 64px; padding: 20px; }
