@@ -18,7 +18,7 @@ export const projects = [
     imageAlt: 'SkillSync AI career dashboard interface with a skill profile and progress panels',
     tags: ['TypeScript', 'Express API', 'Firebase Auth', 'Vitest'],
     text: 'I built the backend, the architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, audit logging, and SerpAPI and Gemini integrations. A collaborator built Roadmap and Interview Prep.',
-    result: '108 automated tests run in GitHub Actions · labelled matching evaluation: 71 resume–job pairs, 94% ordered correctly by the pre-score',
+    result: '108 automated tests run in GitHub Actions · labelled matching evaluation on 71 resume–job pairs: 94% ordered correctly by the rule-based pre-score, 98% by the AI step',
     repo: 'https://github.com/MaryumAkram16/Skillsync-AI',
     evidenceUrl: 'https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests',
     evidenceLabel: 'See public tests',
