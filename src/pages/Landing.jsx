@@ -238,7 +238,7 @@ function Landing() {
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  <CounterItem value={94} />
+                  <CounterItem value={108} />
                 </div>
                 <div className="stat-label">
                   Automated tests

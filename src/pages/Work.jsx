@@ -66,7 +66,7 @@ function GharFixThumbnail() {
         <div className="receipt-thumb-arrow">→</div>
         <div className="receipt-thumb-output"><b>Booked provider</b><br />intent · area · slot<br />7-factor ranked match</div>
       </div>
-      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> 723 tests <span>scoring identical to n8n</span></div>
+      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> 759 tests in CI <span>scoring identical to n8n</span></div>
     </div>
   )
 }
@@ -448,10 +448,10 @@ function Work() {
             tags={['TypeScript', 'Express API', 'Firebase Auth', 'Vitest + CI', 'Gemini', 'SerpAPI']}
             problem="Career discovery tools rarely check claimed skills against real, current market demand."
             solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow."
-            result="The public repository has 94 automated tests in 9 Vitest files, and they all pass on the public code. A GitHub Actions workflow runs the suite and a TypeScript check on every push to main."
-            proofLine="GitHub Actions runs all 94 Vitest tests and a TypeScript check on every push to main."
-            evaluation="The tests cover input validation, rate-limit keys, usage limits, resume parsing, the SerpAPI client, and assessment helpers; the suite also covers helpers for the collaborator-built Roadmap and Interview Prep features. They test application logic, not recommendation quality: no labelled quality evaluation of the matching is published yet."
-            metrics={[{ label: 'automated tests', value: '94' }, { label: 'CI', value: 'Tests + type-check' }, { label: 'Quality benchmark', value: 'Not published' }]}
+            result="108 automated tests in 10 Vitest files pass on the public code, and a GitHub Actions workflow runs them and a TypeScript check on every push to main. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor."
+            proofLine="The matching evaluation found that a student's degree years were being counted as work experience. After the fix, experience is read correctly for 17 of 17 labelled resumes, and the rule-based pre-score orders 94% of same-resume pairs correctly."
+            evaluation="The offline evaluation scores the code-based stages: skill extraction (98.6% recall on resumes, 98.4% on job postings), experience detection, required-vs-preferred classification, and the pre-score that picks which 8 jobs reach the AI step (every strong fit makes the cut). It runs in CI with regression floors. The AI scoring step has a live evaluation that is still pending a first run. The fixes were made after seeing the same labelled set, with no held-out set, so these results are optimistic; keyword matching still misses aliases like 'Postgres' and can't tell that a React developer partly fits a Vue role."
+            metrics={[{ label: 'automated tests', value: '108' }, { label: 'labelled resume–job pairs', value: '71' }, { label: 'pre-score pairs ordered correctly', value: '94%' }, { label: 'AI scoring evaluation', value: 'Pending' }]}
             thumb={skillsyncDashboard}
             thumbWebp={skillsyncDashboardWebp}
             thumbCaption="Career dashboard interface and journey"
@@ -478,6 +478,7 @@ function Work() {
             repoUrl="https://github.com/MaryumAkram16/Skillsync-AI"
             evidenceLinks={[
               { label: 'Public test suite', url: 'https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests' },
+              { label: 'Matching evaluation', url: 'https://github.com/MaryumAkram16/Skillsync-AI#matching-evaluation' },
               { label: 'GitHub Actions runs', url: 'https://github.com/MaryumAkram16/Skillsync-AI/actions' },
             ]}
             demoType="skillsync"
@@ -492,13 +493,13 @@ function Work() {
             tags={['TypeScript', 'Vercel Functions', 'PostgreSQL / Supabase', 'Vitest', 'Gemini', 'OpenStreetMap']}
             problem="Finding a home-service provider in Pakistan means phone calls and WhatsApp, unpredictable pricing, and little support for Urdu or Roman Urdu. My first version ran as eight n8n workflows and stopped working when its n8n host went down."
             solution="I ported the workflows to TypeScript serverless handlers: Gemini intent parsing with a keyword fallback, OpenStreetMap provider search, the original seven-factor ranking and pricing, and booking, quality, dispute, reschedule, and provider-dashboard endpoints. Every handler receives its database, email, map, and clock dependencies as arguments, so each one is tested with fakes."
-            result="723 Vitest tests pass on the public code, plus 22 migration tests that run against a local Postgres. A unique index blocks double booking of the same start time, and confirm requests are idempotent, so a retry after a timeout replays the original booking instead of creating a second one."
+            result="759 Vitest tests run in GitHub Actions on every push, including 36 migration tests against a real Postgres 16 service. A database exclusion constraint stops a provider holding two overlapping bookings, even when both requests arrive at once, and confirm requests are idempotent, so a retry after a timeout replays the original booking instead of creating a second one."
             resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 2 submission (original n8n version)"
             proofLine="A golden test runs the original n8n scoring and pricing code from the workflow JSON next to the TypeScript port and requires identical output."
             visual={<GharFixThumbnail />}
-            evaluation="The suite runs locally; the repository's two GitHub Actions workflows are schedulers (reconcile and nightly scores), not a test pipeline. The app is deployed on Vercel; the README notes which live paths (Gemini, Google Places, Supabase, Gmail) were checked in production and which are covered only by fakes. The unique index catches identical start times only: overlapping windows with different start times are a documented gap, with an exclusion constraint planned. There is no login yet, so tracking and disputes check booking id plus email."
+            evaluation="CI runs the type-check and the full suite with a Postgres service; two other workflows are schedulers (reconcile and nightly scores). The app is deployed on Vercel; the README notes which live paths (Gemini, Google Places, Supabase, Gmail) were checked in production and which are covered only by fakes. Overlap protection is migration db/003: it is tested against real Postgres, including two concurrent requests where exactly one wins, and is applied to the live database with a read-only check script first. The database measures each booking's own window, so it can be stricter than the pre-check that suggests alternatives. There is no login yet, so tracking and disputes check booking id plus email."
             metrics={[
-              { value: '723', label: 'Vitest tests passing' },
+              { value: '759', label: 'tests in CI, incl. real Postgres' },
               { value: '7/7', label: 'endpoints ported from n8n' },
               { value: 'Identical', label: 'scoring + pricing vs n8n' },
               { value: 'Live', label: 'Vercel deployment' },
@@ -518,9 +519,9 @@ function Work() {
               challenge:
                 'Proving the port kept the original behavior. The golden test loads the n8n Code nodes straight from the workflow JSON and runs them beside the TypeScript, across complexity tiers, budgets, multi-service requests, and surge-hour boundaries, so changing any weight or threshold fails the build. Double booking needed the same care: slots are normalized identically in TypeScript and SQL (about 200 inputs checked against both), and a Postgres unique index turns the losing concurrent insert into a 409.',
               retrospective:
-                'Next steps are a Postgres exclusion constraint for overlapping windows (the 23P01 error is already mapped to slot_taken), a CI workflow that runs the suite on every push, and provider and customer login. The original n8n workflows stay in the repository as the design record.',
+                'Next step is provider and customer login, so tracking and disputes no longer rely on booking id plus email. The original n8n workflows stay in the repository as the design record.',
               metrics:
-                '723 tests pass locally, with 22 Postgres migration tests skipped unless a local database is configured. All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
+                '759 tests pass in CI, 36 of them migration tests against a real Postgres service (they are skipped locally unless a test database is configured). All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
               links: [
                 { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/db/001_booking_integrity.sql' },
                 { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/assets/demo-video.mp4' },
@@ -574,7 +575,7 @@ function Work() {
                 footerRight="signed + deduped webhooks"
               />
             }
-            evaluation="Tests run locally; no CI workflow is published. The payment provider is simulated because Stripe and similar providers don't onboard sellers in Pakistan, but it reproduces Stripe's HMAC signing scheme, so a real Stripe swap touches two modules. Quota is checked before the usage event is written, in a separate step: the tests pin exact boundaries, but enforcement is not atomic under concurrent requests. AI token counts are simulated, and proration and invoicing are out of scope."
+            evaluation="GitHub Actions runs the tests on every push and pull request. The payment provider is simulated because Stripe and similar providers don't onboard sellers in Pakistan, but it reproduces Stripe's HMAC signing scheme, so a real Stripe swap touches two modules. Quota is checked before the usage event is written, in a separate step: the tests pin exact boundaries, but enforcement is not atomic under concurrent requests. AI token counts are simulated, and proration and invoicing are out of scope."
             metrics={[
               { value: '46/46', label: 'tests passing' },
               { value: 'Integer', label: 'micro-dollar cost math' },
@@ -630,7 +631,7 @@ function Work() {
                 footerRight="100% naive bots blocked"
               />
             }
-            evaluation="All 47 pytest tests pass on the public code; no CI workflow is published, so they run locally. Bot-defense numbers come from the repo's evidence file and simulated traffic, not production. Rate limiting is in-memory and single-instance, authentication is API-key only, and password hashing is plain SHA-256, suitable only for local demos."
+            evaluation="All 47 pytest tests pass on the public code, and GitHub Actions runs them on every push and pull request. Bot-defense numbers come from the repo's evidence file and simulated traffic, not production. Rate limiting is in-memory and single-instance, authentication is API-key only, and password hashing is plain SHA-256, suitable only for local demos."
             metrics={[
               { value: '47/47', label: 'tests passing' },
               { value: '100%', label: 'naive bots blocked' },

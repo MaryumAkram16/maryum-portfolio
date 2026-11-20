@@ -122,15 +122,15 @@ export const blogPosts = [
       },
       {
         heading: 'What I built',
-        body: 'The public repository contains adaptive-assessment, market-integration, resume-parsing, and career-recommendation code, as well as authentication, rate limiting, Firestore rules, tests, and a CI workflow. This is evidence of implementation, not proof of production usage, an independent security audit, or recommendation accuracy.',
+        body: 'The public repository contains adaptive-assessment, market-integration, resume-parsing, and career-recommendation code, as well as authentication, rate limiting, Firestore rules, tests, and a CI workflow. This is evidence of implementation, not proof of production usage or an independent security audit.',
       },
       {
         heading: 'Proof',
-        body: 'Nine users is portfolio-reported, not independently confirmed by the public repository. The repository contains tests and a GitHub Actions workflow, but does not substantiate the earlier 94/94 test total or 12-payload security-test claim. No external security audit or recommendation-quality benchmark is published.',
+        body: 'The public repository has 108 Vitest tests that run in GitHub Actions, with a TypeScript check, on every push. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor. The rule-based pre-score orders 94% of same-resume pairs correctly, and every strong fit reaches the AI step. The AI scoring step has a live evaluation that has not been run yet, and no external security audit is published.',
       },
       {
         heading: 'What I learned',
-        body: 'The project reinforced the value of testing application boundaries and reviewing security controls. The public repository exposes a test suite and CI workflow, but does not provide the claimed total of 94 tests, 12 adversarial payload results, production traffic, or an external audit; those claims should not be treated as verified.',
+        body: 'Measuring the matching changed what I worked on. The first evaluation run showed that a student\'s degree years were being counted as work experience, which quietly removed the experience penalty for senior roles, and that plurals like "REST APIs" were missed. Both were small fixes once they were visible. The same run showed the limits of keyword matching: it cannot tell that a React developer partly fits a Vue role, which is the judgment the AI step exists to make.',
       },
     ],
     images: [
