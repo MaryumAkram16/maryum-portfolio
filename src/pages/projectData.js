@@ -37,11 +37,11 @@ export const projects = [
   },
   {
     title: 'Receipt Extractor',
-    desc: 'FlyRank internship · FastAPI · 298 tests in CI + 50-case eval',
+    desc: 'FlyRank internship · FastAPI · 301 tests in CI · 42/50 live eval',
     caseStudy: true,
     tags: ['Python', 'FastAPI', 'Pydantic', 'Evaluation'],
     text: 'A provider-agnostic LLM extraction API with strict schema validation, controlled retries, one bounded repair attempt, needs-review routing, idempotent background jobs, SQLite persistence, and PDF reports.',
-    result: '298 pytest tests run in CI with a Docker smoke test · 50 labelled eval cases in 8 categories, scored per field (live run pending)',
+    result: '301 pytest tests run in CI · live eval on 50 labelled receipts: 42/50 with gpt-4o-mini, vendor and currency 100%, needs_review recall 59% (the known weakness)',
     evidenceUrl: 'https://github.com/MaryumAkram16/receipt-extractor/tree/main/evals',
     evidenceLabel: 'See evaluation cases',
     repo: 'https://github.com/MaryumAkram16/receipt-extractor',
