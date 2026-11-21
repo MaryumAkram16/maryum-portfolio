@@ -416,7 +416,7 @@ function Work() {
             solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow."
             result="128 automated tests in 12 Vitest files pass on the public code, and a GitHub Actions workflow runs them and a TypeScript check on every push to main. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor."
             proofLine="The matching evaluation found that a student's degree years were being counted as work experience. After the fix, experience is read correctly for 17 of 17 labelled resumes, and the rule-based pre-score orders 94% of same-resume pairs correctly."
-            evaluation="The offline evaluation scores the code-based stages: skill extraction (98.6% recall on resumes, 98.4% on job postings), experience detection, required-vs-preferred classification, and the pre-score that picks which 8 jobs reach the AI step (every strong fit makes the cut). It runs in CI with regression floors. The AI scoring step was then run live on the same 71 pairs (gpt-4o-mini): it orders 98.1% of same-resume pairs correctly, against 94.4% for the rule-based pre-score, with mean scores of 87 / 43 / 15 for strong / partial / poor fits, and every poor fit scored below 50 as the prompt requires. That is one run at temperature 0.2. The fixes were made after seeing the same labelled set, with no held-out set, so these results are optimistic; keyword matching still misses aliases like 'Postgres' and can't tell that a React developer partly fits a Vue role."
+            evaluation="The offline evaluation scores the code-based stages: skill extraction (98.6% recall on resumes, 98.4% on job postings), experience detection, required-vs-preferred classification, and the pre-score that picks which 8 jobs reach the AI step (every strong fit makes the cut). It runs in CI with regression floors. The AI scoring step was then run live on the same 71 pairs (gpt-4o-mini): it orders 98.1% of same-resume pairs correctly, against 94.4% for the rule-based pre-score, with mean scores of 87 / 43 / 15 for strong / partial / poor fits, and every poor fit scored below 50 as the prompt requires. That is one run at temperature 0.2. The fixes were made after seeing the same labelled set, with no held-out set, so these results are optimistic; keyword matching still misses aliases like 'Postgres' and can't tell that a React developer partly fits a Vue role. The deployed app now runs its AI steps on Gemini; the live result above was measured on gpt-4o-mini, and Gemini has not been evaluated on this set yet."
             metrics={[{ label: 'automated tests', value: '128' }, { label: 'labelled resume–job pairs', value: '71' }, { label: 'pre-score pairs ordered correctly', value: '94%' }, { label: 'AI step pairs ordered correctly', value: '98%' }]}
             thumb={skillsyncDashboard}
             thumbWebp={skillsyncDashboardWebp}
@@ -460,13 +460,13 @@ function Work() {
             tags={['TypeScript', 'Vercel Functions', 'PostgreSQL / Supabase', 'Vitest', 'Gemini', 'OpenStreetMap']}
             problem="Finding a home-service provider in Pakistan means phone calls and WhatsApp, unpredictable pricing, and little support for Urdu or Roman Urdu. My first version ran as eight n8n workflows and stopped working when its n8n host went down."
             solution="I ported the workflows to TypeScript serverless handlers: Gemini intent parsing with a keyword fallback, OpenStreetMap provider search, the original seven-factor ranking and pricing, and booking, quality, dispute, reschedule, and provider-dashboard endpoints. Every handler receives its database, email, map, and clock dependencies as arguments, so each one is tested with fakes."
-            result="759 Vitest tests run in GitHub Actions on every push, including 36 migration tests against a real Postgres 16 service. A database exclusion constraint stops a provider holding two overlapping bookings, even when both requests arrive at once, and confirm requests are idempotent, so a retry after a timeout replays the original booking instead of creating a second one."
+            result="767 Vitest tests run in GitHub Actions on every push, including 36 migration tests against a real Postgres 16 service. A database exclusion constraint stops a provider holding two overlapping bookings, even when both requests arrive at once, and confirm requests are idempotent, so a retry after a timeout replays the original booking instead of creating a second one."
             resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 2 submission (original n8n version)"
             proofLine="A golden test runs the original n8n scoring and pricing code from the workflow JSON next to the TypeScript port and requires identical output."
             visual={<ProjectThumbnail name="gharfix" />}
             evaluation="CI runs the type-check and the full suite with a Postgres service; two other workflows are schedulers (reconcile and nightly scores). The app is deployed on Vercel; the README notes which live paths (Gemini, Google Places, Supabase, Gmail) were checked in production and which are covered only by fakes. Overlap protection is migration db/003: it is tested against real Postgres, including two concurrent requests where exactly one wins, and it is applied to the live Supabase database. Booking dates before today (Pakistan time) are refused too. The database measures each booking's own window, so it can be stricter than the pre-check that suggests alternatives. There is no login yet, so tracking and disputes check booking id plus email."
             metrics={[
-              { value: '759', label: 'tests in CI, incl. real Postgres' },
+              { value: '767', label: 'tests in CI, incl. real Postgres' },
               { value: '7/7', label: 'endpoints ported from n8n' },
               { value: 'Identical', label: 'scoring + pricing vs n8n' },
               { value: 'Live', label: 'Vercel deployment' },
@@ -488,7 +488,7 @@ function Work() {
               retrospective:
                 'Next step is provider and customer login, so tracking and disputes no longer rely on booking id plus email. The original n8n workflows stay in the repository as the design record.',
               metrics:
-                '759 tests pass in CI, 36 of them migration tests against a real Postgres service (they are skipped locally unless a test database is configured). All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
+                '767 tests pass in CI, 36 of them migration tests against a real Postgres service (they are skipped locally unless a test database is configured). All seven n8n endpoints run in-process. Live Gemini, Google Places, and Overpass calls are covered by fakes in the suite; the README notes which paths were checked live.',
               links: [
                 { label: 'Booking integrity migration', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/db/001_booking_integrity.sql' },
                 { label: 'Watch original n8n prototype demo', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/assets/demo-video.mp4' },
@@ -765,8 +765,8 @@ function Work() {
             description="Voice support agent · TypeScript serverless backend"
             tags={['Retell AI', 'TypeScript', 'Vercel Functions', 'Vitest + CI', 'Zod', 'n8n']}
             problem="E-commerce support is expensive and slow for simple requests like order tracking, and quality becomes inconsistent when sales spike."
-            solution="Retell AI runs the voice call and calls a backend for each order action. The first backend was an n8n workflow over Google Sheets. I added a TypeScript serverless backend on Vercel that applies the same cancellation, return, and refund rules, ported from the n8n Code nodes, and returns the same response fields, so the agent prompts don't change. Every request is checked for a valid Retell signature, rate-limited, and validated with zod. Data comes from synthetic demo orders by default, or from Google Sheets or Supabase."
-            result="261 Vitest tests pass on the public code, covering business rules, response contracts, signature checks, security, data adapters, and integration. CI runs lint, a type check, the tests, a dependency audit, and a gitleaks secret scan."
+            solution="Retell AI runs the voice call and calls a backend for each order action. The first backend was an n8n workflow over Google Sheets. I added a TypeScript serverless backend on Vercel that applies the same cancellation, return, and refund rules, ported from the n8n Code nodes, and returns the same response fields, so the agent prompts don't change. Every request is checked for a valid Retell signature, rate-limited, and validated with zod. Data comes from synthetic demo orders by default, or from Google Sheets or Supabase. A browser page can also start a Retell web call and show the live transcript."
+            result="276 Vitest tests pass on the public code, covering business rules, response contracts, signature checks, security, data adapters, and integration. CI runs lint, a type check, the tests, a dependency audit, and a gitleaks secret scan."
             proofLine="Stricter than the n8n original: cancel, return, and refund require an email or phone that matches the order, and a confirmed action re-checks eligibility before anything is written."
             visual={
               <FlowThumbnail
@@ -774,14 +774,14 @@ function Work() {
                 input={['"Cancel my order"', 'Retell call · signed request']}
                 outputTitle="cancel-order"
                 output={['caller verified · rules applied', 'spoken decision']}
-                footerLeft="261 tests"
+                footerLeft="276 tests"
                 footerRight="signed requests only"
               />
             }
-            evaluation="The tests cover the backend's rules and request handling, not the voice experience: no call-volume or resolution-rate benchmark is published. The public deployment links in the README are still placeholders, so the recorded demo is the evidence of the full call. Post-call logging and Gemini sentiment analysis stay on the n8n path. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
+            evaluation="The tests cover the backend's rules and request handling, not the voice experience: no call-volume or resolution-rate benchmark is published. The serverless backend and a browser call page are deployed on Vercel; the link is shared on request because every call uses metered voice and AI minutes, so the recorded demo is the public evidence of the full call. Post-call logging and Gemini sentiment analysis stay on the n8n path. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
             metrics={[
-              { value: '261', label: 'Vitest tests passing' },
-              { value: '7', label: 'serverless endpoints' },
+              { value: '276', label: 'Vitest tests passing' },
+              { value: '8', label: 'serverless endpoints' },
               { value: 'Signed', label: 'Retell requests verified' },
               { value: 'CI', label: 'lint, types, audit, secrets' },
             ]}
@@ -809,13 +809,14 @@ function Work() {
             ]}
             demoType="lumina"
             videoLinks={[{ label: 'Watch demo', url: 'https://youtu.be/P8TuDYV7eaY' }]}
+            demoOnRequest
             deepDive={{
               challenge:
                 'Keeping two backends interchangeable. Each Retell custom function has its own URL, so the serverless routes had to return exactly the fields the n8n workflow returned, and /api/order switches on intent like the n8n webhook so it works as a drop-in replacement. The business rules live in one pure module that every route shares, which is what makes them testable without a phone call.',
               retrospective:
-                'Next steps are a public deployment so the README links are real, moving post-call logging off n8n, and a shared store for rate limiting. Google Sheets stays available as a lightweight data source, with Supabase for anything larger.',
+                'Next steps are moving post-call logging off n8n and a shared store for rate limiting. Google Sheets stays available as a lightweight data source, with Supabase for anything larger.',
               metrics:
-                '261 tests in 12 files pass locally and in CI. No call-volume or resolution benchmark is published. The repo documents a cost model of about $81 per month at 100–500 calls and $688+ per month at 5,000+ calls.',
+                '276 tests in 13 files pass on the latest code. No call-volume or resolution benchmark is published. The repo documents a cost model of about $81 per month at 100–500 calls and $688+ per month at 5,000+ calls.',
             }}
           />
           <CaseStudy
