@@ -4,6 +4,10 @@
 import medilensPreview from '../assets/images/medilens/voice-appointment-agent.webp'
 import skillsyncPreview from '../assets/images/skillsync/dashboard.webp'
 import roshanaiPreview from '../assets/images/roshanai/intelligence-layer.webp'
+import gharfixPreview from '../assets/images/gharfix/assistant-home.webp'
+import textDetectorPreview from '../assets/images/text-detector/app.webp'
+import resumeScreenerPreview from '../assets/images/resume-screener/app.webp'
+import smartJobFinderPreview from '../assets/images/smart-job-finder/pipeline.webp'
 
 // Order = strength of publicly verifiable engineering evidence (tests, CI,
 // backend code) first; classical ML projects are tagged `category: 'ml'` and
@@ -27,6 +31,8 @@ export const projects = [
     title: 'GharFix',
     desc: 'TypeScript serverless backend · 759 tests in CI · live on Vercel',
     caseStudy: true,
+    image: gharfixPreview,
+    imageAlt: 'GharFix app home screen with the bilingual booking assistant and a grid of home services',
     tags: ['TypeScript', 'Vercel Functions', 'PostgreSQL', 'Vitest'],
     text: 'I ported my eight-workflow n8n booking prototype to TypeScript serverless handlers: Gemini intent parsing for English, Urdu, and Roman Urdu, OpenStreetMap provider search, seven-factor ranking and pricing, and booking, dispute, and reschedule endpoints with injected dependencies.',
     result: '759 tests in CI, including real Postgres · golden test requires identical scoring and pricing to the original n8n code · exclusion constraint blocks overlapping bookings',
@@ -99,6 +105,8 @@ export const projects = [
     title: 'Smart Job Finder',
     desc: 'n8n AI agent · workflow export + demo',
     caseStudy: true,
+    image: smartJobFinderPreview,
+    imageAlt: 'Diagram of the Smart Job Finder n8n pipeline, from scheduled job searches through gpt-4o-mini scoring to the Gmail digest',
     tags: ['n8n', 'OpenAI', 'JSearch / SerpAPI', 'Google Sheets'],
     text: 'Scheduled n8n workflow that pulls remote jobs from JSearch and SerpAPI, normalizes and deduplicates them, drops poor fits with a free rule filter, then has gpt-4o-mini score each one against my resume on a fixed rubric and emails the top five through Gmail.',
     result: 'Demo run: 36 jobs scored, 5 emailed, top score 85/100 (README-reported) · no automated tests',
@@ -111,6 +119,8 @@ export const projects = [
     desc: 'Classical ML · offline evaluation',
     category: 'ml',
     caseStudy: true,
+    image: resumeScreenerPreview,
+    imageAlt: 'Resume Screener Streamlit app with resume and job description inputs',
     tags: ['scikit-learn', 'NLP', 'Model Evaluation'],
     text: 'A two-stage pipeline that predicts resume category and scores suitability against a specific job description.',
     result: '68.0% category accuracy · Stage 2 MAE 8.69, R² 0.814 (repository-reported)',
@@ -123,6 +133,8 @@ export const projects = [
     desc: 'Classical ML · single-dataset evaluation',
     category: 'ml',
     caseStudy: true,
+    image: textDetectorPreview,
+    imageAlt: 'AI-Human Text Detector Streamlit app comparing a human-written and an AI-generated sample',
     tags: ['scikit-learn', 'Stylometry', 'Model Comparison'],
     text: 'Separates AI-generated from human-written text with TF-IDF and stylometric features, comparing logistic regression, random forest, and naive Bayes.',
     result: '99.36% accuracy on one Kaggle dataset’s held-out split; generalization is untested',
