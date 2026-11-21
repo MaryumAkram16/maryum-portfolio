@@ -778,7 +778,7 @@ function Work() {
                 footerRight="signed requests only"
               />
             }
-            evaluation="The tests cover the backend's rules and request handling, not the voice experience: no call-volume or resolution-rate benchmark is published. The public deployment links in the README are still placeholders, so the recorded demo is the evidence of the full call. Post-call logging and Gemini sentiment analysis stay on the n8n path. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
+            evaluation="The tests cover the backend's rules and request handling, not the voice experience: no call-volume or resolution-rate benchmark is published. The serverless backend and a browser call page are deployed on Vercel; the link is shared on request because every call uses metered voice and AI minutes, so the recorded demo is the public evidence of the full call. Post-call logging and Gemini sentiment analysis stay on the n8n path. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
             metrics={[
               { value: '276', label: 'Vitest tests passing' },
               { value: '8', label: 'serverless endpoints' },
@@ -809,11 +809,12 @@ function Work() {
             ]}
             demoType="lumina"
             videoLinks={[{ label: 'Watch demo', url: 'https://youtu.be/P8TuDYV7eaY' }]}
+            demoOnRequest
             deepDive={{
               challenge:
                 'Keeping two backends interchangeable. Each Retell custom function has its own URL, so the serverless routes had to return exactly the fields the n8n workflow returned, and /api/order switches on intent like the n8n webhook so it works as a drop-in replacement. The business rules live in one pure module that every route shares, which is what makes them testable without a phone call.',
               retrospective:
-                'Next steps are a public deployment so the README links are real, moving post-call logging off n8n, and a shared store for rate limiting. Google Sheets stays available as a lightweight data source, with Supabase for anything larger.',
+                'Next steps are moving post-call logging off n8n and a shared store for rate limiting. Google Sheets stays available as a lightweight data source, with Supabase for anything larger.',
               metrics:
                 '276 tests in 13 files pass on the latest code. No call-volume or resolution benchmark is published. The repo documents a cost model of about $81 per month at 100–500 calls and $688+ per month at 5,000+ calls.',
             }}
