@@ -32,7 +32,7 @@ export const thumbnails = {
     input: ['"AC theek karwana hai, kal shaam"', 'Roman Urdu · Lahore'],
     outputTitle: 'Booked provider',
     output: ['intent · area · slot', '7-factor ranked match'],
-    footerLeft: '759 tests in CI',
+    footerLeft: '767 tests in CI',
     footerRight: 'scoring identical to n8n',
   },
   billing: {
