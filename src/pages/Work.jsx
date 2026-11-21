@@ -4,6 +4,7 @@ import { BOOKING_URL } from '../siteConfig.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
 import InteractivePreview from '../components/InteractivePreview.jsx'
+import { FlowThumbnail, ProjectThumbnail, thumbnails } from '../components/FlowThumbnail.jsx'
 import medilensVoiceAgent from '../assets/images/medilens/voice-appointment-agent.png'
 import medilensVoiceAgentWebp from '../assets/images/medilens/voice-appointment-agent.webp'
 import medilensComplaint from '../assets/images/medilens/complaint-management.png'
@@ -44,34 +45,6 @@ function Gallery({ images }) {
   )
 }
 
-function ReceiptThumbnail() {
-  return (
-    <div className="receipt-thumb" role="img" aria-label="Receipt text transformed into validated structured data">
-      <div className="receipt-thumb-window"><span /> <span /> <span /></div>
-      <div className="receipt-thumb-grid">
-        <div className="receipt-thumb-input">Cafe Aroma<br />12 Jun 2025<br />Total: PKR 1082</div>
-        <div className="receipt-thumb-arrow">→</div>
-        <div className="receipt-thumb-output"><b>Validated output</b><br />vendor · date · total<br />currency · confidence</div>
-      </div>
-      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> needs_review: false <span>50 labelled eval cases</span></div>
-    </div>
-  )
-}
-
-function GharFixThumbnail() {
-  return (
-    <div className="receipt-thumb" role="img" aria-label="Roman Urdu service request transformed into a ranked, booked provider">
-      <div className="receipt-thumb-window"><span /> <span /> <span /></div>
-      <div className="receipt-thumb-grid">
-        <div className="receipt-thumb-input">"AC theek karwana hai, kal shaam"<br />Roman Urdu · Lahore</div>
-        <div className="receipt-thumb-arrow">→</div>
-        <div className="receipt-thumb-output"><b>Booked provider</b><br />intent · area · slot<br />7-factor ranked match</div>
-      </div>
-      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> 759 tests in CI <span>scoring identical to n8n</span></div>
-    </div>
-  )
-}
-
 function GharFixArchitecture() {
   return (
     <div className="receipt-architecture" aria-label="GharFix TypeScript serverless architecture">
@@ -93,20 +66,6 @@ function GharFixArchitecture() {
         <div><b>Resilience</b><span>safe retries, incidents, alerts</span></div>
         <div><b>Reconcile</b><span>re-sends unsent confirmations</span></div>
       </div>
-    </div>
-  )
-}
-
-function FlowThumbnail({ label, input, output, outputTitle, footerLeft, footerRight }) {
-  return (
-    <div className="receipt-thumb" role="img" aria-label={label}>
-      <div className="receipt-thumb-window"><span /> <span /> <span /></div>
-      <div className="receipt-thumb-grid">
-        <div className="receipt-thumb-input">{input.map((line) => <span key={line}>{line}<br /></span>)}</div>
-        <div className="receipt-thumb-arrow">→</div>
-        <div className="receipt-thumb-output"><b>{outputTitle}</b><br />{output.map((line) => <span key={line}>{line}<br /></span>)}</div>
-      </div>
-      <div className="receipt-thumb-footer"><span className="receipt-check">✓</span> {footerLeft} <span>{footerRight}</span></div>
     </div>
   )
 }
@@ -245,7 +204,7 @@ function CaseStudy({
               <source srcSet={`${thumbWebp}`} type="image/webp" />
               <img className="case-thumb" src={thumb} alt={thumbCaption} loading="lazy" decoding="async" />
             </picture>
-          ) : <ReceiptThumbnail />)}
+          ) : <ProjectThumbnail name="receipt" />)}
         </div>
 
         <div className="case-body">
@@ -504,7 +463,7 @@ function Work() {
             result="759 Vitest tests run in GitHub Actions on every push, including 36 migration tests against a real Postgres 16 service. A database exclusion constraint stops a provider holding two overlapping bookings, even when both requests arrive at once, and confirm requests are idempotent, so a retry after a timeout replays the original booking instead of creating a second one."
             resultBadge="Portfolio-reported: AI Seekho 2026 — Silver Tier, Phase 2 submission (original n8n version)"
             proofLine="A golden test runs the original n8n scoring and pricing code from the workflow JSON next to the TypeScript port and requires identical output."
-            visual={<GharFixThumbnail />}
+            visual={<ProjectThumbnail name="gharfix" />}
             evaluation="CI runs the type-check and the full suite with a Postgres service; two other workflows are schedulers (reconcile and nightly scores). The app is deployed on Vercel; the README notes which live paths (Gemini, Google Places, Supabase, Gmail) were checked in production and which are covered only by fakes. Overlap protection is migration db/003: it is tested against real Postgres, including two concurrent requests where exactly one wins, and it is applied to the live Supabase database. Booking dates before today (Pakistan time) are refused too. The database measures each booking's own window, so it can be stricter than the pre-check that suggests alternatives. There is no login yet, so tracking and disputes check booking id plus email."
             metrics={[
               { value: '759', label: 'tests in CI, incl. real Postgres' },
@@ -574,14 +533,7 @@ function Work() {
             result="46 pytest tests pass on the public code, covering idempotency, quota boundaries, pricing, usage alerts, input validation, and webhook signature, timestamp, replay, and dedup cases. A small dashboard drives the real endpoints locally."
             proofLine="Retrying with the same idempotency key returns the original result: no second usage event and no double-counted cost."
             visual={
-              <FlowThumbnail
-                label="Metered API request transformed into an idempotent, priced usage event"
-                input={['POST /generate', 'tenant · idempotency_key']}
-                outputTitle="Usage recorded once"
-                output={['quota checked · 429 / 402', 'cost in micro-dollars']}
-                footerLeft="46/46 tests"
-                footerRight="signed + deduped webhooks"
-              />
+              <FlowThumbnail {...thumbnails.billing} />
             }
             evaluation="GitHub Actions runs the tests on every push and pull request. The payment provider is simulated because Stripe and similar providers don't onboard sellers in Pakistan, but it reproduces Stripe's HMAC signing scheme, so a real Stripe swap touches two modules. Quota is checked before the usage event is written, in a separate step: the tests pin exact boundaries, but enforcement is not atomic under concurrent requests. AI token counts are simulated, and proration and invoicing are out of scope."
             metrics={[
@@ -630,14 +582,7 @@ function Work() {
             result="47/47 tests passing, with multi-tenant isolation tests, a live two-origin end-to-end run, and a real-time dashboard."
             proofLine="In the repository's measurement script, proof-of-work bot defense blocked 100% of naive bots with 0% false positives on simulated legitimate submissions, at about 117 ms average solve cost."
             visual={
-              <FlowThumbnail
-                label="Website visitor submission transformed into a protected, stored lead"
-                input={['POST /submissions', 'any origin · public']}
-                outputTitle="Protected lead"
-                output={['validated · rate limited', 'geo enriched · stored']}
-                footerLeft="47/47 tests"
-                footerRight="100% naive bots blocked"
-              />
+              <FlowThumbnail {...thumbnails.widget} />
             }
             evaluation="All 47 pytest tests pass on the public code, and GitHub Actions runs them on every push and pull request. Bot-defense numbers come from the repo's evidence file and simulated traffic, not production. Rate limiting is in-memory and single-instance, authentication is API-key only, and password hashing is plain SHA-256, suitable only for local demos."
             metrics={[
