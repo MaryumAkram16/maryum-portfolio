@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { BOOKING_URL } from '../siteConfig.js'
 import { usePageTitle } from '../hooks/usePageTitle.js'
 import ArchitectureDiagram from '../components/ArchitectureDiagram.jsx'
@@ -185,6 +186,7 @@ function CaseStudy({
   repoUrl,
   evidenceLinks = [],
   videoLinks,
+  demoOnRequest = false,
   deepDive,
   demoType,
   collapsed = false,
@@ -333,6 +335,11 @@ function CaseStudy({
                   {video.label}
                 </a>
               ))}
+            {demoOnRequest && (
+              <Link className="case-link" to="/contact">
+                Live demo available on request
+              </Link>
+            )}
             {(hasDetails || deepDive || demoType) && (
               <div className="case-toggles">
                 {demoType && (
@@ -448,10 +455,10 @@ function Work() {
             tags={['TypeScript', 'Express API', 'Firebase Auth', 'Vitest + CI', 'Gemini', 'SerpAPI']}
             problem="Career discovery tools rarely check claimed skills against real, current market demand."
             solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow."
-            result="108 automated tests in 10 Vitest files pass on the public code, and a GitHub Actions workflow runs them and a TypeScript check on every push to main. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor."
+            result="128 automated tests in 12 Vitest files pass on the public code, and a GitHub Actions workflow runs them and a TypeScript check on every push to main. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor."
             proofLine="The matching evaluation found that a student's degree years were being counted as work experience. After the fix, experience is read correctly for 17 of 17 labelled resumes, and the rule-based pre-score orders 94% of same-resume pairs correctly."
             evaluation="The offline evaluation scores the code-based stages: skill extraction (98.6% recall on resumes, 98.4% on job postings), experience detection, required-vs-preferred classification, and the pre-score that picks which 8 jobs reach the AI step (every strong fit makes the cut). It runs in CI with regression floors. The AI scoring step was then run live on the same 71 pairs (gpt-4o-mini): it orders 98.1% of same-resume pairs correctly, against 94.4% for the rule-based pre-score, with mean scores of 87 / 43 / 15 for strong / partial / poor fits, and every poor fit scored below 50 as the prompt requires. That is one run at temperature 0.2. The fixes were made after seeing the same labelled set, with no held-out set, so these results are optimistic; keyword matching still misses aliases like 'Postgres' and can't tell that a React developer partly fits a Vue role."
-            metrics={[{ label: 'automated tests', value: '108' }, { label: 'labelled resume–job pairs', value: '71' }, { label: 'pre-score pairs ordered correctly', value: '94%' }, { label: 'AI step pairs ordered correctly', value: '98%' }]}
+            metrics={[{ label: 'automated tests', value: '128' }, { label: 'labelled resume–job pairs', value: '71' }, { label: 'pre-score pairs ordered correctly', value: '94%' }, { label: 'AI step pairs ordered correctly', value: '98%' }]}
             thumb={skillsyncDashboard}
             thumbWebp={skillsyncDashboardWebp}
             thumbCaption="Career dashboard interface and journey"
@@ -486,6 +493,7 @@ function Work() {
               { label: 'Watch Skill Assessment demo', url: 'https://www.youtube.com/watch?v=QfERaD_cMY8' },
               { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
             ]}
+            demoOnRequest
           />
           <CaseStudy
             title="GharFix"

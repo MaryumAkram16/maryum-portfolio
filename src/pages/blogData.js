@@ -126,7 +126,7 @@ export const blogPosts = [
       },
       {
         heading: 'Proof',
-        body: 'The public repository has 108 Vitest tests that run in GitHub Actions, with a TypeScript check, on every push. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor. The rule-based pre-score orders 94% of same-resume pairs correctly, and every strong fit reaches the AI step. Run live on the same pairs, the AI scoring step (gpt-4o-mini) orders 98.1% of them correctly and scores every poor fit below 50. No external security audit is published.',
+        body: 'The public repository has 128 Vitest tests that run in GitHub Actions, with a TypeScript check, on every push. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor. The rule-based pre-score orders 94% of same-resume pairs correctly, and every strong fit reaches the AI step. Run live on the same pairs, the AI scoring step (gpt-4o-mini) orders 98.1% of them correctly and scores every poor fit below 50. No external security audit is published.',
       },
       {
         heading: 'What I learned',
