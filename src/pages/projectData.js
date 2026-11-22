@@ -49,7 +49,7 @@ export const projects = [
     imageAlt: 'MediLens voice appointment interface with its call-to-book assistant',
     tags: ['Voice AI', 'Retell AI', 'TypeScript', 'Gemini', 'PostgreSQL'],
     text: 'I ported my MediLens modules from n8n to TypeScript on Vercel and built the website: a Retell voice agent whose tools book, reschedule, and cancel appointments and file complaints, and a complaint center where Gemini routes typed or spoken complaints to one of nine departments, with an emergency rule in code and staff review. Other modules are collaborator-built and credited.',
-    result: '261 API tests in CI (incl. real Postgres) + 33 website tests · 24/24 scripted voice journeys · the first real calls found four bugs the tests missed, each fixed with a regression test',
+    result: '261 API tests in CI (incl. real Postgres) + 33 website tests · live Gemini eval: 44/50 departments, 6/6 emergencies, 14/50 sent to staff · four bugs found by real calls, each fixed with a regression test',
     repo: 'https://github.com/MaryumAkram16/medilens',
     evidenceUrl: 'https://github.com/MaryumAkram16/medilens#what-broke-when-it-went-live-and-the-fixes',
     evidenceLabel: 'See what broke going live',
