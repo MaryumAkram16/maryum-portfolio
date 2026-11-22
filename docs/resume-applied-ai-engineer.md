@@ -16,7 +16,7 @@ Built a career-intelligence system that combines live job ingestion, structured 
 
 ### MediLens
 
-Designed a voice receptionist workflow that maps caller intent to explicit appointment actions across booking, rescheduling, cancellation, confirmation, and fallback paths. Added a portfolio-safe interactive simulation and documented scripted-flow evaluation rather than claiming unsupported production accuracy.
+Ported my n8n voice receptionist to TypeScript serverless functions and shipped a live website: a Retell agent whose tools book, reschedule, and cancel appointments inside Postgres functions (no double bookings; cancelling needs the booking phone number) and file complaints that Gemini routes to one of nine departments, with an emergency override in code and staff review. 261 API tests in CI (23 against real Postgres) plus 33 website tests and 24 scripted voice journeys; the first real calls found four bugs the tests had missed, each fixed with a regression test.
 
 ### SkillSync AI
 

@@ -16,7 +16,7 @@ Built a live-data AI career system that combines job search ingestion, structure
 
 ### MediLens
 
-Designed a voice-AI receptionist pipeline with explicit intent states and action branches for booking, rescheduling, cancellation, confirmation, and graceful recovery. The interactive preview communicates the system flow without making live calls or exposing private user data.
+Built a live voice-AI hospital receptionist: Retell agent tools for booking, rescheduling, cancellation, and voice complaints, ported from n8n to TypeScript serverless. Gemini triage uses a strict JSON schema, a confidence threshold for human review, a keyword fallback, and an emergency rule in code that the model cannot override. 261 API tests in CI plus 24 scripted voice journeys that check every spoken reply; real calls exposed four integration bugs (browser, Retell transport, payload size, model latency), each fixed with a test.
 
 ### SkillSync AI
 
