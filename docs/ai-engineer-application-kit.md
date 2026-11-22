@@ -10,7 +10,7 @@ Early-career AI Engineer building production-oriented ML and LLM systems from ev
 
 - Built Receipt Extractor, a FastAPI document-intelligence service with validated structured outputs, one bounded repair loop, quarantine and needs-review paths, background jobs, idempotency, retries, SQLite persistence, PDF reports, and an 8-case labelled evaluation.
 - Built RoshanAI, a live-data career intelligence system combining job ingestion, structured AI reasoning, skill-gap analysis, and proposal generation with server-side provider boundaries and deployment automation.
-- Built MediLens, a voice receptionist workflow that maps caller intent to explicit appointment actions and handles booking, rescheduling, cancellation, confirmation, and graceful fallback states.
+- Built MediLens, a live voice-AI hospital receptionist (Retell + TypeScript serverless + Postgres): booking, rescheduling, cancellation, and Gemini-routed complaints with an emergency override in code; 261 API tests in CI and 24 scripted voice journeys; four bugs found by real calls, each fixed with a regression test.
 
 ### Machine Learning Engineer
 

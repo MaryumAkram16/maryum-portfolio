@@ -31,11 +31,11 @@ export const blogPosts = [
       },
       {
         heading: 'The hardest part',
-        body: 'Conversation state and fallback handling are important design concerns for a voice workflow. The exported flows show intended branches for booking and cancellation, but no public test suite or measured failure-handling results are available, so I describe this as a workflow prototype rather than production-ready software.',
+        body: 'The first version ran as n8n workflows with no tests, and two real problems were hiding in it: two callers could book the same slot, and anyone with an appointment id could cancel it. I ported my modules to TypeScript serverless functions: booking, rescheduling, and cancelling now happen inside Postgres functions with a unique index against double booking, and the caller must give the phone number they booked with. Then the first real calls found four more bugs the tests had missed: a white page in newer Chrome, a Retell transport change, a request-size limit, and Gemini timing out. Each fix shipped with a regression test.',
       },
       {
         heading: 'Proof',
-        body: 'The repository publishes workflow exports and links to two product demos. A professor test and live deployment are portfolio-reported, but are not independently evidenced by the public repository; no public test suite or deployment endpoint is included.',
+        body: 'The repository now has 261 API tests in CI, 23 of them against a real Postgres service, plus 33 website tests and 24 scripted voice journeys that send signed requests to the real tool endpoints. The website is live at medilens-web-theta.vercel.app; browser calls need a demo code, available on request. Gemini\'s triage accuracy on the 50-case evaluation set has not been recorded yet, so I do not quote one.',
       },
     ],
     images: [
@@ -43,6 +43,7 @@ export const blogPosts = [
       { src: 'medilens/admin-command-center.webp', jpg: 'medilens/admin-command-center.jpg', caption: 'Admin dashboard for decision support' },
     ],
     videos: [
+      { label: 'Try the live site', url: 'https://medilens-web-theta.vercel.app' },
       { label: 'Watch voice demo', url: 'https://www.youtube.com/watch?v=migZQqh0CoA' },
       { label: 'Watch full demo', url: 'https://www.youtube.com/watch?v=L5w1mAUsjp0' },
     ],
