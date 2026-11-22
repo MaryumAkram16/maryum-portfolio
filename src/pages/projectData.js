@@ -16,13 +16,13 @@ import smartJobFinderPreview from '../assets/images/smart-job-finder/pipeline.we
 export const projects = [
   {
     title: 'SkillSync AI',
-    desc: 'Full-stack AI app · 128 tests + CI · matching eval',
+    desc: 'Full-stack AI app · 133 tests + CI · matching eval',
     caseStudy: true,
     image: skillsyncPreview,
     imageAlt: 'SkillSync AI career dashboard interface with a skill profile and progress panels',
     tags: ['TypeScript', 'Express API', 'Firebase Auth', 'Vitest'],
     text: 'I built the backend, the architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, audit logging, and SerpAPI and Gemini integrations. A collaborator built Roadmap and Interview Prep.',
-    result: '128 automated tests run in GitHub Actions · labelled matching evaluation on 71 resume–job pairs: 94% ordered correctly by the rule-based pre-score, 98% by the AI step',
+    result: '133 automated tests run in GitHub Actions · labelled matching evaluation on 71 resume–job pairs: 94% ordered correctly by the rule-based pre-score, 81/81 by the AI step on Gemini (98% on gpt-4o-mini)',
     repo: 'https://github.com/MaryumAkram16/Skillsync-AI',
     evidenceUrl: 'https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests',
     evidenceLabel: 'See public tests',
