@@ -503,11 +503,11 @@ function Work() {
             solution="I ported my modules to TypeScript serverless functions on Vercel and built the website. The Retell agent's tools check availability and book, reschedule, and cancel inside Postgres functions, and the caller must give the phone number they booked with. Complaints, typed, spoken, or filed during a call, are routed by Gemini to one of nine departments; an emergency rule in code overrides the AI, unsure cases go to staff, and keyword rules take over if Gemini is down. A staff desk confirms or corrects the AI and tracks its live accuracy, and overdue complaints escalate hourly. Browser calls need a demo code, available on request."
             result="261 API tests run in GitHub Actions, 23 of them against a real Postgres 16 service, including a two-connection race where only one caller gets the slot, plus 33 website tests. 24 scripted caller journeys send signed requests to the real tool endpoints and check every sentence the agent will speak."
             proofLine="The first real calls found four bugs the tests had missed: a white page in newer Chrome, Retell's new gateway transport, a 16 KB request limit, and Gemini timing out. Each one has a fix and a regression test."
-            evaluation="The offline triage evaluation (50 synthetic complaints) scores the keyword fallback only: department 44/50, priority 37/50, and every keyword-only decision goes to staff review. Gemini's accuracy on that set has not been recorded yet; in the live system, staff confirmations and corrections produce an accuracy figure. The voice scenarios test the tool endpoints, not the Retell model's own choices; those were checked with Retell simulated calls (booking, cancellation, complaint, emergency) and real calls. Synthetic data only; it is a portfolio demo, not a medical service."
+            evaluation="A live run on 50 synthetic complaints with Gemini 3.5 Flash-Lite scored department 44/50, priority 38/50, and caught all 6 emergencies. That is about the same accuracy as the keyword rules alone (44/50, 37/50), but it sent 14 complaints to staff review instead of all 50. Its mistakes are mostly a priority one step off. Gemini answered 41 of the 50; the other 9 fell back to keywords when Google returned 503, so the figures mix both, and each case is 2 percentage points. An earlier run on a larger Gemini model answered only 9 of 50 on the free tier, which is why the system now uses Flash-Lite. In the live system, staff confirmations and corrections produce a running accuracy figure. The voice scenarios test the tool endpoints, not the Retell model's own choices; those were checked with Retell simulated calls (booking, cancellation, complaint, emergency) and real calls. Synthetic data only; it is a portfolio demo, not a medical service."
             metrics={[
               { value: '294', label: 'tests in CI, incl. real Postgres' },
+              { value: '44/50', label: 'departments, live Gemini eval' },
               { value: '24/24', label: 'scripted voice journeys' },
-              { value: '4', label: 'live bugs found and fixed' },
               { value: 'Live', label: 'Vercel deployment' },
             ]}
             thumb={medilensVoiceAgent}
@@ -531,6 +531,7 @@ function Work() {
             evidenceLinks={[
               { label: 'What broke going live', url: 'https://github.com/MaryumAkram16/medilens#what-broke-when-it-went-live-and-the-fixes' },
               { label: 'Voice scenario suite', url: 'https://github.com/MaryumAkram16/medilens/blob/main/serverless/evals/voice/scenarios.ts' },
+              { label: 'Live Gemini evaluation', url: 'https://github.com/MaryumAkram16/medilens/actions/runs/45030034911' },
               { label: 'Triage evaluation set', url: 'https://github.com/MaryumAkram16/medilens/blob/main/serverless/evals/triage/dataset.json' },
             ]}
             demoType="medilens"
@@ -543,7 +544,7 @@ function Work() {
               challenge:
                 'Getting the first real call through. Each failure was a different layer: the page crashed in newer Chrome because scrollIntoView now returns a Promise; then the call connected to the wrong media stack, because Retell had moved web calls to a new gateway transport and the API was not passing it on; then filing a complaint failed with HTTP 413, because Retell sends the whole transcript with every tool request; then Gemini answered too slowly and the keyword fallback routed a billing complaint to the lab. The logs and the after-call summary made each one visible, and each fix shipped with a test.',
               retrospective:
-                'Next: record Gemini\'s accuracy on the 50-case set, and port the admin command center. The n8n exports stay in the repository as the design record.',
+                'The live evaluation showed the AI matching the keyword rules on accuracy while cutting staff reviews from 50 to 14; the next step is a held-out set, since the rules were written against these 50 cases. Then port the admin command center. The n8n exports stay in the repository as the design record.',
               metrics:
                 '238 API tests run anywhere, and 23 more run against Postgres in CI (261 total), plus 33 website tests. The 24 voice journeys make 84 signed tool calls and check every spoken reply for raw codes, numeric dates, missing AM/PM, and length.',
               links: [

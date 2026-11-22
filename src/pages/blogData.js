@@ -35,7 +35,7 @@ export const blogPosts = [
       },
       {
         heading: 'Proof',
-        body: 'The repository now has 261 API tests in CI, 23 of them against a real Postgres service, plus 33 website tests and 24 scripted voice journeys that send signed requests to the real tool endpoints. The website is live at medilens-web-theta.vercel.app; browser calls need a demo code, available on request. Gemini\'s triage accuracy on the 50-case evaluation set has not been recorded yet, so I do not quote one.',
+        body: 'The repository now has 261 API tests in CI, 23 of them against a real Postgres service, plus 33 website tests and 24 scripted voice journeys that send signed requests to the real tool endpoints. The website is live at medilens-web-theta.vercel.app; browser calls need a demo code, available on request. On a live run over 50 synthetic complaints, Gemini 3.5 Flash-Lite got the department right for 44 and caught all 6 emergencies: about the same accuracy as the keyword rules alone, but with 14 complaints sent to staff instead of 50.',
       },
     ],
     images: [
