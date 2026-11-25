@@ -62,16 +62,15 @@
   text-underline-offset: 8px;
 }
 
-.nav-cv {
+.nav-links a.nav-cv {
   font-weight: 700;
-  opacity: 0.9;
-  color: var(--text);
-  border: 1px solid var(--accent-glow);
+  opacity: 1;
+  border: 1px solid rgba(88, 200, 180, 0.48);
   border-radius: var(--r-pill);
   padding: 6px 14px;
 }
 
-.nav-cv:hover {
-  opacity: 1;
+.nav-links a.nav-cv:hover,
+.nav-links a.nav-cv:focus-visible {
   background: var(--accent-glow-soft);
 }
