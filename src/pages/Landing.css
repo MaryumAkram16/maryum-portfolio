@@ -657,7 +657,7 @@
 
 /* ── PROJECT PREVIEW ── */
 .landing-projects {
-  background: linear-gradient(160deg, var(--bg), #14202f);
+  background: linear-gradient(160deg, #233044, #1e2a3c);
 }
 
 .preview-grid {
