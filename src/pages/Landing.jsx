@@ -147,7 +147,7 @@ function Landing() {
   ]
 
   const steps = [
-    { label: 'Browse case studies', sub: 'SkillSync AI · GharFix · Receipt Extractor · Usage Metering' },
+    { label: 'Browse case studies', sub: 'SkillSync AI · Receipt Extractor · GharFix · Usage Metering' },
     { label: 'Watch demo videos', sub: 'Real product walkthroughs' },
     { label: 'Read the architecture', sub: 'Diagrams, tests, decisions' },
     { label: 'Explore the code', sub: 'Open source on GitHub' },
@@ -232,18 +232,18 @@ function Landing() {
             <div className={`hero-stats ${heroVisible ? 'visible' : ''}`}>
               <div className="stat-item accent">
                 <div className="stat-value">
-                  <CounterItem value={10} />
+                  <CounterItem value={projects.length} />
                 </div>
                 <div className="stat-label">Featured projects</div>
               </div>
               <div className="stat-item">
                 <div className="stat-value">
-                  <CounterItem value={108} />
+                  <CounterItem value={71} />
                 </div>
                 <div className="stat-label">
-                  Automated tests
-                  <a className="stat-attr" href="https://github.com/MaryumAkram16/Skillsync-AI/tree/main/tests" target="_blank" rel="noopener noreferrer">
-                    SkillSync AI · suite + CI ↗
+                  Labelled resume–job pairs
+                  <a className="stat-attr" href="https://github.com/MaryumAkram16/Skillsync-AI/actions/runs/45032188306" target="_blank" rel="noopener noreferrer">
+                    SkillSync AI · live eval ↗
                   </a>
                 </div>
               </div>
@@ -382,7 +382,7 @@ function Landing() {
           <Reveal>
             <SectionHead
               label="Projects I've built"
-              title="Ten projects,"
+              title={`${projects.length} projects,`}
               highlight="tested applications first"
               sub="Ordered by how much of the engineering you can verify: tested full-stack and backend work first, then voice and agentic workflows, then classical ML. Each card's first line states what it is, whether it was internship work, and its strongest evidence."
             />

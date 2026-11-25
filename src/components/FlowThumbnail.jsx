@@ -19,6 +19,14 @@ export function FlowThumbnail({ label, input, output, outputTitle, footerLeft, f
 
 // Content for each thumbnail, so the case study and the project card stay identical.
 export const thumbnails = {
+  lumina: {
+    label: 'Spoken cancellation request checked against order policy',
+    input: ['"Cancel my order"', 'Retell call · signed request'],
+    outputTitle: 'cancel-order',
+    output: ['Order ownership verified', 'Eligibility checked'],
+    footerLeft: 'Retell AI',
+    footerRight: 'TypeScript backend',
+  },
   receipt: {
     label: 'Receipt text transformed into validated structured data',
     input: ['Cafe Aroma', '12 Jun 2025', 'Total: PKR 1082'],

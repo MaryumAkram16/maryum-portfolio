@@ -414,10 +414,10 @@ function Work() {
             tags={['TypeScript', 'Express API', 'Firebase Auth', 'Vitest + CI', 'Gemini', 'SerpAPI']}
             problem="Career discovery tools rarely check claimed skills against real, current market demand."
             solution="I built the backend, the overall architecture, and the Radar, Parser, Skill Assessment, and Career Mentor features: an Express API with Firebase authentication, rate limiting, Firestore rules, audit logging, and SerpAPI and Gemini integrations behind an adaptive assessment flow."
-            result="133 automated tests in 13 Vitest files pass on the public code, and a GitHub Actions workflow runs them and a TypeScript check on every push to main. They include a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor."
+            result="GitHub Actions runs the automated Vitest suite and a TypeScript check on every push to main. The suite includes a labelled evaluation of the job matching: 20 resumes, 30 job postings and 71 resume–job pairs graded strong, partial or poor."
             proofLine="The matching evaluation found that a student's degree years were being counted as work experience. After the fix, experience is read correctly for 17 of 17 labelled resumes, and the rule-based pre-score orders 94% of same-resume pairs correctly."
             evaluation="The offline evaluation scores the code-based stages: skill extraction (98.6% recall on resumes, 98.4% on job postings), experience detection, required-vs-preferred classification, and the pre-score that picks which 8 jobs reach the AI step (every strong fit makes the cut). It runs in CI with regression floors. The AI scoring step was then run live on the same 71 pairs. On Gemini 3.5 Flash-Lite, which the deployed app now uses, all 20 calls succeeded and it ordered 81 of 81 same-resume pairs correctly (gpt-4o-mini earlier: 98.1%; the rule-based pre-score: 94.4%), with mean scores of 86 / 47 / 17 for strong / partial / poor fits; every poor fit scored below 50 as the prompt requires, and one strong fit fell short of 70. Each is a single run. The fixes were made after seeing the same labelled set, with no held-out set, so these results are optimistic; keyword matching still misses aliases like 'Postgres' and can't tell that a React developer partly fits a Vue role. The move to Flash-Lite with low thinking was made because chatbot replies took about 45 s; in this run the scoring calls took a median of about 5 s, and per-call timing is now logged in production."
-            metrics={[{ label: 'automated tests', value: '133' }, { label: 'labelled resume–job pairs', value: '71' }, { label: 'pre-score pairs ordered correctly', value: '94%' }, { label: 'AI step pairs ordered correctly (Gemini)', value: '81/81' }]}
+            metrics={[{ label: 'labelled resume–job pairs', value: '71' }, { label: 'same-resume comparisons ordered by pre-score', value: '94.4%' }, { label: 'same-resume comparisons ordered by Gemini', value: '81/81' }]}
             thumb={skillsyncDashboard}
             thumbWebp={skillsyncDashboardWebp}
             thumbCaption="Career dashboard interface and journey"
@@ -453,6 +453,36 @@ function Work() {
               { label: 'Watch Career Mentor demo', url: 'https://www.youtube.com/watch?v=-qOdwym_3Ko' },
             ]}
             demoOnRequest
+          />
+          <CaseStudy
+            title="Receipt Extractor"
+            description="FastAPI extraction service · FlyRank internship"
+            tags={['Python', 'FastAPI', 'Pydantic', 'Evaluation', 'Background Jobs', 'Docker']}
+            problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
+            solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
+            result="The pytest suite runs in CI on every push and pull request, covering input validation, provider failures and retry policy, background-job idempotency, reports, path-traversal protection, and the evaluation scorer and labelling rules. CI also runs a stub-mode contract check against the live API and a Docker build with a container smoke test."
+            proofLine="First live run on 50 hand-labelled receipts with gpt-4o-mini: 42/50 fully correct, and 10 of 17 review-needed cases were flagged."
+            evaluation="The tests use a fake provider client and block real model calls, so they verify the service, not model quality. Model quality is measured by 50 hand-labelled cases (currencies, date formats, total selection, OCR noise, discounts and refunds, multi-page invoices, non-receipts including a prompt-injection attempt, and ambiguous inputs) in a separate, manually triggered workflow that refuses to score unless the server reports live mode. The first live run (2026-11-20, prompt v2, gpt-4o-mini) scored 42/50 with no provider failures: total 97.8% and date 95.8%. Its weakness is under-flagging: needs_review recall is 59% (10 of 17), because on uncertain receipts the model sometimes fills in a plausible value, such as guessing an ambiguous 12/06/2025 or converting a Hijri-only date, instead of leaving it empty and flagging it. With 50 cases, each case is 2 percentage points."
+            metrics={[{ value: '42/50', label: 'live eval, gpt-4o-mini' }, { value: '96–100%', label: 'per-field accuracy' }, { value: '100% / 59%', label: 'needs_review precision / recall' }]}
+            images={[]}
+            architecture={<ReceiptArchitecture />}
+            repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
+            evidenceLinks={[
+              { label: 'Live evaluation run', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/44754639064' },
+              { label: '50 labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
+              { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
+              { label: 'CI workflow', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/.github/workflows/verify.yml' },
+              { label: 'Test suite', url: 'https://github.com/MaryumAkram16/receipt-extractor/tree/main/tests' },
+            ]}
+            demoType="receipt"
+            deepDive={{
+              challenge:
+                'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
+              retrospective:
+                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting. On quality, the live evaluation points at one fix: raising needs_review recall, so uncertain dates, currencies and totals are left empty and flagged instead of guessed.',
+              metrics:
+                'The offline pytest suite runs in CI. On 50 hand-labelled cases, the first live run scored 42/50 (vendor 49/49, date 46/48, total 44/45, currency 48/48; needs_review precision 100%, recall 59%). The live evaluation runs in its own manually triggered workflow, refuses to score stub responses, and counts provider outages separately from extraction mistakes. Each call logs prompt version, model, token counts, duration, and repair status.',
+            }}
           />
           <CaseStudy
             title="GharFix"
@@ -554,35 +584,6 @@ function Work() {
             }}
           />
           <CaseStudy
-            title="Receipt Extractor"
-            description="FastAPI extraction service · FlyRank internship"
-            tags={['Python', 'FastAPI', 'Pydantic', 'Evaluation', 'Background Jobs', 'Docker']}
-            problem="Receipt and invoice text is messy, but downstream software needs trusted vendor, date, amount, and currency fields without guessing."
-            solution="I built a provider-agnostic FastAPI service, during my FlyRank internship, that validates input with Pydantic, extracts a strict schema, retries only transient provider errors, repairs malformed model output once, and routes uncertain results to human review instead of inventing values."
-            result="301 pytest tests run in CI on every push and pull request, covering input validation, provider failures and retry policy, background-job idempotency, reports, path-traversal protection, and the evaluation scorer and labelling rules. CI also runs a stub-mode contract check against the live API and a Docker build with a container smoke test."
-            proofLine="First live run on 50 hand-labelled receipts with gpt-4o-mini: 42/50 fully correct, vendor and currency 100%, and every receipt it flagged for review deserved the flag."
-            evaluation="The tests use a fake provider client and block real model calls, so they verify the service, not model quality. Model quality is measured by 50 hand-labelled cases (currencies, date formats, total selection, OCR noise, discounts and refunds, multi-page invoices, non-receipts including a prompt-injection attempt, and ambiguous inputs) in a separate, manually triggered workflow that refuses to score unless the server reports live mode. The first live run (2026-11-20, prompt v2, gpt-4o-mini) scored 42/50 with no provider failures: total 97.8% and date 95.8%. Its weakness is under-flagging: needs_review recall is 59% (10 of 17), because on uncertain receipts the model sometimes fills in a plausible value, such as guessing an ambiguous 12/06/2025 or converting a Hijri-only date, instead of leaving it empty and flagging it. With 50 cases, each case is 2 percentage points."
-            metrics={[{ value: '301', label: 'tests in CI' }, { value: '42/50', label: 'live eval, gpt-4o-mini' }, { value: '96–100%', label: 'per-field accuracy' }, { value: '100% / 59%', label: 'needs_review precision / recall' }]}
-            images={[]}
-            architecture={<ReceiptArchitecture />}
-            repoUrl="https://github.com/MaryumAkram16/receipt-extractor"
-            evidenceLinks={[
-              { label: '50 labelled evaluation cases', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json' },
-              { label: 'Evaluation runner', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/run_eval.py' },
-              { label: 'CI workflow', url: 'https://github.com/MaryumAkram16/receipt-extractor/blob/main/.github/workflows/verify.yml' },
-              { label: 'Test suite', url: 'https://github.com/MaryumAkram16/receipt-extractor/tree/main/tests' },
-            ]}
-            demoType="receipt"
-            deepDive={{
-              challenge:
-                'The hardest part was making a language model behave like a dependable API component: it had to return a strict schema, never invent a missing amount or currency, and fail safely when the input or model output was uncertain.',
-              retrospective:
-                'The current queue and SQLite state are intentionally single-process. The first production upgrade would be a durable queue and shared store such as Redis, plus external alerting. On quality, the live evaluation points at one fix: raising needs_review recall, so uncertain dates, currencies and totals are left empty and flagged instead of guessed.',
-              metrics:
-                '301 tests pass offline in about five seconds and run in CI. On 50 hand-labelled cases, the first live run scored 42/50 (vendor 49/49, date 46/48, total 44/45, currency 48/48; needs_review precision 100%, recall 59%). The live evaluation runs in its own manually triggered workflow, refuses to score stub responses, and counts provider outages separately from extraction mistakes. Each call logs prompt version, model, token counts, duration, and repair status.',
-            }}
-          />
-          <CaseStudy
             title="Usage Metering & Billing Engine"
             description="FastAPI billing backend · solo build, FlyRank internship"
             tags={['Python', 'FastAPI', 'SQLModel', 'pytest', 'Idempotency', 'Signed Webhooks']}
@@ -629,6 +630,65 @@ function Work() {
                 'Quota checking and recording happen in separate steps, so the first production change is an atomic check-and-record (a conditional update or row lock inside one transaction). After that: a CI workflow, real Stripe behind the existing interface, and real token counts from model calls.',
               metrics:
                 '46/46 tests pass, including 8 alert tests (99.9% usage never rounds up to a 100% warning) and 6 validation tests added after a cross-check found that negative quantities produced negative cost.',
+            }}
+          />
+          <CaseStudy
+            title="Lumina"
+            description="Voice support agent · TypeScript serverless backend"
+            tags={['Retell AI', 'TypeScript', 'Vercel Functions', 'Vitest + CI', 'Zod', 'n8n']}
+            problem="E-commerce support is expensive and slow for simple requests like order tracking, and quality becomes inconsistent when sales spike."
+            solution="Retell AI runs the voice call and calls a backend for each order action. The first backend was an n8n workflow over Google Sheets. I added a TypeScript serverless backend on Vercel that applies the same cancellation, return, and refund rules, ported from the n8n Code nodes, and returns the same response fields, so the agent prompts don't change. Every request is checked for a valid Retell signature, rate-limited, and validated with zod. Data comes from synthetic demo orders by default, or from Google Sheets or Supabase. A browser page can also start a Retell web call and show the live transcript."
+            result="276 Vitest tests pass on the public code, covering business rules, response contracts, signature checks, security, data adapters, and integration. CI runs lint, a type check, the tests, a dependency audit, and a gitleaks secret scan."
+            proofLine="Stricter than the n8n original: cancel, return, and refund require an email or phone that matches the order, and a confirmed action re-checks eligibility before anything is written."
+            visual={
+              <FlowThumbnail
+                label="Spoken order question transformed into a verified order answer"
+                input={['"Cancel my order"', 'Retell call · signed request']}
+                outputTitle="cancel-order"
+                output={['caller verified · rules applied', 'spoken decision']}
+                footerLeft="276 tests"
+                footerRight="signed requests only"
+              />
+            }
+            evaluation="The tests cover the backend's rules and request handling, not the voice experience: no call-volume or resolution-rate benchmark is published. The serverless backend and a browser call page are deployed on Vercel; the link is shared on request because every call uses metered voice and AI minutes, so the recorded demo is the public evidence of the full call. Post-call logging and Gemini sentiment analysis stay on the n8n path. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
+            metrics={[
+              { value: '276', label: 'Vitest tests passing' },
+              { value: '8', label: 'serverless endpoints' },
+              { value: 'Signed', label: 'Retell requests verified' },
+              { value: 'CI', label: 'lint, types, audit, secrets' },
+            ]}
+            architecture={
+              <FlowArchitecture
+                label="Lumina voice support architecture"
+                top="Customer call · Retell AI voice agent calls one URL per order action"
+                steps={[
+                  { name: 'Request guard', note: 'signature, rate limit, zod' },
+                  { name: 'lib/rules.ts', note: 'pure business rules' },
+                  { name: 'Order repository', note: 'demo, Sheets, or Supabase' },
+                ]}
+                output="Spoken response · status, cancellation, return, or refund decision"
+                bottom={[
+                  { name: 'n8n path', note: 'original no-code backend' },
+                  { name: 'Gemini 2.5 Flash', note: 'post-call sentiment (n8n)' },
+                ]}
+              />
+            }
+            repoUrl="https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent"
+            evidenceLinks={[
+              { label: 'Serverless backend', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/tree/main/serverless' },
+              { label: 'Business rule tests', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/blob/main/serverless/tests/rules.test.ts' },
+              { label: 'CI workflow', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/blob/main/.github/workflows/serverless-ci.yml' },
+            ]}
+            demoType="lumina"
+            videoLinks={[{ label: 'Watch demo', url: 'https://youtu.be/P8TuDYV7eaY' }]}
+            demoOnRequest
+            deepDive={{
+              challenge:
+                'Keeping two backends interchangeable. Each Retell custom function has its own URL, so the serverless routes had to return exactly the fields the n8n workflow returned, and /api/order switches on intent like the n8n webhook so it works as a drop-in replacement. The business rules live in one pure module that every route shares, which is what makes them testable without a phone call.',
+              retrospective:
+                'Next steps are moving post-call logging off n8n and a shared store for rate limiting. Google Sheets stays available as a lightweight data source, with Supabase for anything larger.',
+              metrics:
+                '276 tests in 13 files pass on the latest code. No call-volume or resolution benchmark is published. The repo documents a cost model of about $81 per month at 100–500 calls and $688+ per month at 5,000+ calls.',
             }}
           />
           <CaseStudy
@@ -780,66 +840,7 @@ function Work() {
           />
         </ProjectGroup>
 
-        <ProjectGroup id="automations" title="n8n & voice automations">
-          <CaseStudy
-            title="Lumina"
-            description="Voice support agent · TypeScript serverless backend"
-            tags={['Retell AI', 'TypeScript', 'Vercel Functions', 'Vitest + CI', 'Zod', 'n8n']}
-            problem="E-commerce support is expensive and slow for simple requests like order tracking, and quality becomes inconsistent when sales spike."
-            solution="Retell AI runs the voice call and calls a backend for each order action. The first backend was an n8n workflow over Google Sheets. I added a TypeScript serverless backend on Vercel that applies the same cancellation, return, and refund rules, ported from the n8n Code nodes, and returns the same response fields, so the agent prompts don't change. Every request is checked for a valid Retell signature, rate-limited, and validated with zod. Data comes from synthetic demo orders by default, or from Google Sheets or Supabase. A browser page can also start a Retell web call and show the live transcript."
-            result="276 Vitest tests pass on the public code, covering business rules, response contracts, signature checks, security, data adapters, and integration. CI runs lint, a type check, the tests, a dependency audit, and a gitleaks secret scan."
-            proofLine="Stricter than the n8n original: cancel, return, and refund require an email or phone that matches the order, and a confirmed action re-checks eligibility before anything is written."
-            visual={
-              <FlowThumbnail
-                label="Spoken order question transformed into a verified order answer"
-                input={['"Cancel my order"', 'Retell call · signed request']}
-                outputTitle="cancel-order"
-                output={['caller verified · rules applied', 'spoken decision']}
-                footerLeft="276 tests"
-                footerRight="signed requests only"
-              />
-            }
-            evaluation="The tests cover the backend's rules and request handling, not the voice experience: no call-volume or resolution-rate benchmark is published. The serverless backend and a browser call page are deployed on Vercel; the link is shared on request because every call uses metered voice and AI minutes, so the recorded demo is the public evidence of the full call. Post-call logging and Gemini sentiment analysis stay on the n8n path. Cost figures are estimates as of February 2026, and the template is not certified for GDPR, PCI, or HIPAA."
-            metrics={[
-              { value: '276', label: 'Vitest tests passing' },
-              { value: '8', label: 'serverless endpoints' },
-              { value: 'Signed', label: 'Retell requests verified' },
-              { value: 'CI', label: 'lint, types, audit, secrets' },
-            ]}
-            architecture={
-              <FlowArchitecture
-                label="Lumina voice support architecture"
-                top="Customer call · Retell AI voice agent calls one URL per order action"
-                steps={[
-                  { name: 'Request guard', note: 'signature, rate limit, zod' },
-                  { name: 'lib/rules.ts', note: 'pure business rules' },
-                  { name: 'Order repository', note: 'demo, Sheets, or Supabase' },
-                ]}
-                output="Spoken response · status, cancellation, return, or refund decision"
-                bottom={[
-                  { name: 'n8n path', note: 'original no-code backend' },
-                  { name: 'Gemini 2.5 Flash', note: 'post-call sentiment (n8n)' },
-                ]}
-              />
-            }
-            repoUrl="https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent"
-            evidenceLinks={[
-              { label: 'Serverless backend', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/tree/main/serverless' },
-              { label: 'Business rule tests', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/blob/main/serverless/tests/rules.test.ts' },
-              { label: 'CI workflow', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/blob/main/.github/workflows/serverless-ci.yml' },
-            ]}
-            demoType="lumina"
-            videoLinks={[{ label: 'Watch demo', url: 'https://youtu.be/P8TuDYV7eaY' }]}
-            demoOnRequest
-            deepDive={{
-              challenge:
-                'Keeping two backends interchangeable. Each Retell custom function has its own URL, so the serverless routes had to return exactly the fields the n8n workflow returned, and /api/order switches on intent like the n8n webhook so it works as a drop-in replacement. The business rules live in one pure module that every route shares, which is what makes them testable without a phone call.',
-              retrospective:
-                'Next steps are moving post-call logging off n8n and a shared store for rate limiting. Google Sheets stays available as a lightweight data source, with Supabase for anything larger.',
-              metrics:
-                '276 tests in 13 files pass on the latest code. No call-volume or resolution benchmark is published. The repo documents a cost model of about $81 per month at 100–500 calls and $688+ per month at 5,000+ calls.',
-            }}
-          />
+        <ProjectGroup id="automations" title="n8n automations">
           <CaseStudy
             title="Smart Job Finder"
             description="n8n AI agent for remote job matching"
