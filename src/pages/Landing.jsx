@@ -363,18 +363,23 @@ function Landing() {
                   <p className="about-ownership-label">Who built what</p>
                   <ul>
                     <li>
-                      <b>SkillSync AI &amp; MediLens:</b> architected and built by me;
-                      collaborator-built modules are credited and not shown
+                      <b>SkillSync AI &amp; MediLens:</b> I designed the architecture and built the
+                      features shown in my case studies. Collaborator-built modules are credited there.
+                    </li>
+                    <li>
+                      <b>GharFix:</b> I designed and built the full app. A teammate converted
+                      the original workflows into agents for the Antigravity hackathon. The current
+                      version runs on a TypeScript serverless backend.
                     </li>
                     <li>
                       <b>Embeddable Widget Platform, Receipt Extractor &amp; Usage Metering &amp; Billing Engine:</b>{' '}
                       solo builds during my FlyRank internship
                     </li>
                     <li>
-                      <b>RoshanAI, Smart Job Finder &amp; GharFix:</b> fully solo
+                      <b>RoshanAI, Smart Job Finder &amp; Lumina:</b> solo builds
                     </li>
                     <li>
-                      <b>Resume Screener:</b> solo build, self-evaluated
+                      <b>Resume Screener &amp; AI-Human Text Detector:</b> solo builds
                     </li>
                   </ul>
                 </div>
