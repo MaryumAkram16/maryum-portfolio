@@ -268,6 +268,42 @@
   min-width: 0;
 }
 
+.hero-evidence {
+  flex: 1 1 200px;
+  max-width: 310px;
+}
+
+.hero-evidence-items {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  column-gap: 12px;
+  min-height: 116px;
+}
+
+.hero-evidence .stat-label {
+  max-width: none;
+}
+
+.hero-evidence-controls {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 4px 12px;
+  color: var(--text);
+  font-size: 0.75rem;
+}
+
+.hero-evidence-controls button {
+  padding: 5px 0;
+  border: 0;
+  background: transparent;
+  color: var(--accent-soft);
+  font: inherit;
+  cursor: pointer;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
 .stat-item .stat-value {
   font-family: 'Playfair Display', var(--font);
   font-weight: 900;

@@ -12,11 +12,11 @@ import { useEffect, useRef } from 'react'
 const CX = 300
 const CY = 300
 
-// Orbit rings: [semiMajor, semiMinor, rotationDeg, nodeCount]
+// Each ring spaces its skill labels evenly.
 const RINGS = [
-  { a: 105, b: 78, rot: 12, labels: ['Python', 'React'] },
-  { a: 165, b: 122, rot: -28, labels: ['OpenAI', 'n8n'] },
-  { a: 225, b: 168, rot: 18, labels: ['Node.js', 'AWS'] },
+  { a: 105, b: 78, rot: 12, labels: ['Python', 'React', 'FastAPI'] },
+  { a: 165, b: 122, rot: -28, labels: ['OpenAI', 'n8n', 'TypeScript', 'Gemini'] },
+  { a: 225, b: 168, rot: 18, labels: ['Node.js', 'AWS', 'PostgreSQL', 'Docker', 'Retell AI'] },
 ]
 
 const BADGE_COLORS = [
@@ -35,7 +35,7 @@ function ellipsePoint(a, b, rotDeg, t) {
   }
 }
 
-export default function OrbitAnimation({ labels = ['Python', 'React', 'OpenAI', 'Node.js', 'AWS', 'n8n'] }) {
+export default function OrbitAnimation() {
   const svgRef = useRef(null)
 
   useEffect(() => {
@@ -56,7 +56,7 @@ export default function OrbitAnimation({ labels = ['Python', 'React', 'OpenAI', 
       // node positions (parametric t per ring, different speeds)
       const nodePositions = RINGS.map((ring, ri) =>
         ring.labels.map((_, ni) =>
-          ellipsePoint(ring.a, ring.b, ring.rot, t * (0.28 + ri * 0.12) + ni * Math.PI)
+          ellipsePoint(ring.a, ring.b, ring.rot, t * (0.28 + ri * 0.12) + (ni / ring.labels.length + ri / 12) * 2 * Math.PI)
         )
       )
 
@@ -88,7 +88,7 @@ export default function OrbitAnimation({ labels = ['Python', 'React', 'OpenAI', 
         outer: for (const pts of nodePositions) {
           for (const p of pts) {
             if (c === idx) {
-              el.setAttribute('transform', `translate(${p.x}, ${p.y - 30}) rotate(${-globalRot})`)
+              el.setAttribute('transform', `translate(${p.x}, ${p.y}) rotate(${-globalRot}) translate(0, -26)`)
               break outer
             }
             c++
@@ -175,9 +175,10 @@ export default function OrbitAnimation({ labels = ['Python', 'React', 'OpenAI', 
       {/* nodes + badges */}
       {RINGS.map((ring, ri) =>
         ring.labels.map((label, ni) => {
-          const p = ellipsePoint(ring.a, ring.b, ring.rot, ni * Math.PI)
+          const p = ellipsePoint(ring.a, ring.b, ring.rot, (ni / ring.labels.length + ri / 12) * 2 * Math.PI)
           const color = BADGE_COLORS[badgeIdx % BADGE_COLORS.length]
           badgeIdx++
+          const badgeWidth = Math.max(56, label.length * 7 + 16)
           return (
             <g key={`${ri}-${ni}`}>
               <circle
@@ -188,11 +189,11 @@ export default function OrbitAnimation({ labels = ['Python', 'React', 'OpenAI', 
                 fill={ni % 2 === 0 ? '#2fb5a2' : '#fafaf8'}
                 filter="url(#glow)"
               />
-              <g className="badge-g" transform={`translate(${p.x}, ${p.y - 30})`}>
+              <g className="badge-g" transform={`translate(${p.x}, ${p.y - 26})`}>
                 <rect
-                  x={-28}
+                  x={-badgeWidth / 2}
                   y={-12}
-                  width="56"
+                  width={badgeWidth}
                   height="24"
                   rx="12"
                   fill={color.fill}

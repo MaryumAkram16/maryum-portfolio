@@ -102,6 +102,65 @@ function ProjectGrid({ items, flagshipCount = 0 }) {
   )
 }
 
+const HERO_EVIDENCE = [
+  { value: '71', label: 'Labelled resume–job pairs', project: 'SkillSync AI', url: 'https://github.com/MaryumAkram16/Skillsync-AI/actions/runs/45032188306' },
+  { value: '42/50', label: 'Live extraction cases passed', project: 'Receipt Extractor', url: 'https://github.com/MaryumAkram16/receipt-extractor/actions/runs/44754639064' },
+  { value: '767', label: 'Tests in CI', project: 'GharFix', url: 'https://github.com/MaryumAkram16/gharfix-capstone/blob/master/tests/matching/golden.test.ts' },
+  { value: '44/50', label: 'Complaints routed correctly', project: 'MediLens', url: 'https://github.com/MaryumAkram16/medilens/tree/main/serverless#triage-evaluation' },
+  { value: '46', label: 'Backend tests', project: 'Usage Metering', url: 'https://github.com/MaryumAkram16/flyrank-capstone-metering-billing/blob/main/EVIDENCE.md' },
+  { value: '276', label: 'Backend tests', project: 'Lumina', url: 'https://github.com/MaryumAkram16/Lumina-AI-Voice-Customer-Support-Agent/blob/main/.github/workflows/serverless-ci.yml' },
+]
+
+function HeroEvidence({ reducedMotion }) {
+  const [page, setPage] = useState(0)
+  const [paused, setPaused] = useState(false)
+  const [hovered, setHovered] = useState(false)
+  const [focused, setFocused] = useState(false)
+  const pageCount = HERO_EVIDENCE.length / 2
+  const next = () => setPage((current) => (current + 1) % pageCount)
+
+  useEffect(() => {
+    if (reducedMotion || paused || hovered || focused) return undefined
+    const timer = setInterval(() => setPage((current) => (current + 1) % pageCount), 6000)
+    return () => clearInterval(timer)
+  }, [reducedMotion, paused, hovered, focused, pageCount])
+
+  return (
+    <div
+      className="hero-evidence"
+      aria-label="Project evidence"
+      role="group"
+      onMouseEnter={() => setHovered(true)}
+      onMouseLeave={() => setHovered(false)}
+      onFocus={() => setFocused(true)}
+      onBlur={(event) => {
+        if (!event.currentTarget.contains(event.relatedTarget)) setFocused(false)
+      }}
+    >
+      <div className="hero-evidence-items">
+        {HERO_EVIDENCE.slice(page * 2, page * 2 + 2).map(({ value, label, project, url }) => (
+          <div className="stat-item" key={project}>
+            <div className="stat-value">{value}</div>
+            <div className="stat-label">
+              {label}
+              <a className="stat-attr" href={url} target="_blank" rel="noopener noreferrer">
+                {project} ↗
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+      <div className="hero-evidence-controls">
+        <span aria-label={`Evidence page ${page + 1} of ${pageCount}`}>{page + 1}/{pageCount}</span>
+        {!reducedMotion && (
+          <button type="button" onClick={() => setPaused(!paused)}>{paused ? 'Play' : 'Pause'}</button>
+        )}
+        <button type="button" onClick={next}>Next evidence</button>
+      </div>
+    </div>
+  )
+}
+
 function Landing() {
   usePageTitle('Maryum Akram — AI Engineer | Lahore, Pakistan')
   const [heroVisible, setHeroVisible] = useState(false)
@@ -236,28 +295,7 @@ function Landing() {
                 </div>
                 <div className="stat-label">Featured projects</div>
               </div>
-              <div className="stat-item">
-                <div className="stat-value">
-                  <CounterItem value={71} />
-                </div>
-                <div className="stat-label">
-                  Labelled resume–job pairs
-                  <a className="stat-attr" href="https://github.com/MaryumAkram16/Skillsync-AI/actions/runs/45032188306" target="_blank" rel="noopener noreferrer">
-                    SkillSync AI · live eval ↗
-                  </a>
-                </div>
-              </div>
-              <div className="stat-item">
-                <div className="stat-value">
-                  <CounterItem value={50} />
-                </div>
-                <div className="stat-label">
-                  Labelled eval cases
-                  <a className="stat-attr" href="https://github.com/MaryumAkram16/receipt-extractor/blob/main/evals/cases.json" target="_blank" rel="noopener noreferrer">
-                    Receipt Extractor · FastAPI ↗
-                  </a>
-                </div>
-              </div>
+              <HeroEvidence reducedMotion={role.reduced} />
             </div>
 
           </div>
